@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/index'
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,8 +8,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  devise_scope :user do
-    root 'devise/sessions#new'
-  end
+  root to: "home#index"
 
 end
