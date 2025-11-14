@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "home#index"
+  get "/gifts" => "gifts#new"
+  post "/gifts" => "gifts#create"
 
 end
