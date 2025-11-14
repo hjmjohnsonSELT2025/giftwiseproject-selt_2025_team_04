@@ -6,8 +6,8 @@ Given(/the test user logs in/) do
   click_button "Sign up"
 end
 
-Then(/I should see the welcome message/) do
-  expect(page).to have_content("You have logged in")
+Then(/I should see Welcome, (.*)/) do |name|
+  expect(page).to have_content("Welcome, #{name}")
 end
 
 When(/I click (.*)/) do |link|
