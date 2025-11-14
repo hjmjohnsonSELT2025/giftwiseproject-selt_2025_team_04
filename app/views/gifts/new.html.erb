@@ -1,0 +1,20 @@
+<h1>Create a new gift</h1>
+
+<%= form_for :gift do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+  <%= form.hidden_field :user_id,  value: current_user.id %>
+  <%= form.hidden_field :recipient_id, value: nil %> <!-- replace with recipient ID -->
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: 0.01 %>
+  </div>
+  <%= form.hidden_field :event_id,  value: nil %> <!-- replace with event ID -->
+  <%= form.submit %>
+<% end %>
