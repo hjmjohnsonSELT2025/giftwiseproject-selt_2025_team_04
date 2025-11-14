@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+events =[{:title => "Christmas", :location => "Home", :theme => "Christmas Themed", :date => "25-Dec-2025"}]
+
+events.each do |event|
+  Event.create!(event)
+end
