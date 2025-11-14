@@ -8,8 +8,10 @@ class GiftsController < ApplicationController
     puts(@save_params)
     @new_gift = Gift.new(@save_params)
     if @new_gift.save
+      flash[:notice] = "New gift created!"
       redirect_to :root
     else
+      flash[:alert] = "Could not save gift."
       render :new
     end
   end

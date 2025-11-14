@@ -1,2 +1,21 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>You have logged in.</h1>
+<h2>Your purchased gifts</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @gifts.each do |gift| %>
+    <tr>
+      <td><%= gift.name %></td>
+      <td><%= gift.description %></td>
+      <td><%= gift.price %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to "Create a new gift", :new_gift %>
