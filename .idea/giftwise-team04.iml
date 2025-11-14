@@ -36,6 +36,7 @@
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.3.5, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="connection_pool (v2.5.4, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+<<<<<<< HEAD
     <orderEntry type="library" scope="PROVIDED" name="cucumber-ci-environment (v10.0.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber-cucumber-expressions (v18.0.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber-html-formatter (v21.15.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
@@ -43,15 +44,22 @@
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.6.2, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.13.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.17.2, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+=======
+    <orderEntry type="library" scope="PROVIDED" name="erubi (v1.13.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+>>>>>>> 5ba403fb568cfc94ea47ff59e5346189532bdb92
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.14.7, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.8.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.7.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.24.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v1.1.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="matrix (v0.4.3, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+<<<<<<< HEAD
     <orderEntry type="library" scope="PROVIDED" name="memoist3 (v1.0.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.1.5, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_test (v1.1.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+=======
+    <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.1.5, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+>>>>>>> 5ba403fb568cfc94ea47ff59e5346189532bdb92
     <orderEntry type="library" scope="PROVIDED" name="net-pop (v0.1.2, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-smtp (v0.5.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.18.10, Remote: ruby-3.3.8-p144) [gem]" level="application" />
@@ -64,9 +72,12 @@
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.6.2, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.11.3, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.4, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+<<<<<<< HEAD
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.13.5, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.13.6, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sys-uname (v1.4.1, Remote: ruby-3.3.8-p144) [gem]" level="application" />
+=======
+>>>>>>> 5ba403fb568cfc94ea47ff59e5346189532bdb92
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.4.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v2.0.6, Remote: ruby-3.3.8-p144) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.8.0, Remote: ruby-3.3.8-p144) [gem]" level="application" />
