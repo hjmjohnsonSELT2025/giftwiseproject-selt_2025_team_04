@@ -10,7 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_13_062650) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_14_021532) do
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.datetime "date"
+    t.time "length"
+    t.string "theme"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gifts", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "user_id", null: false
+    t.integer "recipient_id"
+    t.float "price"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gifts_on_event_id"
+    t.index ["recipient_id"], name: "index_gifts_on_recipient_id"
+    t.index ["user_id"], name: "index_gifts_on_user_id"
+  end
+
+  create_table "recipients", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.string "occupation"
+    t.text "hobbies"
+    t.text "likes"
+    t.text "dislikes"
+    t.decimal "budget"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipients_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,4 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_13_062650) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "gifts", "events"
+  add_foreign_key "gifts", "users"
+  add_foreign_key "recipients", "users"
 end

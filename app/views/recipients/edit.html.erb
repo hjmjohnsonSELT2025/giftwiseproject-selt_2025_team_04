@@ -1,0 +1,34 @@
+<h1>Edit recipient</h1>
+<%= form_for @recipient do |recipient|  %>
+  <p>
+    <%=recipient.label :name %>
+    <%=recipient.text_field :name%>
+  </p>
+  <p>
+    <%=recipient.label :age %>
+    <%=recipient.text_field :age%>
+  </p>
+  <p>
+    <%=recipient.label :occupation %>
+    <%=recipient.text_field :occupation%>
+  </p>
+  <p>
+    <%=recipient.label :hobbies %>
+    <%=recipient.text_field :hobbies%>
+  </p>
+  <p>
+    <%=recipient.label :likes %>
+    <%=recipient.text_field :likes%>
+  </p>
+  <p>
+    <%=recipient.label :dislikes %>
+    <%=recipient.text_field :dislikes%>
+  </p>
+  <p>
+    <%=recipient.label :budget %>
+    <%=recipient.text_field :budget%>
+  </p>
+  <p><%=recipient.submit "submit" %></p>
+<% end %>
+
+<%= link_to "Back",recipients_path %>
