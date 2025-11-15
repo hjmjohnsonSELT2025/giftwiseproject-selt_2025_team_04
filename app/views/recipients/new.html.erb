@@ -1,0 +1,35 @@
+<h1>New Recipient</h1>
+<%= form_for @recipient do |recipient| %>
+  <p>
+    <%= recipient.label :name%><br>
+    <%=recipient.text_field :name %>
+  </p>
+  <p>
+    <%= recipient.label :age%><br>
+    <%=recipient.text_field :age %>
+  </p>
+  <p>
+    <%= recipient.label :occupation%><br>
+    <%=recipient.text_field :occupation %>
+  </p>
+  <p>
+    <%= recipient.label :hobbies%><br>
+    <%=recipient.text_area :hobbies %>
+  </p>
+  <p>
+    <%= recipient.label :likes%><br>
+    <%=recipient.text_area :likes %>
+  </p>
+  <p>
+    <%= recipient.label :dislikes%><br>
+    <%=recipient.text_area :dislikes %>
+  </p>
+  <p>
+    <%= recipient.label :budget%><br>
+    <%=recipient.number_field :budget %>
+  </p>
+
+  <p><%= recipient.submit "Create" %></p>
+<% end %>
+
+<p><%= link_to "Back to recipients", recipients_path %></p>
