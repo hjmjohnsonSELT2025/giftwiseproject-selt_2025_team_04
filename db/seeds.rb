@@ -8,3 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 User.create!({:email => "a@b.c", :password => "123456", :encrypted_password => "123456"})
+
+
+#events =[{:title => "Christmas", :location => "Home", :theme => "Christmas Themed", :date => "25-Dec-2025"}]
+
+#events.each do |event|
+  #  Event.create!(event)
+  #end
