@@ -1,8 +1,3 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, unless: :testing?
-
-  private
-  def testing?
-    Rails.env.test?
-  end
+  before_action :authenticate_user!
 end
