@@ -62,3 +62,13 @@ group :test do
 end
 
 
+
+gem "rspec-rails", "~> 7.1", groups: [:development, :test]
+
+gem "cucumber-rails", "~> 4.0", group: :test
+
+gem "webmock", "~> 3.26", group: :test
+
+gem "database_cleaner-active_record", "~> 2.2", group: :test
+
+gem "simplecov", "~> 0.22.0", group: :test, require: false

@@ -1,0 +1,22 @@
+<h1>New Reminder</h1>
+
+<%= form_with model: @reminder, url: reminders_path do |form| %>
+  <div>
+    <%= form.label :send_at, "Send at" %>
+    <%= form.datetime_select :send_at %>
+  </div>
+
+  <div>
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div>
+    <%= form.label :channel %>
+    <%= form.text_field :channel %>
+  </div>
+
+  <div>
+    <%= form.submit "Save reminder" %>
+  </div>
+<% end %>
