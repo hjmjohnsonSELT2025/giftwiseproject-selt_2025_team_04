@@ -5,7 +5,6 @@ class GiftsController < ApplicationController
 
   def create
     @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => nil, :event_id => nil}
-    puts(@save_params)
     @new_gift = Gift.new(@save_params)
     if @new_gift.save
       flash[:notice] = "New gift created!"
