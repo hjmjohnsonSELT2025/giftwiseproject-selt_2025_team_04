@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
 
+  resources :recipients
+
 end
