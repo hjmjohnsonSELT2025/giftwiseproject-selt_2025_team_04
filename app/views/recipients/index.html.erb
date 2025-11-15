@@ -1,0 +1,17 @@
+<h1>Recipients</h1>
+<p>
+  <%= link_to "Add new Recipient",new_recipient_path %>
+</p>
+<ul>
+  <% @recipients.each do |recipient| %>
+    <li>
+      <strong> <%=recipient.name %></strong>
+      (<%=recipient.age %> years old)
+      <%= link_to "Edit",edit_recipient_path(recipient) %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "back", home_index_path %>
+<% if @recipients.empty? %>
+  <p>You do not have any recipients.</p>
+<% end %>
