@@ -2,7 +2,7 @@ Feature: I can add gifts to the database
 
   Background: I am logged in
     Given the test user logs in:
-    Then I should see the welcome message
+    Then I should see Welcome, capybara
 
   Scenario:
     When I click Create a new gift
