@@ -26,9 +26,9 @@
 
   <p id="description"><%= @event.description %></p>
 
-  <%= link_to 'Edit', edit_event_path(@event) %>
+  <%#= link_to 'Edit', edit_event_path(@event) %>
   <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
-  <%= link_to 'Back to event list', events_path %>
+  <%= link_to 'Back to home', home_index_path %>
 </main>
 </html>
 

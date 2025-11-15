@@ -19,3 +19,29 @@
   </tbody>
 </table>
 <%= link_to "Create a new gift", :new_gift %>
+<br>
+<h2>All Events</h2>
+<table id="events">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Location</th>
+    <th>Theme</th>
+    <th>Date</th>
+    <th>More info</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @events.each do |event| %>
+    <tr>
+      <td><%= event.title %></td>
+      <td><%= event.location %></td>
+      <td><%= event.theme %></td>
+      <td><%= event.date %></td>
+      <td><%= link_to "More about #{event.title}", event_path(event) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add new event', new_event_path %>

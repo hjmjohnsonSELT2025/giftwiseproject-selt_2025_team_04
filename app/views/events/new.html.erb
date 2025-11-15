@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
 <main>
-  <h1>Create New Movie</h1>
+  <h1>Create New Event</h1>
 
   <%= form_tag events_path do %>
 
     <%= label :event, :title, 'Title' %>
-    <%= text_field :event, 'title' %>
-
-    <%= label :event, :theme, 'Theme' %>
-    <%= text_field :event, 'theme' %>
+    <%= text_field :event, 'title', :required => true%>
 
     <%= label :event, :location, 'Location' %>
     <%= text_field :event, 'location' %>
 
-    <%= label :event, :date, 'Event Date' %>
-    <%= date_select :event, :date %>
+    <%= label :event, :theme, 'Theme' %>
+    <%= text_field :event, 'theme' %>
 
-    <%= submit_tag 'Save Changes' %>
+    <%= label :event, :description, 'Description' %>
+    <%= text_field :event, 'description' %>
+
+    <%= label :event, :date, 'Event Date' %>
+    <%= date_select :event, :date, :required => true%>
+
+    <%= label :event, :start_time, 'Start Time' %>
+    <%= time_field :event, :start_time %>
+    <br>
+    <%= submit_tag 'Create Event' %>
 
   <% end %>
 </main>

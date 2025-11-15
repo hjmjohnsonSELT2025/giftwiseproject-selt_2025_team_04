@@ -9,7 +9,7 @@ RSpec.describe Gift, type: :model do
   end
 
   it "should reference a user" do
-    @gift = Gift.create({:name => "test1", :description => "test gift", :price => 15.6, :user_id => User.find_by(:email => "a@b.c").id, :recipient_id => nil, :event_id => nil})
+    @gift = Gift.new({:name => "test1", :description => "test gift", :price => 15.6, :user_id => User.find_by(:email => "a@b.c").id, :recipient_id => nil, :event_id => nil})
     expect(@gift.user.email).to eq("a@b.c")
   end
 end

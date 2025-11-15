@@ -8,16 +8,11 @@ Rails.application.routes.draw do
   #get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-<<<<<<< HEAD
   root to: "home#index"
   get "/gifts" => "gifts#new", as: :new_gift
   post "/gifts" => "gifts#create", as: :create_gift
-=======
   # root "posts#index"
 
-  resources :events
-
-
->>>>>>> 5ba403fb568cfc94ea47ff59e5346189532bdb92
+  resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
 
 end
