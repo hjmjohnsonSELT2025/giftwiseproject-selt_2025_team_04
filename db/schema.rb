@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema[7.1].define(version: 2025_11_13_231200) do
   create_table "events", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.string "location"
-    t.datetime "date"
-    t.time "length"
     t.string "theme"
+    t.text "description"
+    t.datetime "date"
+    t.time "start_time"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "gifts", force: :cascade do |t|
@@ -49,6 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_13_231200) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "events", "users"
   add_foreign_key "gifts", "events"
   add_foreign_key "gifts", "users"
 end

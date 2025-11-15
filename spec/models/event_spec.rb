@@ -12,4 +12,10 @@ RSpec.describe Event, type: :model do
     @event = Event.new({:title => "test1", :description => "test event", :location => "test location", :user_id => User.find_by(:email => "a@b.c").id})
     expect(@event.user.email).to eq("a@b.c")
   end
+
+  it "should delete events" do
+    @event = Event.new({:title => "test1", :description => "test event", :location => "test location", :user_id => User.find_by(:email => "a@b.c").id})
+    @event.destroy
+    expect(Event.find_by(:title => "test1")).to be_nil
+  end
 end

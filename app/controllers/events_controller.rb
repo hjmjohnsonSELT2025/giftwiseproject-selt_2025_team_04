@@ -2,13 +2,18 @@
 
 class EventsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def event_params
     params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme)
   end
 
   def show
-    id = params[:id]
-    @event = Event.find(id)
+    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path
+    end
   end
 
   def new
@@ -26,14 +31,22 @@ class EventsController < ApplicationController
   #end
 
   def update
-    @event = Event.find params[:id]
+    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path
+    end
     @event.update_attributes!(event_params)
     flash[:notice] = "#{@event.title} was successfully updated."
     redirect_to events_path(@event)
   end
 
   def destroy
-    @event = Event.find(params[:id])
+    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path
+    end
     @event.destroy
     flash[:notice] = "Event '#{@event.title}' deleted."
     redirect_to home_index_path
