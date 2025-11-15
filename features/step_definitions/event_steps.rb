@@ -6,6 +6,11 @@ When(/I submit my event info/) do
   click_button "Create Event"
 end
 
+When(/I submit empty event info/) do
+  click_button "Create Event"
+end
+
+
 Then(/I should see the new event on the home page/) do
   expect(page).to have_content("Birthday")
 end
