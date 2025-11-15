@@ -1,7 +1,0 @@
-module Hashie
-  class Hash < ::Hash[untyped, untyped]
-  end
-
-  class Mash < Hash
-  end
-end

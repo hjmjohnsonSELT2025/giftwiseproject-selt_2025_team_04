@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,windows,rubymine,ruby,rails
 
 credentials.yml.enc
+.rbs_collection/
+.gem_rbs_collection/
 
 ### Linux ###
 *~
