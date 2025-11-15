@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<main>
+  <%# in app/views/events/show.html.haml %>
+
+  <h2>Details about <%= @event.title %></h2>
+
+  <ul id="details">
+    <li>
+      <% if @event.date %>
+        Date:
+        <%= @event.date.strftime("%B %d, %Y") %>
+      <%end %>
+    </li>
+    <li>
+      Location:
+      <%= @event.location %>
+    </li>
+    <li>
+      Theme:
+      <%= @event.theme %>
+    </li>
+  </ul>
+
+  <h3>Description:</h3>
+
+  <p id="description"><%= @event.description %></p>
+
+  <%#= link_to 'Edit', edit_event_path(@event) %>
+  <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
+  <%= link_to 'Back to home', home_index_path %>
+</main>
+</html>
+
