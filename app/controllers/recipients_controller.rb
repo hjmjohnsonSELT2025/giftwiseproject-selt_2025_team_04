@@ -50,7 +50,7 @@ class RecipientsController < ApplicationController
     @recipient=current_user.recipients.find(params[:id])
     @recipient.destroy
     flash[:notice]="#{@recipient.name} was removed."
-    redirect_to recipient_path
+    redirect_to recipients_path
   end
 
 end
