@@ -6,6 +6,16 @@ Given(/the test user logs in/) do
   click_button "Sign up"
 end
 
+Given(/the test recipient exists/) do
+  click_link("add a new recipient")
+  fill_in :recipient_name, with: "test"
+  fill_in :recipient_age, with: 50
+  fill_in :recipient_occupation, with: "tester"
+  fill_in :recipient_budget, with: 300
+  click_button "Create"
+  visit root_path
+end
+
 Then(/I should see Welcome, (.*)/) do |name|
   expect(page).to have_content("Welcome, #{name}")
 end
@@ -18,18 +28,19 @@ When(/I submit my gift info/) do
   fill_in "Name", with: "plates"
   fill_in "Description", with: "for eating"
   fill_in "Price", with: 20
-  click_button "Save Gift"
+  select "Everyone", :from => :gift_visibility
+  click_button "Create"
 end
 
-Then(/I should see the new gift on the home page/) do
-  expect(page).to have_content("plates")
+Then(/I should see the new gift details page/) do
+  expect(page).to have_content("Details about plates")
 end
 
 When(/I submit bad gift info/) do
   fill_in "Name", with: "forks"
   fill_in "Description", with: "for throwing"
   fill_in "Price", with: -15
-  click_button "Save Gift"
+  click_button "Create"
 end
 
 Then(/I should see an error message/) do

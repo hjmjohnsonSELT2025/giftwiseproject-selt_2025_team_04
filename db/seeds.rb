@@ -8,6 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 User.create!({:email => "a@b.c", :password => "123456"})
+Recipient.create!({:name => "test recipient", :user_id => User.find_by(:email => "a@b.c").id, :age => 50, :occupation => "okay", :hobbies => "okay", :likes => "music", :dislikes => "dance", :budget => 300})
+Gift.create!({:name => "test gift", :description => "test gift description", :user_id => User.find_by(:email => "a@b.c").id, :price => 12.3, :recipient_id => Recipient.find_by(:name => "test recipient").id})
 
 
 #events =[{:title => "Christmas", :location => "Home", :theme => "Christmas Themed", :date => "25-Dec-2025"}]

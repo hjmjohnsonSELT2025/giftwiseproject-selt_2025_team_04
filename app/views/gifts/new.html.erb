@@ -1,6 +1,7 @@
 <h1>Create a new gift</h1>
 
 <%= form_for @new_gift do |form| %>
+  <%= form.hidden_field :user_id,  value: current_user.id %>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -9,11 +10,17 @@
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
-  <%= form.hidden_field :user_id,  value: current_user.id %>
-  <%= form.hidden_field :recipient_id, value: nil %> <!-- replace with recipient ID -->
+  <div>
+    <%= form.label :recipient_id, "Select recipient" %>
+    <%= form.select :recipient_id, options_from_collection_for_select(current_user.recipients, :id, :name) %> <!-- replace with recipient ID -->
+  </div>
   <div>
     <%= form.label :price %>
     <%= form.number_field :price, step: 0.01 %>
+  </div>
+  <div>
+    <%= form.label :visibility, "Who can see this gift?" %>
+    <%= form.select :visibility, [["Everyone", 0], ["Everyone but recipient", 1], ["No one", 2]] %>
   </div>
   <%= form.hidden_field :event_id,  value: nil %> <!-- replace with event ID -->
   <%= form.submit "Create" %>

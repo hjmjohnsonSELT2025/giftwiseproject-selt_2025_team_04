@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # get "/gifts" => "gifts#new", as: :new_gift
   # post "/gifts" => "gifts#create", as: :create_gift
   resources :gifts
+  resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
 
 
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit]

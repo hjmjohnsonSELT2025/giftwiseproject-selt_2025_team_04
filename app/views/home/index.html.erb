@@ -11,7 +11,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @gifts.take(3).each do |gift| %>
+  <% current_user.gifts.order(created_at: :desc).take(3).each do |gift| %> <!-- show only gifts that user owns -->
     <tr>
       <td><%= link_to gift.name, gift_path(gift) %></td>
       <td><%= gift.description %></td>
@@ -20,6 +20,7 @@
   <% end %>
   </tbody>
 </table>
+<%= link_to "View your gifts", gifts_path %>
 <%= link_to "Add a new gift", :new_gift %>
 <br>
 <h2>All Events</h2>
