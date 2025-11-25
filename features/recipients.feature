@@ -21,3 +21,9 @@ Feature: View, Create, Edit Recipients
        And I fill in "Age" with "21"
        And I press "submit"
        Then I should see "bob was successfully updated."
+
+    Scenario:
+      Given a recipient named "bob"
+      When I visit the recipients page
+      And I press "Delete bob"
+      Then I should see "bob was removed"

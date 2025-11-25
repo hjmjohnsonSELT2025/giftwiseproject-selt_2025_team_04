@@ -8,7 +8,7 @@
       <strong> <%=recipient.name %></strong>
       (<%=recipient.age %> years old)
       <%= link_to "Edit",edit_recipient_path(recipient) %>
-      <%= button_to "Delete", recipient_path(recipient), method: :delete,confirm: "Are you sure you want to delete #{recipient.name} from your list" %>
+      <%= button_to "Delete #{recipient.name}", recipient_path(recipient), method: :delete,confirm: "Are you sure you want to delete #{recipient.name} from your list" %>
     </li>
   <% end %>
 </ul>
