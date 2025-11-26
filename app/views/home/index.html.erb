@@ -31,6 +31,9 @@
     <th>Theme</th>
     <th>Date</th>
     <th>More info</th>
+    <th>Gift Suggestions</th>
+    <th>Reminders</th>
+
   </tr>
   </thead>
   <tbody>
@@ -41,6 +44,9 @@
       <td><%= event.theme %></td>
       <td><%= event.date %></td>
       <td><%= link_to "More about #{event.title}", event_path(event) %></td>
+      <td><%= link_to "#{event.title} Gift Suggestions", event_gift_suggestions_path(event) %></td>
+      <td><%= link_to "New reminder for #{event.title}", new_reminder_path(event_id: event.id) %></td>
+
     </tr>
   <% end %>
   </tbody>
@@ -51,4 +57,8 @@
 <p>
   <%= link_to "view your recipients",recipients_path %>
   <%= link_to "add a new recipient", new_recipient_path %>
+</p>
+
+<p>
+  <%= link_to "View All Reminders", reminders_path %>
 </p>

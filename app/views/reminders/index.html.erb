@@ -1,0 +1,10 @@
+<h1>Upcoming Reminders</h1>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<p>No reminders yet.</p>
+
+<p>
+  <%= link_to "Create a new reminder", new_reminder_path %>
+</p>

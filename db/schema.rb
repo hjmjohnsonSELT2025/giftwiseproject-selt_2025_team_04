@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_14_021532) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_14_180632) do
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "location"
@@ -22,6 +22,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_021532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "gift_suggestions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipient_id", null: false
+    t.integer "event_id", null: false
+    t.string "title"
+    t.text "description"
+    t.integer "estimated_price"
+    t.string "source"
+    t.string "context_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gift_suggestions_on_event_id"
+    t.index ["recipient_id"], name: "index_gift_suggestions_on_recipient_id"
+    t.index ["user_id"], name: "index_gift_suggestions_on_user_id"
   end
 
   create_table "gifts", force: :cascade do |t|
@@ -52,6 +68,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_021532) do
     t.index ["user_id"], name: "index_recipients_on_user_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "event_id", null: false
+    t.datetime "send_at"
+    t.string "status"
+    t.string "channel"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_reminders_on_event_id"
+    t.index ["user_id"], name: "index_reminders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -67,7 +95,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_021532) do
   end
 
   add_foreign_key "events", "users"
+  add_foreign_key "gift_suggestions", "events"
+  add_foreign_key "gift_suggestions", "recipients"
+  add_foreign_key "gift_suggestions", "users"
   add_foreign_key "gifts", "events"
   add_foreign_key "gifts", "users"
   add_foreign_key "recipients", "users"
+  add_foreign_key "reminders", "events"
+  add_foreign_key "reminders", "users"
 end
