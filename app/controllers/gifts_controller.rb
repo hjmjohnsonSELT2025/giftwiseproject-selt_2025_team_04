@@ -1,17 +1,12 @@
 class GiftsController < ApplicationController
+  VISIBILITY_LIST = [["Everyone", 0], ["Everyone but recipient", 1], ["No one", 2]].freeze
   def index
     @gifts = current_user.gifts.order(created_at: :desc)
   end
-  # we can show gifts to anyone as long as they're not restricted by the owner
+
   def show
     @gift = Gift.find(params[:id])
-    # if @gift.visibility == 2 && @gift.user.id != current_user.id
-    #   flash[:notice] = "The owner has restricted you from viewing this gift."
-    #   redirect_to :root
-    # elsif @gift.visibility == 1 && @gift.recipient.user.id == current_user.id
-    #   flash[:notice] = "The owner has restricted you from viewing this gift."
-    #   redirect_to :root
-    # end
+    # add code here to redirect a user if they're the recipient
   end
 
   def new

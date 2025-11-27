@@ -20,7 +20,7 @@
   </div>
   <div>
     <%= form.label :visibility, "Who can see this gift?" %>
-    <%= form.select :visibility, [["Everyone", 0], ["Everyone but recipient", 1], ["No one", 2]] %>
+    <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
   </div>
   <%= form.hidden_field :event_id,  value: nil %> <!-- replace with event ID -->
   <%= form.submit "Confirm" %>
