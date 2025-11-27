@@ -1,5 +1,5 @@
 class Recipient < ApplicationRecord
-  belongs_to :user
+  belongs_to :user #This is the user which creates the recipient
 
   validates :name, presence: true
   validates :age,numericality: {greater_than: 0}
