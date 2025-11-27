@@ -2,7 +2,7 @@
 <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
 <%= link_to "Profile", user_path %>
 
-<h2>Your purchased gifts</h2>
+<h2>Your recently purchased gifts</h2>
 <table>
   <thead>
   <tr>
@@ -12,16 +12,17 @@
   </tr>
   </thead>
   <tbody>
-  <% @gifts.each do |gift| %>
+  <% @gifts.order(created_at: :desc).take(3).each do |gift| %> <!-- show only gifts that user owns -->
     <tr>
-      <td><%= gift.name %></td>
+      <td><%= link_to gift.name, gift_path(gift) %></td>
       <td><%= gift.description %></td>
       <td><%= gift.price %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-<%= link_to "Create a new gift", :new_gift %>
+<%= link_to "View your gifts", gifts_path %>
+<%= link_to "Add a new gift", :new_gift %>
 <br>
 <h2>All Events</h2>
 <table id="events">

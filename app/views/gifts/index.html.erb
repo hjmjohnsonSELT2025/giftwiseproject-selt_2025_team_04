@@ -1,0 +1,16 @@
+<h1>Gifts</h1>
+<p>
+  <%= link_to "Add new gift", new_gift_path %>
+</p>
+<ul>
+  <% @gifts.each do |gift| %>
+    <li>
+      <strong> <%= gift.name %></strong>
+      <%= link_to "Edit", edit_gift_path(gift) %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "Back", home_index_path %>
+<% if @gifts.empty? %>
+  <p>You do not have any recipients.</p>
+<% end %>

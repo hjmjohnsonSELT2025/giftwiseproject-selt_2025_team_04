@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -21,9 +21,16 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create!(event_params.merge(:user_id => current_user.id))
-    flash[:notice] = "#{@event.title} was successfully created."
-    redirect_to home_index_path
+    @event = Event.new(event_params)
+    @event.user = current_user
+
+    if @event.save
+      flash[:notice] = "#{@event.title} was successfully created."
+      redirect_to home_index_path
+    else
+      flash[:warning]="error creating event"#temporary for first sprint
+      redirect_to events_path
+    end
   end
 
   #def edit
@@ -31,7 +38,7 @@ class EventsController < ApplicationController
   #end
 
   def update
-    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -42,7 +49,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.for_user(current_user).find_by(:id => params[:id])
+    @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
