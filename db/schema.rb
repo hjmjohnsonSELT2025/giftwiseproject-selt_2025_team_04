@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_24_224329) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
   create_table "dislikes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "item"
@@ -32,6 +32,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_224329) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "gift_comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "content"
+    t.integer "gift_id", null: false
+    t.integer "parent_id"
+    t.integer "thread"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gift_id"], name: "index_gift_comments_on_gift_id"
+    t.index ["parent_id"], name: "index_gift_comments_on_parent_id"
+    t.index ["user_id"], name: "index_gift_comments_on_user_id"
+  end
+
   create_table "gifts", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -41,6 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_224329) do
     t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visibility", default: 0
     t.index ["event_id"], name: "index_gifts_on_event_id"
     t.index ["recipient_id"], name: "index_gifts_on_recipient_id"
     t.index ["user_id"], name: "index_gifts_on_user_id"
@@ -88,6 +102,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_224329) do
 
   add_foreign_key "dislikes", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "gift_comments", "gift_comments", column: "parent_id"
+  add_foreign_key "gift_comments", "gifts"
+  add_foreign_key "gift_comments", "users"
   add_foreign_key "gifts", "events"
   add_foreign_key "gifts", "users"
   add_foreign_key "likes", "users"
