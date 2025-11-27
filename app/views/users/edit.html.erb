@@ -1,0 +1,34 @@
+<h1>Edit Profile</h1>
+<%= link_to "Cancel", user_path %>
+
+<%= form_for :user, url: user_path, method: :patch do |profile| %>
+  <div>
+    <%= profile.label :preferred_name %>
+    <%= profile.text_field :preferred_name, value: @user.preferred_name %>
+  </div>
+  <div>
+    <%= profile.label :pronouns %>
+    <%= profile.select :pronouns, User::VALID_PRONOUNS, value: @user.pronouns %>
+  </div>
+  <div>
+    <%= profile.label :age %>
+    <%= profile.number_field :age, in: 0..100, value: @user.age%>
+  </div>
+  <div>
+    <%= profile.label :job %>
+    <%= profile.text_field :job, value: @user.job%>
+  </div>
+
+  <div>
+    <%= profile.label :likes %>
+    <%= profile.text_area :likes, value: @likes %>
+    <p>(Comma seperated)</p>
+  </div>
+  <div>
+    <%= profile.label :dislikes %>
+    <%= profile.text_area :dislikes, value: @dislikes %>
+    <p>(Comma seperated)</p>
+  </div>
+  <%= profile.submit "Update" %>
+
+<% end %>
