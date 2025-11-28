@@ -13,7 +13,9 @@ class RecipientsController < ApplicationController
   def index
     @recipients=current_user.recipients
     if params[:query].present?
-      @recipients=@recipients.where("name LIKE ?", "%#{params[:query]}%")
+      @recipients=@recipients.select do |results|
+        results.name.downcase.include?(params[:query].downcase)
+      end
     end
   end
 
