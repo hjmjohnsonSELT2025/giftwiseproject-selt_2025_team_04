@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
 
     end
 
-    it "does not allow invalid prnouns" do
+    it "does not allow invalid pronouns" do
       user=User.new(:email =>"recipient@testing.com",:password =>"123456")
 
       expect(user.update(pronouns:"They/Them")).to be(true)
