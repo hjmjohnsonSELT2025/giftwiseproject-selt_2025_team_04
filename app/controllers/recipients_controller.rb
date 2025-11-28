@@ -11,7 +11,10 @@ class RecipientsController < ApplicationController
   end
 
   def index
-    @recipients=current_user.recipients.order(created_at: :desc)
+    @recipients=current_user.recipients
+    if params[:query].present?
+      @recipients=@recipients.where("name LIKE ?", "%#{params[:query]}%")
+    end
   end
 
   def new

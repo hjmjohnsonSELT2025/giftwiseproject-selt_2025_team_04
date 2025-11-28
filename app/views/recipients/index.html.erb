@@ -1,4 +1,13 @@
 <h1>Recipients</h1>
+<%=form_with url: recipients_path, method: :get, local: true do |search| %>
+  <%=search.label :query, "Search recipients" %>
+  <%=search.text_field :query, value: params[:query] %>
+  <%=search.submit "Search" %>
+
+  <% if params[:query].present? %>
+    <%= link_to "Clear", recipients_path %>
+  <% end %>
+<% end %>
 <p>
   <%= link_to "Add new Recipient",new_recipient_path %>
 </p>
