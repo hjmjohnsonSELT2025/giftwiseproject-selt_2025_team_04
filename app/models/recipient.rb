@@ -1,6 +1,6 @@
 class Recipient < ApplicationRecord
   belongs_to :user
-  has_many :gifts, dependent: destroy
+  has_many :gifts, dependent: :destroy
 
   validates :name, presence: true
   validates :age,numericality: {greater_than: 0}
