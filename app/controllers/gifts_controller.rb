@@ -23,8 +23,8 @@ class GiftsController < ApplicationController
         @new_gift.event_id     = suggestion.event_id
       end
     else
-      @new_gift.recipient_id = suggestion.recipient_id
-      @new_gift.event_id     = suggestion.event_id
+      @new_gift.recipient_id ||= params[:recipient_id]
+      @new_gift.event_id ||= params[:event_id]
 
     end
   end
