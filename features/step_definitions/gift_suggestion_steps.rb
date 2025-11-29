@@ -16,7 +16,3 @@ end
 Then("I should be on the gift suggestions page") do
   expect(current_path).to eq("/gift_suggestions/new")
 end
-
-Then('I should see {string}') do |text|
-  expect(page).to have_content(text)
-end
