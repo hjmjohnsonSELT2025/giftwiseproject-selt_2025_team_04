@@ -39,7 +39,7 @@ class FriendsController < ApplicationController
 
     search_term = params[:search][:search_term]
     if search_term.empty?
-      flash[:notice] = "Invalid search term"
+      flash[:notice] = "Invalid search term."
       render :index
       return
     end
