@@ -9,19 +9,10 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  github_creds   = Rails.application.credentials.github || {}
-  client_id      = github_creds[:client_id]     || ENV["GITHUB_CLIENT_ID"]
-  client_secret  = github_creds[:client_secret] || ENV["GITHUB_CLIENT_SECRET"]
-
-  if client_id.present? && client_secret.present?
-    config.omniauth :github, client_id, client_secret, scope: 'user:email'
-  end
-
-  # sorry just for testing quick
-  #config.omniauth :github,
-  #               Rails.application.credentials.github[:client_id],
-  #               Rails.application.credentials.github[:client_secret],
-  #               scope: 'user:email'
+  config.omniauth :github,
+                 Rails.application.credentials.github[:client_id],
+                 Rails.application.credentials.github[:client_secret],
+                 scope: 'user:email'
   OmniAuth.config.allowed_request_methods = [:get, :post]
   OmniAuth.config.silence_get_warning = true
   OmniAuth.config.request_validation_phase = nil
