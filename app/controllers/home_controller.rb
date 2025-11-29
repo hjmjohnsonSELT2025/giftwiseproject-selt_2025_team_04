@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    @friends = current_user.friends.all
     @gifts = current_user.gifts
     @username = current_user.email
     @username = @username[0,@username.index('@')]
