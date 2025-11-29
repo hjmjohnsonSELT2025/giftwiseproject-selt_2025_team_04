@@ -37,4 +37,10 @@ RSpec.describe Recipient, type: :model do
     test=Recipient.new(name: "test",user: nil)
     expect(test).not_to be_valid
   end
+
+  it "deletes recipient from table" do
+    test=Recipient.create!(name: "test_user", age: "2",occupation: "test",hobbies: "test",likes: "test",dislikes: "test", budget: 2, user: User.find_by(email: "a@b.c"))
+    test.destroy
+    expect(Recipient.exists?(test.id)).to be false
+  end
 end
