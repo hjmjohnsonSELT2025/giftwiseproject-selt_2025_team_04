@@ -9,14 +9,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "home#index"
-  get "/gifts" => "gifts#new", as: :new_gift
-  post "/gifts" => "gifts#create", as: :create_gift
-  get  "/gifts/:id" => "gifts#show",   as: :gift
 
 
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit] do
    resources :gift_suggestions, only: [:index, :create]
   end
+  
+  resources :gifts
+  resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
+
 
   resources :recipients
 
