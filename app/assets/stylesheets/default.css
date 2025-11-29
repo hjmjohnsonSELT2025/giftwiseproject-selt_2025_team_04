@@ -1,6 +1,6 @@
 html, body {
   margin: 0;
-  padding: 0;
+  padding: 10px;
   background: White;
   color: DarkSlateGrey;
   font-family: Tahoma, Verdana, sans-serif;
@@ -58,4 +58,8 @@ form label {
   line-height: 25px;
   font-weight: bold;
   color: maroon;
+}
+
+form textarea {
+    width: 80%;
 }

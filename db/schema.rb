@@ -11,6 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_dislikes_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "location"
@@ -52,6 +60,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
     t.index ["user_id"], name: "index_gifts_on_user_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "recipients", force: :cascade do |t|
     t.string "name"
     t.integer "age"
@@ -76,15 +92,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
+    t.string "preferred_name"
+    t.integer "age"
+    t.string "job"
+    t.string "pronouns"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dislikes", "users"
   add_foreign_key "events", "users"
   add_foreign_key "gift_comments", "gift_comments", column: "parent_id"
   add_foreign_key "gift_comments", "gifts"
   add_foreign_key "gift_comments", "users"
   add_foreign_key "gifts", "events"
   add_foreign_key "gifts", "users"
+  add_foreign_key "likes", "users"
   add_foreign_key "recipients", "users"
 end

@@ -5,8 +5,14 @@ class User < ApplicationRecord
   has_many :recipients
   has_many :events
   has_many :gift_comments
+  has_many :likes, dependent: :destroy
+  has_many :dislikes, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:github]
+
+  VALID_PRONOUNS = %w[He/Him She/Her They/Them Other]
+  validates :pronouns, inclusion: {in: VALID_PRONOUNS}, allow_nil: true
+  validates :age, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 180}, allow_nil: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

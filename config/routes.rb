@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
 
 
+
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
   resources :recipients
+  resource :user, only: [:show, :edit, :update]
 
 end
