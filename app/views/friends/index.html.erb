@@ -1,0 +1,40 @@
+<h1> Friends </h1>
+
+<%= link_to "Back", root_path %>
+
+<% if not @requests.empty? %>
+  <h2> Requests </h2>
+  <ul>
+    <% @requests.each do |friend| %>
+      <li> <%= friend.requester.email[0,friend.requester.email.index('@')]%></li>
+      <%= button_to "Accept", accept_friend_request_path(id: friend.id), method: :post %>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @friends.empty? %>
+  <p>You have no friends :(</p>
+<% end %>
+
+<%= form_for :search, url: friends_search_path, method: :get do |form| %>
+  <%= form.label :search_term, "Search User By Email" %>
+  <%= form.text_field :search_term %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @results %>
+  <ul>
+    <% @results.each do |user| %>
+      <li>
+        <%= user.email[0,user.email.index('@')] %>
+        <%= button_to "Add", create_friend_request_path(id: user.id), method: :post %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<ul>
+  <% @friends.each do |friend| %>
+    <li> <%= link_to friend.email[0,friend.email.index('@')], friend_path(id: friend.id) %></li>
+  <% end %>
+</ul>
