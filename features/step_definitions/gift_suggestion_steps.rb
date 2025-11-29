@@ -6,7 +6,6 @@ When("I follow create new gift suggestion") do
   visit "/gift_suggestions/new"
 end
 
-When('I press {string}') do |string|
 
   #When('I press "Save gift suggestion"') do #not working bc capybara i think
   #find('input[type="submit"],button[type="submit"]').click
