@@ -5,5 +5,5 @@ Feature: display list of gift suggestions
 
   Scenario: create a new gift suggestion
     When I follow create new gift suggestion
-    And I press "Save gift suggestion"
+    And I click "Save gift suggestion"
     Then I should be on the gift suggestions page

@@ -13,15 +13,14 @@ class GiftsController < ApplicationController
         @new_gift.event_id     = suggestion.event_id
       end
     else
-      @new_gift.recipient_id = suggestion.recipient_id
-      @new_gift.event_id     = suggestion.event_id
+      @new_gift.recipient_id ||= params[:recipient_id]
+      @new_gift.event_id ||= params[:event_id]
 
     end
   end
 
 
   def create
-    #@save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => nil, :event_id => nil}
     @new_gift = Gift.new(@save_params)
     @new_gift.user = current_user #sorry making it work with mine can change
     if @new_gift.save
