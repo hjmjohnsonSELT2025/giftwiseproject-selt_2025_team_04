@@ -10,8 +10,12 @@ Then(/I should see Welcome, (.*)/) do |name|
   expect(page).to have_content("Welcome, #{name}")
 end
 
-When(/I click (.*)/) do |link|
-  click_link(link)
+When(/^I click "?(.+?)"?$/) do |text|
+  if page.has_button?(text)
+    click_button text
+  else
+    click_link text
+  end
 end
 
 When(/I submit my gift info/) do

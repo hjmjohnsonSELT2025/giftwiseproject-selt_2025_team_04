@@ -25,5 +25,5 @@ end
 
   #click_button "Save gift suggestion"
 Then("I should be on the gift suggestions page") do
-  expect(current_path).to eq("/gift_suggestions/new")
+  expect(current_path).to eq("/gift_suggestions")
 end

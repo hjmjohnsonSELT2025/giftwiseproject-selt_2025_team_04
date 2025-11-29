@@ -5,7 +5,7 @@ class GiftSuggestionsController < ApplicationController
 
   def index
     scope = GiftSuggestion.where(user_id: current_user.id) #trying to set it so new user doesnt break
-    scope = scope.where(event_id: @event.id)         if @event
+    scope = scope.where(event_id: @event.id)         if @event # scope code assisted from Google Gemini
     scope = scope.where(recipient_id: @recipient.id) if @recipient
     @suggestions = scope
   end
@@ -16,9 +16,9 @@ class GiftSuggestionsController < ApplicationController
   def create
     if params[:gift_suggestion].present?
       @gift_suggestion = GiftSuggestion.new(gift_suggestion_params)
-      @gift_suggestion.user = current_user
-      @gift_suggestion.event = @event if @event
-      @gift_suggestion.recipient = @recipient if @recipient
+      @gift_suggestion.user_id = current_user.id
+      @gift_suggestion.event_id = @event.id if @event
+      @gift_suggestion.recipient_id = @recipient.id if @recipient
 
       if @gift_suggestion.save
         redirect_to new_gift_suggestion_path, notice: "Gift suggestion was successfully created."
@@ -39,7 +39,7 @@ class GiftSuggestionsController < ApplicationController
     count.times do |i|
       GiftSuggestion.create!(
         user_id:      current_user.id,
-        event_id:     @event.id,
+        event_id:     @event&.id, #same thing as below
         recipient_id: (@recipient ? @recipient.id: nil),
         title:        build_title(i),
         description:  default_description(i),
