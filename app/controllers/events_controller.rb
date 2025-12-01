@@ -24,6 +24,14 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user = current_user
 
+    if params[:recipient_id] != nil
+      params[:recipient_id].each do |recipient_id|
+        @event.recipients << current_user.recipients.find(recipient_id)
+      end
+    else
+      @event.recipients.clear
+    end
+
     if @event.save
       flash[:notice] = "#{@event.title} was successfully created."
       redirect_to home_index_path
@@ -34,7 +42,11 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find params[:id]
+    @event = current_user.events.find(params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path
+    end
   end
 
   def update
@@ -43,7 +55,17 @@ class EventsController < ApplicationController
       flash[:notice] = "Event not found"
       redirect_to home_index_path
     end
+
     @event.update(event_params)
+
+    if params[:recipient_id] != nil
+      params[:recipient_id].each do |recipient_id|
+        @event.recipients << current_user.recipients.find(recipient_id)
+      end
+    else
+      @event.recipients.clear
+    end
+
     flash[:notice] = "#{@event.title} was successfully updated."
     redirect_to event_path(@event)
   end
