@@ -1,7 +1,6 @@
+<h1>Edit Event</h1>
 
-<h1>Create New Event</h1>
-
-<%= form_tag events_path do %>
+<%= form_tag event_path(@event.id), method: :patch do %>
   <%= label :event, :title, 'Title' %>
   <%= text_field :event, 'title', :required => true%>
 
@@ -20,7 +19,7 @@
   <%= label :event, :start_time, 'Start Time' %>
   <%= time_field :event, :start_time %>
   <br>
-  <%= submit_tag 'Create Event' %>
+  <%= submit_tag 'Update Event' %>
 
 <% end %>
 
