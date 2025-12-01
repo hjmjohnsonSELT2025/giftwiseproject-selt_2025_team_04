@@ -18,4 +18,12 @@ RSpec.describe Event, type: :model do
     @event.destroy
     expect(Event.find_by(:title => "test1")).to be_nil
   end
+
+  it "should add recipients" do
+    @user = User.create(:email =>"event@testing.com",:password =>"1234")
+    @event = Event.new({:title => "test event title", :description => "test event", :location => "test location", :user_id => User.find_by(:email => "a@b.c").id})
+    @recipient = Recipient.new(name: "test recipient name",age: -4, user: @user)
+    @event.recipients << @recipient
+    expect(@event.recipients).to include(@recipient)
+  end
 end
