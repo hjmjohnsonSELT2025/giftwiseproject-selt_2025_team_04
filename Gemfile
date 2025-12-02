@@ -66,3 +66,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'simplecov'
 end
+
+group :production do
+  gem "pg", "~> 1.6"
+end
