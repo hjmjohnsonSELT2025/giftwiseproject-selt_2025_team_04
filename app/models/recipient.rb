@@ -1,5 +1,6 @@
 class Recipient < ApplicationRecord
   belongs_to :user
+  belongs_to :assigned_user, class_name: "User", optional: true
   has_many :gifts
 
   validates :name, presence: true
