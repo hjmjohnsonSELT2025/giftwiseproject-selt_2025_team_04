@@ -31,7 +31,7 @@ jobs:
       # Add or replace dependency steps here
       - name: create rails credentials
         run: |
-          echo "${{ secrets.RAILS_CREDENTIALS }}" > config/credentials.yml.enc
+          echo "${{ secrets.RAILS_CREDENTIALS }}" | base64 --decode > config/credentials.yml.enc
           echo "${{ secrets.RAILS_MASTER_KEY }}" > config/master.key
       - name: Install Ruby, gems, and run tests
         run: |
