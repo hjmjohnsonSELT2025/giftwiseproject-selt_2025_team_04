@@ -22,7 +22,8 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.user = current_user
+    @event.owner = current_user
+    @event.users << current_user
 
     if params[:recipient_id] != nil
       params[:recipient_id].each do |recipient_id|
