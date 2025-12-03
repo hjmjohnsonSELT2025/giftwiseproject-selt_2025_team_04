@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
+  resources :events
   resources :recipients
   resource :user, only: [:show, :edit, :update]
   get 'friends/search', to: 'friends#search', as: :friends_search

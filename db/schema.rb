@@ -32,6 +32,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "events_recipients", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "recipient_id"
+    t.index ["event_id"], name: "index_events_recipients_on_event_id"
+    t.index ["recipient_id"], name: "index_events_recipients_on_recipient_id"
+  end
+
   create_table "friend_requests", force: :cascade do |t|
     t.integer "requestee_id", null: false
     t.integer "requester_id", null: false
