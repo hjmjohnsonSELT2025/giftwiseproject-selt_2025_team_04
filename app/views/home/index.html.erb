@@ -1,5 +1,5 @@
 <h1>Welcome, <%=@username %>.</h1>
-<%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+<%= button_to "Sign Out", destroy_user_session_path, method: :delete, id: "sign_out" %>
 <%= link_to "Profile", user_path %>
 <%= link_to "Friends (#{@friends.length})", friends_path %>
 
