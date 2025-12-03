@@ -44,10 +44,10 @@ jobs:
           rbenv rehash
           
           gem install bundler
-          gem install rails -v 7.1.5
+          gem install rails -v 7.1.6
 
           cd /home/runner/work/giftwiseproject-selt_2025_team_04/giftwiseproject-selt_2025_team_04
-          bin/rails bundle install
+          bin/bundle install
           bin/rails db:migrate
           bin/rails db:seed
           bin/rails db:seed
