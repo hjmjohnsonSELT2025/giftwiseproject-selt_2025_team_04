@@ -11,7 +11,12 @@ class RecipientsController < ApplicationController
   end
 
   def index
-    @recipients=current_user.recipients.order(created_at: :desc)
+    @recipients=current_user.recipients
+    if params[:query].present?
+      @recipients=@recipients.select do |results|
+        results.name.downcase.include?(params[:query].downcase)
+      end
+    end
   end
 
   def new
@@ -53,7 +58,7 @@ class RecipientsController < ApplicationController
     @recipient=current_user.recipients.find(params[:id])
     @recipient.destroy
     flash[:notice]="#{@recipient.name} was removed."
-    redirect_to recipient_path
+    redirect_to recipients_path
   end
 
 end
