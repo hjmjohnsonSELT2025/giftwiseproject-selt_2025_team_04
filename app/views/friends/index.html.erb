@@ -1,0 +1,50 @@
+<h1> Friends </h1>
+
+<%= link_to "Back", root_path %>
+
+<% unless @requests.empty? %>
+<h2> Requests </h2>
+<ul>
+  <%  @requests.each do |friend|  %>
+  <li> <%=  friend.requester.email[0,friend.requester.email.index('@')] %>
+    <%=  button_to "Accept", accept_friend_request_path(id: friend.id), method: :post  %>
+    <%= button_to "Decline", decline_friend_request_path(id: @user.id), method: :post %>
+  </li>
+  <%  end  %>
+</ul>
+<%  end %>
+
+<%= form_for :search, url: friends_search_path, method: :get do |form| %>
+  <%= form.label :search_term, "Search User By Email" %>
+  <%= form.text_field :search_term %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @results %>
+  <ul>
+    <% @results.each do |user| %>
+      <li>
+        <%= user.email[0,user.email.index('@')] %>
+        <% if FriendRequest.exists?(requester: @user, requestee: user) %>
+          Request Sent
+        <% else %>
+          <%= button_to "Add", create_friend_request_path(id: user.id), method: :post %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2> Friend List</h2>
+<% if @friends.empty? %>
+  <p>You have no friends :(</p>
+<% end %>
+
+<ul>
+  <% @friends.each do |friend| %>
+    <li>
+      <%= link_to friend.email[0,friend.email.index('@')], friend_path(id: friend.id) %>
+      <%= button_to "Remove", remove_friend_path(id: friend.id), method: :post %>
+    </li>
+  <% end %>
+</ul>

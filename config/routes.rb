@@ -19,5 +19,10 @@ Rails.application.routes.draw do
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
   resources :recipients
   resource :user, only: [:show, :edit, :update]
-
+  get 'friends/search', to: 'friends#search', as: :friends_search
+  resources :friends, only: [:new, :index, :show]
+  post 'friends/create_request', to: 'friends#create_request', as: :create_friend_request
+  post 'friends/accept_request', to: 'friends#accept_request', as: :accept_friend_request
+  post 'friends/decline_request', to: 'friends#decline_request', as: :decline_friend_request
+  post 'friends/remove', to: 'friends#remove', as: :remove_friend
 end

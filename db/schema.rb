@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
   create_table "dislikes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "item"
@@ -30,6 +30,25 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer "requestee_id", null: false
+    t.integer "requester_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["requestee_id"], name: "index_friend_requests_on_requestee_id"
+    t.index ["requester_id"], name: "index_friend_requests_on_requester_id"
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "friend_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friends_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_friends_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
   create_table "gift_comments", force: :cascade do |t|
@@ -79,6 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "assigned_user_id"
+    t.index ["assigned_user_id"], name: "index_recipients_on_assigned_user_id"
     t.index ["user_id"], name: "index_recipients_on_user_id"
   end
 
@@ -102,6 +123,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
 
   add_foreign_key "dislikes", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "friend_requests", "users", column: "requestee_id"
+  add_foreign_key "friend_requests", "users", column: "requester_id"
+  add_foreign_key "friends", "users"
+  add_foreign_key "friends", "users", column: "friend_id"
   add_foreign_key "gift_comments", "gift_comments", column: "parent_id"
   add_foreign_key "gift_comments", "gifts"
   add_foreign_key "gift_comments", "users"
@@ -109,4 +134,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_021238) do
   add_foreign_key "gifts", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "recipients", "users"
+  add_foreign_key "recipients", "users", column: "assigned_user_id"
 end

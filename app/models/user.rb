@@ -7,6 +7,10 @@ class User < ApplicationRecord
   has_many :gift_comments
   has_many :likes, dependent: :destroy
   has_many :dislikes, dependent: :destroy
+  has_many :friend, dependent: :destroy
+  has_many :friends, through: :friend
+  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: :requester_id, dependent: :destroy
+  has_many :incoming_requests, class_name: 'FriendRequest', foreign_key: :requestee_id, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:github]
 
