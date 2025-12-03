@@ -29,10 +29,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       # Add or replace dependency steps here
-      - name: Debug
-        run: |
-          pwd
-          ls -la
       - name: Install Ruby, gems, and run tests
         run: |
           cd ~/
@@ -50,8 +46,7 @@ jobs:
           gem install bundler
           gem install rails -v 7.1.5
 
-          pwd
-          ls -la
+          cd /home/runner/work/giftwiseproject-selt_2025_team_04/giftwiseproject-selt_2025_team_04
           bin/rails db:migrate
           bin/rails db:seed
           bin/rails db:seed
