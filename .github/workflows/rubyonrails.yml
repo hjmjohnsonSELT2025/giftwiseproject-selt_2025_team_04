@@ -61,4 +61,3 @@ jobs:
           
           bin/rails spec
           bin/cucumber
-        continue-on-error: true
