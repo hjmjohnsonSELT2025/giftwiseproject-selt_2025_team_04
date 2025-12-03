@@ -46,6 +46,9 @@ jobs:
           gem install bundler
           gem install rails -v 7.1.6
 
+          gem env
+          gem install bundler -v '~> 2.6'
+
           cd /home/runner/work/giftwiseproject-selt_2025_team_04/giftwiseproject-selt_2025_team_04
           bin/bundle install
           bin/rails db:migrate
