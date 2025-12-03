@@ -57,7 +57,6 @@ jobs:
           bin/bundle install
           bin/rails db:migrate
           bin/rails db:seed
-          bin/rails db:seed
           
           bin/rails spec
           bin/cucumber
