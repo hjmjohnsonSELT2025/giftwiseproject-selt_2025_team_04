@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_29_003122) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
   create_table "dislikes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "item"
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_003122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_friends_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_friends_on_user_id_and_friend_id", unique: true
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
@@ -97,6 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_003122) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "assigned_user_id"
+    t.index ["assigned_user_id"], name: "index_recipients_on_assigned_user_id"
     t.index ["user_id"], name: "index_recipients_on_user_id"
   end
 
@@ -131,4 +134,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_003122) do
   add_foreign_key "gifts", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "recipients", "users"
+  add_foreign_key "recipients", "users", column: "assigned_user_id"
 end
