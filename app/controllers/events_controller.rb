@@ -80,4 +80,8 @@ class EventsController < ApplicationController
     flash[:notice] = "Event '#{@event.title}' deleted."
     redirect_to home_index_path
   end
+
+  def index
+    @events=current_user.events
+  end
 end

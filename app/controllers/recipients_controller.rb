@@ -22,6 +22,7 @@ class RecipientsController < ApplicationController
   def new
     @friends = current_user.friends.all
     @recipient=current_user.recipients.build
+    @event=current_user.events.find_by(id: params[:event_id])
   end
 
   def create
@@ -29,12 +30,21 @@ class RecipientsController < ApplicationController
     @recipient=Recipient.new(recipient_params)
     @recipient.user=current_user
 
+    @event=current_user.events.find_by(id: params[:event_id])
+
     if @recipient.save
-      flash[:notice]="#{@recipient.name} was successfully created."
-      redirect_to recipients_path
+
+      if @event
+        @recipient.events.push(@event)
+        flash[:notice]="#{@recipient.name} was successfully created and added to #{@event.title}."
+        redirect_to recipients_path
+      else
+        flash[:notice]="#{@recipient.name} was successfully created."
+        redirect_to recipients_path
+      end
+
     else
       flash[:warning]="enter valid characteristics"#temporary for first sprint
-      redirect_to recipients_path
     end
   end
 
