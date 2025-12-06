@@ -32,6 +32,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "events_recipients", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "recipient_id"
+    t.index ["event_id"], name: "index_events_recipients_on_event_id"
+    t.index ["recipient_id"], name: "index_events_recipients_on_recipient_id"
+  end
+
   create_table "friend_requests", force: :cascade do |t|
     t.integer "requestee_id", null: false
     t.integer "requester_id", null: false
@@ -121,8 +128,27 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "gift_suggestions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipient_id", null: false
+    t.integer "event_id", null: false
+    t.string "title"
+    t.text "description"
+    t.integer "estimated_price"
+    t.string "source"
+    t.string "context_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gift_suggestions_on_event_id"
+    t.index ["recipient_id"], name: "index_gift_suggestions_on_recipient_id"
+    t.index ["user_id"], name: "index_gift_suggestions_on_user_id"
+  end
+
   add_foreign_key "dislikes", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "gift_suggestions", "events"
+  add_foreign_key "gift_suggestions", "recipients"
+  add_foreign_key "gift_suggestions", "users"
   add_foreign_key "friend_requests", "users", column: "requestee_id"
   add_foreign_key "friend_requests", "users", column: "requester_id"
   add_foreign_key "friends", "users"
