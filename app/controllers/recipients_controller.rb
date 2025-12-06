@@ -8,6 +8,7 @@ class RecipientsController < ApplicationController
   def show
     id=params[:id]
     @recipient=current_user.recipients.find(id)
+    @back=params[:back]
   end
 
   def index
@@ -22,29 +23,21 @@ class RecipientsController < ApplicationController
   def new
     @friends = current_user.friends.all
     @recipient=current_user.recipients.build
-    @event=current_user.events.find_by(id: params[:event_id])
+    @back=params[:back]
   end
 
   def create
     @friends = current_user.friends.all
     @recipient=Recipient.new(recipient_params)
     @recipient.user=current_user
-
-    @event=current_user.events.find_by(id: params[:event_id])
+    @back=params[:back]
 
     if @recipient.save
-
-      if @event
-        @recipient.events.push(@event)
-        flash[:notice]="#{@recipient.name} was successfully created and added to #{@event.title}."
-        redirect_to recipients_path
-      else
         flash[:notice]="#{@recipient.name} was successfully created."
-        redirect_to recipients_path
-      end
-
-    else
-      flash[:warning]="enter valid characteristics"#temporary for first sprint
+        redirect_to @back
+      else
+        flash[:warning]="enter valid characteristics"#temporary for first sprint
+        redirect_to @back
     end
   end
 

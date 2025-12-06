@@ -38,15 +38,15 @@
           <% if recipient.gifts.any? %>
             <ul>
               <% recipient.gifts.each do |gift| %>
-                <li><%= link_to gift.name, gift_path(gift) %></li>
+                <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
               <% end %>
             </ul>
           <%else %>
             <p><em>no gifts yet</em></p>
           <% end %>
           <br>
-          <%= link_to "add gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id) %>
-          <%= link_to "view recipient", recipient_path(recipient) %>
+          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
+          <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
         </li>
       <% end %>
     </ul>
@@ -54,7 +54,7 @@
     <p>No recipients for this event</p>
   <% end %>
   <p>
-    <%= link_to "add a recipient for this event", new_recipient_path(event_id: @event.id) %>
+    <%= link_to "create a recipient", new_recipient_path(back: event_path(@event)) %>
   </p>
 </section>
 
@@ -69,6 +69,7 @@
 
 
 
-<%= link_to 'Edit', edit_event_path(@event) %>
+<%= link_to 'Edit', edit_event_path(@event,back: event_path(@event)) %>
 <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
 <%= link_to 'Back to home', home_index_path %>
+<%= link_to "Back to all events", events_path %>

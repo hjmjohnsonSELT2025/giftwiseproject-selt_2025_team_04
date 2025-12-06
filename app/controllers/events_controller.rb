@@ -18,12 +18,13 @@ class EventsController < ApplicationController
 
   def new
     # default: render 'new' template
+    @back=params[:back]
   end
 
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-
+    @back=params[:back]
     if params[:recipient_id] != nil
       params[:recipient_id].each do |recipient_id|
         @event.recipients << current_user.recipients.find(recipient_id)
@@ -43,6 +44,7 @@ class EventsController < ApplicationController
 
   def edit
     @event = current_user.events.find(params[:id])
+    @back=params[:back]
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -51,6 +53,7 @@ class EventsController < ApplicationController
 
   def update
     @event = current_user.events.find(params[:id])
+    @back=params[:back]
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path

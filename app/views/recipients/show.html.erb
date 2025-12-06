@@ -1,0 +1,40 @@
+<h1>view recipient</h1>
+  <p>
+    <% if @recipient.assigned_user_id && @friends.present? %>
+      <% assigned=@friends.find {|friend| friend.id==@recipient.assigned_user_id} %>
+      <%= assigned.email || "No friend assigned" %>
+    <%else %>
+      No friends
+    <% end %>
+  </p>
+  <p>
+    <strong>Name:</strong>
+    <%=@recipient.name%>
+  </p>
+  <p>
+    <strong>age:</strong>
+    <%=@recipient.age%>
+  </p>
+  <p>
+    <strong>occupation:</strong>
+    <%=@recipient.occupation%>
+  </p>
+  <p>
+    <strong>hobbies:</strong>
+    <%=@recipient.hobbies%>
+  </p>
+  <p>
+    <strong>likes:</strong>
+    <%=@recipient.likes%>
+  </p>
+  <p>
+    <strong>dislikes:</strong>
+    <%=@recipient.dislikes%>
+  </p>
+  <p>
+    <strong>budget:</strong>
+    <%=@recipient.budget%>
+  </p>
+
+<%= link_to "Edit",edit_recipient_path(@recipient.id) %>
+<%= link_to "Back",@back %>
