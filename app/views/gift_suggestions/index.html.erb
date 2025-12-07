@@ -50,6 +50,13 @@
                       recipient_id: s.recipient_id,
                       event_id: s.event_id) %>
 
+        <%= link_to "Delete Idea",
+                    new_gift_path(
+                      gift_suggestion_id: s.id,
+                      recipient_id: s.recipient_id,
+                      event_id: s.event_id) %>
+      <p>
+
     </div>
 
   <% end %>

@@ -29,11 +29,11 @@ class GiftSuggestionsController < ApplicationController
     count = params[:count].to_i || 3
     count = 1 if count <= 0
 
-    reset = GiftSuggestion.where(user_id: current_user.id)
-    reset = reset.where(event_id: @event.id) if @event
-    reset = reset.where(recipient_id: @recipient.id) if @recipient
-    reset = reset.where(recipient_id: nil) unless @recipient
-    reset.destroy_all
+    #reset = GiftSuggestion.where(user_id: current_user.id)
+    #reset = reset.where(event_id: @event.id)         if @event
+    #reset = reset.where(recipient_id: @recipient.id) if @recipient
+    #reset = reset.where(recipient_id: nil)           unless @recipient
+    #reset.destroy_all
 
     service = GiftSuggestionAi.new(
       user: current_user,
