@@ -1,0 +1,62 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: create rails credentials
+        run: |
+          echo "${{ secrets.RAILS_CREDENTIALS }}" | base64 --decode > config/credentials.yml.enc
+          echo "${{ secrets.RAILS_MASTER_KEY }}" > config/master.key
+      - name: Install Ruby, gems, and run tests
+        run: |
+          cd ~/
+          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+          export PATH="$HOME/.rbenv/bin:$PATH"
+          eval "$(rbenv init -)"
+          
+          git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+          export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+          
+          rbenv install 3.3.8
+          rbenv global 3.3.8
+          rbenv rehash
+          
+          gem install bundler
+          gem install rails -v 7.1.6
+
+          gem env
+          gem install bundler -v '~> 2.6'
+
+          cd /home/runner/work/giftwiseproject-selt_2025_team_04/giftwiseproject-selt_2025_team_04
+          bin/bundle install
+          RAILS_ENV=test bin/rails db:migrate
+          RAILS_ENV=test bin/rails db:seed || echo "Seed 1"
+          RAILS_ENV=test bin/rails spec || echo "Ignore failures"
+          RAILS_ENV=test bin/rails db:seed || echo "Seed 2"
+          
+          bin/rails spec
+          bin/cucumber

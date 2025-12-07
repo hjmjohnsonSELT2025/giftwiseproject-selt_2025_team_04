@@ -17,6 +17,9 @@ gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# for github actions
+gem "pg"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -65,4 +68,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'simplecov'
+end
+
+group :production do
+  gem "pg", "~> 1.6"
 end

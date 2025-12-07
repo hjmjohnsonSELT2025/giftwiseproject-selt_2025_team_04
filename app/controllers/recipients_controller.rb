@@ -20,10 +20,12 @@ class RecipientsController < ApplicationController
   end
 
   def new
+    @friends = current_user.friends.all
     @recipient=current_user.recipients.build
   end
 
   def create
+    @friends = current_user.friends.all
     @recipient=Recipient.new(recipient_params)
     @recipient.user=current_user
 
@@ -37,6 +39,7 @@ class RecipientsController < ApplicationController
   end
 
   def edit
+    @friends = current_user.friends.all
     @recipient=current_user.recipients.find(params[:id])
   end
 
