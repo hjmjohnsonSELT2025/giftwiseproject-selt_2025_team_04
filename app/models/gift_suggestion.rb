@@ -1,7 +1,7 @@
 class GiftSuggestion < ApplicationRecord
-  #belongs_to :user
-  # belongs_to :recipient, optional: true
-  #belongs_to :event, optional: true
+  belongs_to :user
+  belongs_to :recipient, optional: true
+  belongs_to :event, optional: true
 
   validates :title, presence: true
   validates :description, presence: true
