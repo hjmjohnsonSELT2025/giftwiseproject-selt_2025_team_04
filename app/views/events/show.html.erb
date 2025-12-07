@@ -28,17 +28,26 @@
 
 <p id="description"><%= @event.description %></p>
 
+<h3>People in this event:</h3>
+
+<ul id="details">
+  <% for u in @event.users %>
+      <li><%= u.email %></li>
+  <% end %>
+</ul>
+
+
+<%= form_tag event_invite_path(@event.id), method: :patch do %>
+
+  <%= label :invite_id, "Invite friends" %>
+  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.all, :id, :email) %>
+
+  <%= submit_tag 'Invite' %>
+
+<% end %>
+<br>
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
 <%= link_to 'Back to home', home_index_path %>
 
 
-
-<%= form_tag event_invite_path(@event.id), method: :patch do %>
-
-  <%= label :invite_id, "Select user" %>
-  <%= select_tag :invite_id, options_from_collection_for_select(User.all, :id, :email) %> <%# Replace with current_user.friends %>
-
-  <%= submit_tag 'Invite' %>
-
-<% end %>
