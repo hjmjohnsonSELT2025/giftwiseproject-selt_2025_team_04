@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   resources :gifts
   resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
 
-
-
   resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
+  patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
+
   resources :recipients
   resource :user, only: [:show, :edit, :update]
   get 'friends/search', to: 'friends#search', as: :friends_search
