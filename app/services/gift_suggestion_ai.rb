@@ -57,32 +57,9 @@ class GiftSuggestionAi
     parts.join(" ")
   end
 
-  def parse_ideas(text, count)
-    lines = text.split("\n").map(&:strip).reject(&:blank?)
-    Rails.logger.info "Raw AI response: #{lines.inspect}" #trying to keep tokens down for $$ reasons, input mostly also output tho
-    #numbered_lines = lines.select { |line| line =~ /^\d+\s*[\).\:\-]/ }
-
-    #item_lines = lines.select { |line| line.match?(/^\d+\s*[\).\:\-]/) } #this should work redoing parsing completely so not one line taken for whole thing,
-
-    #UPDATE works well but not perfect, estimated price getting left in but calling for tonight, will fix tomorrow to match pull
-
-    # also have to redo to format new views pulled so this commit is just for progress going to have to redo a lot (tests mostly bc no longer have buttons lol)
-
-    #item_lines.first(count).map do |line|
-
-    #ideas = base_lines.map do |line|
-
-      #ideas = []
-
-      #base_lines.first(count).each do |line|
-      #lines.each do |line| #testing stripping prob gonna have to tweak
-      # break if ideas.size >= count
-
-      #cleaned = line.sub(/^\s*[\).\-\:], "")
-      #cleaned = line.sub(/^\s*\d+[\-\:]\s*/, "")
-
-      #cleaned = line.sub(/^\s*\d+[\).\-\:]\s*/, "")
-
+  def parse_ideas(text, count) #!!! should fully work now!!!!
+    lines = text.split("\n").map{|line| line.strip.gsub(/\*+/, "").sub(/^\-\s+/, "") }.reject(&:blank?)
+    Rails.logger.info "Raw AI response: #{lines.inspect}"
     chunks = []
     current_chunk = nil
 
@@ -104,43 +81,32 @@ class GiftSuggestionAi
     chunks.first(count).map do |chunk|
       next if chunk.blank?
 
-      first_line = chunk.first
+      first_line = chunk.first.to_s
       cleaned_title = first_line.sub(/^\d+\s*[\).\:\-]\s*/, "")
       cleaned_title = cleaned_title.gsub("**", "").strip
       body_lines = chunk[1..] || []
       body_text = body_lines.join(" ").strip
-      price_match = body_text.match(/\$([\d\.,]+)/)
-      price =
-        if price_match
-          price_match[1].gsub(",", "").to_f
-        else
-          nil
-        end
+      full_body = body_text.dup
+      price = nil
+      if full_body =~ /\$([\d\.,]+)/
+        price = $1.tr(",", "").to_f
+      end
+
+      sentences = full_body.split(/(?<=\.)\s+/)
+
+      clean_sentences = sentences.reject do |s|
+        s =~ /(Estimated Price|Price Estimate|Price:|\$[\d\.,]+)/i
+      end
+
+      clean_body = clean_sentences.join(" ").strip
+
+
 
       {
         title: cleaned_title.presence || "Gift idea",
-        description: body_text.presence || cleaned_title,
+        description: clean_body.presence || cleaned_title,
         estimated_price: price
       }
     end
   end
 end
-
-
-
-      #name = cleaned.split(" - ", 2)
-      #name_part, rest = cleaned.split(" - ", 2)
-      # name = name_part.present? ? name_part.strip : "Gift idea"
-
-      #name = (name_part || "Gift idea").strip
-      #body = (rest || "").strip
-      # body ||= ""
-
-      # price_match = body.match(/\$([\d\.,]+)/)
-      #price = price_match
-      #{
-      #   title: name,
-      #   description: (body.presence ||cleaned).strip,
-      #    estimated_price: price
-      # }
-

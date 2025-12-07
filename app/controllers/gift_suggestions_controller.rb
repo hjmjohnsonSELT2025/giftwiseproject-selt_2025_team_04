@@ -52,7 +52,7 @@ class GiftSuggestionsController < ApplicationController
           title: idea[:title].presence || build_title(idx),
           description: idea[:description].presence || default_description(idx),
           estimated_price: idea[:estimated_price],
-          source: "ai"
+          source: "OpenAI"
         )
       end
     else
