@@ -22,7 +22,8 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.user = current_user
+    @event.owner = current_user
+    @event.users << current_user
 
     if params[:recipient_id] != nil
       params[:recipient_id].each do |recipient_id|
@@ -34,7 +35,7 @@ class EventsController < ApplicationController
 
     if @event.save
       flash[:notice] = "#{@event.title} was successfully created."
-      redirect_to home_index_path
+      redirect_to event_path(@event)
     else
       flash[:warning]="error creating event"#temporary for first sprint
       redirect_to events_path
@@ -47,13 +48,21 @@ class EventsController < ApplicationController
       flash[:notice] = "Event not found"
       redirect_to home_index_path
     end
+    if @event.owner != current_user
+      flash[:notice] = "Not authorised"
+      redirect_to home_index_path
+    end
   end
 
   def update
     @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
-      redirect_to home_index_path
+      redirect_to home_index_path; return
+    end
+    if @event.owner != current_user
+      flash[:notice] = "Not authorised"
+      redirect_to home_index_path; return
     end
 
     @event.update(event_params)
@@ -70,11 +79,40 @@ class EventsController < ApplicationController
     redirect_to event_path(@event)
   end
 
+  def invite
+    @event = current_user.events.find(params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path; return
+    end
+    if @event.owner != current_user
+      flash[:notice] = "Not authorised"
+      redirect_to event_path(@event); return
+    end
+    if @event.users.find_by(id: params[:invite_id]) != nil
+      flash[:notice] = "Already invited"
+      redirect_to event_path(@event); return
+    end
+
+    @other_user = User.find(params[:invite_id])
+
+    if @other_user != nil
+      @event.users << @other_user
+      flash[:notice] = "User invited"
+    end
+
+    redirect_to event_path(@event)
+  end
+
   def destroy
     @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
-      redirect_to home_index_path
+      redirect_to home_index_path; return
+    end
+    if @event.owner != current_user
+      flash[:notice] = "Not authorised"
+      redirect_to event_path(@event); return
     end
     @event.destroy
     flash[:notice] = "Event '#{@event.title}' deleted."

@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :gifts
   has_many :recipients
-  has_many :events
+  has_and_belongs_to_many :events
   has_many :gift_comments
   has_many :likes, dependent: :destroy
   has_many :dislikes, dependent: :destroy

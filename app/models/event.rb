@@ -1,8 +1,9 @@
 
 class Event < ApplicationRecord
-  belongs_to :user
+  belongs_to :owner, class_name: "User"
   has_many :gifts
   has_and_belongs_to_many :recipients
+  has_and_belongs_to_many :users
 
-  validates :user, presence: true
+  validates :owner, presence: true
 end

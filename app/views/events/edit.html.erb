@@ -1,6 +1,6 @@
 <h1>Edit Event</h1>
 
-<%= form_tag event_path(@event.id), method: :patch do %>
+<%= form_tag event_path(@event.id), method: :put do %>
   <%= label :event, :title, 'Title' %>
   <%= text_field :event, 'title', :required => true%>
 
