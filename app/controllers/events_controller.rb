@@ -89,9 +89,13 @@ class EventsController < ApplicationController
       flash[:notice] = "Not authorised"
       redirect_to event_path(@event); return
     end
-    if @event.users.find_by(id: params[:invite_id]) != nil
-      flash[:notice] = "Already invited"
+    if params[:invite_id].nil? and @event.users.find_by(id: params[:invite_id]) != nil
+      flash[:notice] = "Already invited."
       redirect_to event_path(@event); return
+    else
+      flash[:notice] = "No friends selected."
+      redirect_to event_path(@event)
+      return
     end
 
     @other_user = User.find(params[:invite_id])
