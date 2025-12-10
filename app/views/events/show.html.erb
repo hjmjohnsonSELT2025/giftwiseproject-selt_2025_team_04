@@ -33,22 +33,20 @@
   <% if@event.recipients.any? %>
     <ul>
       <% @event.recipients.each do|recipient| %>
-        <li>
-          <p><strong><%=recipient.name %></strong></p>
-          <% if recipient.gifts.any? %>
-            <ul>
-              <% recipient.gifts.each do |gift| %>
-                <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
-              <% end %>
-            </ul>
-          <%else %>
-            <p><em>no gifts yet</em></p>
-          <% end %>
-          <br>
+        <h4> <%=recipient.name %> </h4>
           <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
-        </li>
+
+        <% if recipient.gifts.any? %>
+          <ul>
+            <% recipient.gifts.each do |gift| %>
+              <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
+            <% end %>
+          </ul>
+        <%else %>
+          <p><em>no gifts yet</em></p>
+        <% end %>
       <% end %>
     </ul>
   <% else %>
@@ -59,24 +57,16 @@
   </p>
 </section>
 
-<section>
-  <h2>Add friend to event</h2>
-</section>
-
-<section>
-  <h2>Comments</h2>
-  <p>comment section</p>
-</section>
-
-
 <h3>People in this event:</h3>
-
 <ul id="details">
   <% for u in @event.users %>
       <li><%= u.email %></li>
   <% end %>
 </ul>
 
+<section>
+  <h2>Add friend to event</h2>
+</section>
 
 <%= form_tag event_invite_path(@event.id), method: :patch do %>
 
