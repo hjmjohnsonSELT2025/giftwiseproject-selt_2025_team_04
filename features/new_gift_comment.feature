@@ -2,10 +2,14 @@ Feature: I can leave comments on gifts
 
   Background: I am logged in
     Given the test user logs in
+    Given the test event exists
     Given the test recipient exists
     Then I should see Welcome, capybara
 
   Scenario: I can leave comments on a gift
+    When I click View all events
+    When I click More about test event
+    Then I should see test
     When I click Add a new gift
     When I submit my gift info
     When I click Leave a new comment

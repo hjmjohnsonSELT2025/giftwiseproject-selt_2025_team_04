@@ -6,9 +6,10 @@ Feature: I can add a recipient to an event
     Given the test recipient exists
     Then I should see Welcome, capybara
     
-  Scenario: 
+  Scenario:
+    When I click View all events
     When I click More about test event
     When I click Edit
     When I select test from recipient_id
-    When I press "commit"
+    When I press "Update Event"
     Then I should see the recipient

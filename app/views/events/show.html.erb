@@ -29,7 +29,7 @@
 
 <p id="description"><%= @event.description %></p>
 <section>
-  <h2>Recipients and gifts</h2>
+  <h2>Recipients</h2>
   <% if@event.recipients.any? %>
     <ul>
       <% @event.recipients.each do|recipient| %>
@@ -46,6 +46,7 @@
           <% end %>
           <br>
           <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
+          |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
         </li>
       <% end %>
@@ -54,7 +55,7 @@
     <p>No recipients for this event</p>
   <% end %>
   <p>
-    <%= link_to "create a recipient", new_recipient_path(back: event_path(@event)) %>
+    <%= link_to "create a recipient", new_recipient_path(back: event_path(@event), event:@event.id) %>
   </p>
 </section>
 
