@@ -6,7 +6,7 @@
   <%= text_field :event, 'title', :required => true%>
 
   <%= label :recipient_id, "Select recipients" %>
-  <%= select_tag :recipient_id, options_from_collection_for_select(current_user.recipients, :id, :name), :multiple => true %>
+  <%= select_tag :recipient_id, options_from_collection_for_select(@unadded_recipients, :id, :name), :multiple => true %>
 
   <%= label :event, :location, 'Location' %>
   <%= text_field :event, 'location' %>
