@@ -40,10 +40,16 @@
 <%= form_tag event_invite_path(@event.id), method: :patch do %>
 
   <%= label :invite_id, "Invite friends" %>
-  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.all, :id, :email) %>
+  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.where.not(id:@users), :id, :email) %>
 
   <%= submit_tag 'Invite' %>
 
+<% end %>
+
+<%= form_with(model: @event, method: :patch,) do |f| %>
+  <%= f.label :reminders_enabled, "Enable Reminders" %>
+  <%= f.check_box :reminders_enabled %>
+  <%= f.submit "Update" %>
 <% end %>
 <br>
 <%= link_to 'Edit', edit_event_path(@event) %>

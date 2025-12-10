@@ -5,11 +5,12 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def event_params
-    params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme)
+    params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme, :reminders_enabled)
   end
 
   def show
     @event = current_user.events.find(params[:id])
+    @users = @event.users
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -89,11 +90,14 @@ class EventsController < ApplicationController
       flash[:notice] = "Not authorised"
       redirect_to event_path(@event); return
     end
-    if params[:invite_id].nil? and @event.users.find_by(id: params[:invite_id]) != nil
-      flash[:notice] = "Already invited."
-      redirect_to event_path(@event); return
-    else
+    if params[:invite_id].nil?
       flash[:notice] = "No friends selected."
+      redirect_to event_path(@event)
+      return
+    end
+
+    unless @event.users.find_by(id: params[:invite_id]).nil?
+      flash[:notice] = "Already invited."
       redirect_to event_path(@event)
       return
     end
