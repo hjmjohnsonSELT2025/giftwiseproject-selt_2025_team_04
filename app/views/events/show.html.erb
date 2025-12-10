@@ -13,31 +13,31 @@
     Location:
     <%= @event.location %>
   </li>
-  <li>
-    Theme:
-    <%= @event.theme %>
-  </li>
-  <li>
-    Recipients:
-    <% @event.recipients.each do |recipient| %>
-        <br> <%= recipient.name %>
-    <% end %>
-  </li>
+  <% unless @event.theme.empty? %>
+    <li>
+      Theme:
+      <%= @event.theme %>
+    </li>
+  <% end %>
+
 </ul>
 
-<h3>Description:</h3>
+<% unless @event.description.empty? %>
+  <h3>Description:</h3>
+  <p id="description"><%= @event.description %></p>
+<% end %>
 
-<p id="description"><%= @event.description %></p>
 <section>
   <h2>Recipients</h2>
-  <% if@event.recipients.any? %>
+  <% if @recipients.any? %>
     <ul>
-      <% @event.recipients.each do|recipient| %>
+      <% @recipients.each do|recipient| %>
         <h4> <%=recipient.name %> </h4>
           <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
-
+          |
+          <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id) %>
         <% if recipient.gifts.any? %>
           <ul>
             <% recipient.gifts.each do |gift| %>
@@ -57,7 +57,7 @@
   </p>
 </section>
 
-<h3>People in this event:</h3>
+<h2>People in this event:</h2>
 <ul id="details">
   <% for u in @event.users %>
       <li><%= u.email %></li>
@@ -65,11 +65,10 @@
 </ul>
 
 <section>
-  <h2>Add friend to event</h2>
+  <h3>Add friend to event</h3>
 </section>
 
 <%= form_tag event_invite_path(@event.id), method: :patch do %>
-
   <%= label :invite_id, "Invite friends" %>
   <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.where.not(id:@users), :id, :email) %>
 
@@ -83,7 +82,7 @@
   <%= f.submit "Update" %>
 <% end %>
 <br>
-<%= link_to 'Edit', edit_event_path(@event) %>
+<%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
 <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
 <%= link_to 'Home', home_index_path %>
 <%= link_to "All Events", events_path %>
