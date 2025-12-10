@@ -2,15 +2,18 @@
 
 class EventsController < ApplicationController
 
-  before_action :authenticate_user!
-
   def event_params
-    params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme, :reminders_enabled)
+    params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme, :reminders_enabled, :back)
   end
 
   def show
     @event = current_user.events.find(params[:id])
     @users = @event.users
+    @user = current_user
+    @user_recipients = current_user.recipients
+    @recipients = @event.recipients.where(
+      'assigned_user_id IS NULL OR assigned_user_id != ?', @user.id
+    )
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -39,21 +42,23 @@ class EventsController < ApplicationController
       flash[:notice] = "#{@event.title} was successfully created."
       redirect_to event_path(@event)
     else
-      flash[:warning]="error creating event"#temporary for first sprint
+      flash[:warning]= "Error creating event" #temporary for first sprint
       redirect_to events_path
     end
   end
 
   def edit
     @event = current_user.events.find(params[:id])
+    @added_recipients = @event.recipients
+    @unadded_recipients = current_user.recipients.where.not(id:@added_recipients)
     @back=params[:back]
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
     end
     if @event.owner != current_user
-      flash[:notice] = "Not authorised"
-      redirect_to home_index_path
+      flash[:notice] = "Only owner can edit."
+      redirect_to event_path(@event)
     end
   end
 
@@ -90,8 +95,9 @@ class EventsController < ApplicationController
       redirect_to home_index_path; return
     end
     if @event.owner != current_user
-      flash[:notice] = "Not authorised"
+      flash[:notice] = "Only owner can invite."
       redirect_to event_path(@event); return
+      return
     end
     if params[:invite_id].nil?
       flash[:notice] = "No friends selected."
@@ -119,11 +125,13 @@ class EventsController < ApplicationController
     @event = current_user.events.find(params[:id])
     if @event == nil
       flash[:notice] = "Event not found"
-      redirect_to home_index_path; return
+      redirect_to home_index_path
+      return
     end
     if @event.owner != current_user
-      flash[:notice] = "Not authorised"
-      redirect_to event_path(@event); return
+      flash[:notice] = "Only owner can delete."
+      redirect_to event_path(@event)
+      return
     end
     @event.destroy
     flash[:notice] = "Event '#{@event.title}' deleted."
