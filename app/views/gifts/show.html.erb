@@ -5,8 +5,8 @@
 <%= hidden_field_tag :back, @back %>
 <!--only show edit and delete buttons if the owner is signed in-->
 <% if @gift.user.id == current_user.id %>
-  <%= link_to "Edit gift", edit_gift_path(@gift,back: gift_path(@gift)) %>
-  <%= button_to 'Delete', gift_path(@gift), method: :delete %>
+  <%= link_to "Edit gift", edit_gift_path(@gift,back: @back) %>
+  <%= button_to 'Delete', gift_path(@gift, back:@back), method: :delete %>
 <% end %>
 
 <%= link_to "Back", @back %>
@@ -16,11 +16,11 @@
   <%= "User: #{comment.user.email}" %><br>
   <%= comment.content %><br>
   <% if comment.user_id == current_user.id %>
-    <%= button_to "Delete comment", gift_comment_path(comment), method: :delete %>
+    <%= button_to "Delete comment", gift_comment_path(comment, back:@back), method: :delete %>
   <% end %>
 <% end %>
 
 <!--include the gift id in the parameters so the user can return here-->
 <!--and also so we can link the comment to the gift-->
-<%= link_to "Leave a new comment", new_gift_comment_path(return_id: @gift.id) %>
+<%= link_to "Leave a new comment", new_gift_comment_path(return_id: @gift.id, back: @back) %>
 <p>For a monthly subscription of only $7.99 you can edit your comments too!</p>
