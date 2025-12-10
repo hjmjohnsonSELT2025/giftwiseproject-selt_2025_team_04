@@ -1,3 +1,4 @@
+<h1><%= @event.title %></h1>
 
 <h2>Details about <%= @event.title %></h2>
 
@@ -27,6 +28,46 @@
 <h3>Description:</h3>
 
 <p id="description"><%= @event.description %></p>
+<section>
+  <h2>Recipients</h2>
+  <% if@event.recipients.any? %>
+    <ul>
+      <% @event.recipients.each do|recipient| %>
+        <li>
+          <p><strong><%=recipient.name %></strong></p>
+          <% if recipient.gifts.any? %>
+            <ul>
+              <% recipient.gifts.each do |gift| %>
+                <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
+              <% end %>
+            </ul>
+          <%else %>
+            <p><em>no gifts yet</em></p>
+          <% end %>
+          <br>
+          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
+          |
+          <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No recipients for this event</p>
+  <% end %>
+  <p>
+    <%= link_to "create a recipient", new_recipient_path(back: event_path(@event), event:@event.id) %>
+  </p>
+</section>
+
+<section>
+  <h2>Add friend to event</h2>
+</section>
+
+<section>
+  <h2>Comments</h2>
+  <p>comment section</p>
+</section>
+
 
 <h3>People in this event:</h3>
 
@@ -54,6 +95,7 @@
 <br>
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
-<%= link_to 'Back to home', home_index_path %>
+<%= link_to 'Home', home_index_path %>
+<%= link_to "All Events", events_path %>
 
 

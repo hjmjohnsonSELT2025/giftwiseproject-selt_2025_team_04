@@ -1,5 +1,7 @@
 <h1>New Recipient</h1>
 <%= form_with(model: @recipient) do |recipient| %>
+  <%= hidden_field_tag :back, @back %>
+  <%= hidden_field_tag :event, @event.id %>
   <p>
     <%= recipient.label :assigned_user_id %>
     <%= recipient.collection_select :assigned_user_id, @friends, :id, :email, prompt: "Select a friend to assign" %>
@@ -36,4 +38,4 @@
   <p><%= recipient.submit "Create" %></p>
 <% end %>
 
-<p><%= link_to "Back to recipients", recipients_path %></p>
+<p><%= link_to "Back", @back %></p>

@@ -2,14 +2,14 @@
 <!--<p><%#= "Recipient: #{@gift.recipient}" %></p>-->
 <p><%= "Details: #{@gift.description}" %></p>
 <p><%= "Recipient: #{@gift.recipient.name}" %></p>
-
+<%= hidden_field_tag :back, @back %>
 <!--only show edit and delete buttons if the owner is signed in-->
 <% if @gift.user.id == current_user.id %>
-  <%= link_to "Edit gift", edit_gift_path(@gift) %>
+  <%= link_to "Edit gift", edit_gift_path(@gift,back: gift_path(@gift)) %>
   <%= button_to 'Delete', gift_path(@gift), method: :delete %>
 <% end %>
 
-<%= link_to "Back", home_index_path %>
+<%= link_to "Back", @back %>4
 
 <h2>Comments</h2>
 <% @gift.gift_comments.each do |comment| %>

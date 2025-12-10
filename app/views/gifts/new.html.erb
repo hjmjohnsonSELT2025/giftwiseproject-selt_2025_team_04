@@ -2,6 +2,7 @@
 
 <%= form_for @new_gift do |form| %>
   <%= form.hidden_field :user_id,  value: current_user.id %>
+  <%= hidden_field_tag :back, @back %>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -26,4 +27,4 @@
   <%= form.submit "Create" %>
 <% end %>
 
-<%= link_to "Back", home_index_path %>
+<%= link_to "Back", @back %>

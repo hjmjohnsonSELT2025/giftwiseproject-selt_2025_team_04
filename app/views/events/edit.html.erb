@@ -1,6 +1,7 @@
 <h1>Edit Event</h1>
 
-<%= form_tag event_path(@event.id), method: :put do %>
+<%= form_tag event_path(@event.id), method: :patch do %>
+  <%= hidden_field_tag :back, @back %>
   <%= label :event, :title, 'Title' %>
   <%= text_field :event, 'title', :required => true%>
 
@@ -27,4 +28,4 @@
 <% end %>
 
 
-<%= link_to "Back", home_index_path %>
+<%= link_to "Back", @back %>

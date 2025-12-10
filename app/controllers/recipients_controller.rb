@@ -2,12 +2,13 @@
 class RecipientsController < ApplicationController
   before_action :authenticate_user!
   def recipient_params
-    params.require(:recipient).permit(:name,:age,:occupation,:hobbies,:likes,:dislikes,:budget)
+    params.require(:recipient).permit(:name,:age,:occupation,:hobbies,:likes,:dislikes,:budget, :event)
   end
 
   def show
     id=params[:id]
     @recipient=current_user.recipients.find(id)
+    @back=params[:back]
   end
 
   def index
@@ -22,19 +23,27 @@ class RecipientsController < ApplicationController
   def new
     @friends = current_user.friends.all
     @recipient=current_user.recipients.build
+    @back=params[:back]
+    event = params[:event]
+    @event = Event.find_by(id: event)
   end
 
   def create
     @friends = current_user.friends.all
     @recipient=Recipient.new(recipient_params)
     @recipient.user=current_user
+    @back=params[:back]
+    @event = params[:event]
 
     if @recipient.save
-      flash[:notice]="#{@recipient.name} was successfully created."
-      redirect_to recipients_path
-    else
-      flash[:warning]="enter valid characteristics"#temporary for first sprint
-      redirect_to recipients_path
+        flash[:notice]="#{@recipient.name} was successfully created."
+        @event = Event.find_by(id:@event)
+        @recipient.events << @event
+        @event.recipients << @recipient
+        redirect_to @back
+      else
+        flash[:warning]="enter valid characteristics"#temporary for first sprint
+        redirect_to @back
     end
   end
 
