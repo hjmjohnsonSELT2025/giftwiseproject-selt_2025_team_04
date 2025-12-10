@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :gifts
   resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
 
-  resources :events, only: [:show, :update, :destroy, :new, :create, :edit]
+  resources :events
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
 
   resources :recipients
