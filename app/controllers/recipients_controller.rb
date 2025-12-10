@@ -39,7 +39,6 @@ class RecipientsController < ApplicationController
         flash[:notice]="#{@recipient.name} was successfully created."
         @event = Event.find_by(id:@event)
         @recipient.events << @event
-        @event.recipients << @recipient
         redirect_to @back
       else
         flash[:warning]="enter valid characteristics"#temporary for first sprint
