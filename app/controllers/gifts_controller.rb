@@ -11,6 +11,7 @@ class GiftsController < ApplicationController
   end
 
   def new
+    @recipient = params[:recipient_id]
     @new_gift = Gift.new # for use with the form_with helper
     @back=params[:back]
   end
@@ -56,6 +57,6 @@ class GiftsController < ApplicationController
 
   private
   def save_params
-    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id)
+    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id, :back)
   end
 end
