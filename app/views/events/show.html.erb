@@ -9,10 +9,12 @@
       <%= @event.date.strftime("%B %d, %Y") %>
     <%end %>
   </li>
-  <li>
-    Location:
-    <%= @event.location %>
-  </li>
+  <% unless @event.location.empty? %>
+    <li>
+      Location:
+      <%= @event.location %>
+    </li>
+  <% end %>
   <% unless @event.theme.empty? %>
     <li>
       Theme:
