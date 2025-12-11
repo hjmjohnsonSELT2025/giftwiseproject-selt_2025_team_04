@@ -1,0 +1,66 @@
+<h1>Gift Suggestions</h1>
+<p>
+  Event: <%= @event.title || "no event selected" %><br>
+  Recipient: <%= @recipient&.name || "none selected" %>
+</p>
+<hr>
+
+<h3>Generate Ideas</h3>
+
+<%= form_with url: event_gift_suggestions_path(@event), method: :post, local: true do |f| %>
+  <div>
+    <label for="recipient_id">Recipient</label><br>
+    <%= select_tag :recipient_id,
+                   options_from_collection_for_select(
+                     current_user.recipients,
+                     :id,
+                     :name,
+                     @recipient&.id
+                   ), include_blank: true %>
+  </div>
+
+  <div>
+    <label for="count">Number of suggestions</label><br>
+    <%= number_field_tag :count, params[:count] || 1, min: 1, max: 5 %>
+  </div>
+
+  <div style="margin-top: 8px;">
+    <%= f.submit "Generate New Suggestions" %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>Ideas</h2>
+
+<% if @suggestions.present? %>
+  <% @suggestions.each do |s| %>
+    <div style="margin-bottom: 12px;">
+      <h3><%= s.title %></h3>
+      <p><%= s.description %></p>
+      <% if s.estimated_price.present? %>
+        <p>Estimated price: $<%= s.estimated_price %></p>
+      <% end %>
+      <p><small>Source: <%= s.source %></small></p>
+
+      <p>
+        <%= link_to "Save as Gift",
+                    new_gift_path(
+                      gift_suggestion_id: s.id,
+                      recipient_id: s.recipient_id,
+                      event_id: s.event_id) %>
+
+        <%= link_to "Delete Idea",
+                    new_gift_path(
+                      gift_suggestion_id: s.id,
+                      recipient_id: s.recipient_id,
+                      event_id: s.event_id) %>
+      <p>
+
+    </div>
+
+  <% end %>
+<% else %>
+  <p>No suggestions yet.</p>
+<% end %>
+

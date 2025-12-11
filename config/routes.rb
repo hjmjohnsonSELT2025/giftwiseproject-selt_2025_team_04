@@ -13,8 +13,12 @@ Rails.application.routes.draw do
   # post "/gifts" => "gifts#create", as: :create_gift
   resources :gifts
   resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
+  resources :gift_suggestions, only: [:index, :new, :create]
 
-  resources :events
+
+  resources :events, only: [:show, :update, :destroy, :new, :create, :edit] do
+    resources :gift_suggestions, only: [:index, :create]
+  end
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
 
   resources :recipients
