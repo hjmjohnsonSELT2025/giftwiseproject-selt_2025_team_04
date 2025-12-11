@@ -36,5 +36,6 @@
     <%=@recipient.budget%>
   </p>
 
-<%= link_to "Edit",edit_recipient_path(@recipient.id) %>
+<%= link_to "Edit",edit_recipient_path(@recipient.id, back:@back) %>
 <%= link_to "Back",@back %>
+<%= button_to "Delete", recipient_path(@recipient, back:@back), method: :delete, confirm: "Are you sure?" %>

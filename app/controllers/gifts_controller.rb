@@ -11,6 +11,7 @@ class GiftsController < ApplicationController
   end
 
   def new
+    @recipient = params[:recipient_id]
     @new_gift = Gift.new # for use with the form_with helper
     @back=params[:back]
   end
@@ -21,7 +22,7 @@ class GiftsController < ApplicationController
     @back=params[:back]
     if @new_gift.save
       flash[:notice] = "New gift created!"
-      redirect_to gift_path(@new_gift.id)
+      redirect_to gift_path(@new_gift.id, back: @back)
     else
       flash[:alert] = "Could not save gift."
       render :new
@@ -49,12 +50,13 @@ class GiftsController < ApplicationController
   def destroy
     @gift = current_user.gifts.find(params[:id])
     @gift.destroy
+    @back = params[:back]
     flash[:notice] = "#{@gift.name} successfully deleted."
-    redirect_to :root
+    redirect_to @back
   end
 
   private
   def save_params
-    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id)
+    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id, :back)
   end
 end

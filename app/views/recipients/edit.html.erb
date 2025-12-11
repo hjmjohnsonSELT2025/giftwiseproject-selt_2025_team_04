@@ -1,16 +1,17 @@
 <h1>Edit recipient</h1>
 <%= form_with(model: @recipient) do |recipient|  %>
+  <%= hidden_field_tag :back, @back %>
   <p>
     <%= recipient.label :assigned_user_id %>
     <%= recipient.collection_select :assigned_user_id, @friends, :id, :email, prompt: "Select a friend to assign" %>
   </p>
   <p>
     <%=recipient.label :name %>
-    <%=recipient.text_field :name%>
+    <%=recipient.text_field :name, required: true %>
   </p>
   <p>
     <%=recipient.label :age %>
-    <%=recipient.text_field :age%>
+    <%=recipient.number_field :age, required: true %>
   </p>
   <p>
     <%=recipient.label :occupation %>
@@ -35,4 +36,4 @@
   <p><%=recipient.submit "submit" %></p>
 <% end %>
 
-<%= link_to "Back",events_path %>
+<%= link_to "Back", recipient_path(@recipient, back:@back)%>

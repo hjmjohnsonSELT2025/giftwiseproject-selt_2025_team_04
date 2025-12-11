@@ -7,8 +7,12 @@
 <% if @next_event %>
   <p><strong><%=@next_event.title %></strong></p>
   <p>Date: <%= @next_event.date %></p>
-  <p>Location: <%= @next_event.location %></p>
-  <p>Theme: <%=@next_event.theme %></p>
+  <% unless @next_event.location.empty? %>
+    <p>Location: <%= @next_event.location %></p>
+  <% end %>
+  <% unless @next_event.theme.empty? %>
+    <p>Theme: <%=@next_event.theme %></p>
+  <% end %>
   <%= link_to "View Upcoming event", event_path(@next_event) %>
 <% else %>
   <p>No upcoming events</p>

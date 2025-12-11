@@ -13,7 +13,7 @@
   </div>
   <div>
     <%= form.label :recipient_id, "Select recipient" %>
-    <%= form.select :recipient_id, options_from_collection_for_select(current_user.recipients, :id, :name) %> <!-- replace with recipient ID -->
+    <%= form.select :recipient_id, options_from_collection_for_select(current_user.recipients, :id, :name, @recipient) %> <!-- replace with recipient ID -->
   </div>
   <div>
     <%= form.label :price %>
