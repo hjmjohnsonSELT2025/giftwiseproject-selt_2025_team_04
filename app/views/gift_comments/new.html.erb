@@ -3,6 +3,7 @@
   <div>
     <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.hidden_field :gift_id, value: params[:return_id] %>
+    <%= form.hidden_field :back, value: @back %>
   </div>
   <div>
     <%= form.label :content %>
@@ -11,4 +12,4 @@
   <%= form.submit "Create" %>
 <% end %>
 
-<%= link_to "Back", gift_path(params[:return_id]) %>
+<%= link_to "Back", @back %>
