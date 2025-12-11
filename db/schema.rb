@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_09_223613) do
   create_table "dislikes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "item"
@@ -26,10 +26,25 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
     t.text "description"
     t.datetime "date"
     t.time "start_time"
-    t.integer "user_id", null: false
+    t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_events_on_user_id"
+    t.boolean "reminders_enabled", default: true, null: false
+    t.index ["owner_id"], name: "index_events_on_owner_id"
+  end
+
+  create_table "events_recipients", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "recipient_id"
+    t.index ["event_id"], name: "index_events_recipients_on_event_id"
+    t.index ["recipient_id"], name: "index_events_recipients_on_recipient_id"
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.index ["event_id"], name: "index_events_users_on_event_id"
+    t.index ["user_id"], name: "index_events_users_on_user_id"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -122,7 +137,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_004337) do
   end
 
   add_foreign_key "dislikes", "users"
-  add_foreign_key "events", "users"
+  add_foreign_key "events", "users", column: "owner_id"
   add_foreign_key "friend_requests", "users", column: "requestee_id"
   add_foreign_key "friend_requests", "users", column: "requester_id"
   add_foreign_key "friends", "users"
