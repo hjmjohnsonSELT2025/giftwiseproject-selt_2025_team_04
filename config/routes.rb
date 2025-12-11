@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :gift_suggestions, only: [:index, :new, :create]
 
 
-  resources :events, only: [:show, :update, :destroy, :new, :create, :edit] do
+  resources :events do
     resources :gift_suggestions, only: [:index, :create]
   end
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
