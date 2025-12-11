@@ -419,6 +419,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  actionmailer
   bootsnap
   capybara
   cucumber-rails

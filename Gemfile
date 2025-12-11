@@ -21,6 +21,7 @@ gem "jbuilder"
 gem "pg", "~> 1.6"
 
 gem "openai"
+gem "actionmailer"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
