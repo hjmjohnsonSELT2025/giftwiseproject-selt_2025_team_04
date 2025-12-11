@@ -16,7 +16,10 @@ Then("I should see {string}") do |string|
 end
 
 When("I visit the new recipient page") do
-  visit new_recipient_path
+  click_link("View all events")
+  click_link("More about test")
+  expect(page.body).to have_content("Details")
+  click_link("create a recipient")
 end
 
 When("I fill in {string} with {string}") do |attribute,value|

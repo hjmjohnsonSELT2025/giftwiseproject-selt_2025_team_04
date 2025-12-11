@@ -1,6 +1,7 @@
 Feature: View, Create, Edit Recipients
   Background:
     Given I am logged in
+    Given the test event exists
 
     Scenario:  View all my recipients
       When I visit the recipients page

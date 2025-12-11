@@ -9,7 +9,6 @@ Feature: I can add gifts to the database
   Scenario:
     When I click View all events
     When I click More about test event
-    Then I should see "test"
     When I click add a new gift for test
     When I submit my gift info
     Then I should see the new gift assigned to test

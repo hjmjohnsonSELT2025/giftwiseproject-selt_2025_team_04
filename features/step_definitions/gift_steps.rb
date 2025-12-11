@@ -25,7 +25,7 @@ end
 
 When(/I click (.*)/) do |link|
   click_link(link)
-  puts page.body
+  #puts page.body
 end
 
 When(/I submit my gift info/) do
@@ -49,4 +49,8 @@ end
 
 Then(/I should see an error message/) do
   expect(page).to have_content("Could not save gift")
+end
+
+Then(/I should see the new gift assigned to test/) do
+  expect(page).to have_content("plates")
 end

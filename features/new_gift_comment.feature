@@ -9,8 +9,7 @@ Feature: I can leave comments on gifts
   Scenario: I can leave comments on a gift
     When I click View all events
     When I click More about test event
-    Then I should see test
-    When I click Add a new gift
+    When I click add a new gift for test
     When I submit my gift info
     When I click Leave a new comment
     When I submit my comment info
