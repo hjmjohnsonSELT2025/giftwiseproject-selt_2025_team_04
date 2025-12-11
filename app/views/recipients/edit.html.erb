@@ -7,11 +7,11 @@
   </p>
   <p>
     <%=recipient.label :name %>
-    <%=recipient.text_field :name%>
+    <%=recipient.text_field :name, required: true %>
   </p>
   <p>
     <%=recipient.label :age %>
-    <%=recipient.number_field :age%>
+    <%=recipient.number_field :age, required: true %>
   </p>
   <p>
     <%=recipient.label :occupation %>
