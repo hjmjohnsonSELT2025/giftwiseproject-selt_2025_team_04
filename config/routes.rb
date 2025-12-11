@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :events
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
+  patch 'events/:id/add_recipient', to: 'events#add_recipient', as: 'event_add_recipient'
 
   resources :recipients
   post 'recipients/remove_from_event', to: 'recipients#remove_from_event', as: 'remove_from_event'

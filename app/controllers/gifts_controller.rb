@@ -14,10 +14,12 @@ class GiftsController < ApplicationController
     @recipient = params[:recipient_id]
     @new_gift = Gift.new # for use with the form_with helper
     @back=params[:back]
+    @event = current_user.events.find(params[:event])
+    @event_recipients = @event.recipients.all
   end
 
   def create
-    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => nil, :visibility => params[:gift][:visibility]}
+    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility]}
     @new_gift = Gift.new(@save_params)
     @back=params[:back]
     if @new_gift.save

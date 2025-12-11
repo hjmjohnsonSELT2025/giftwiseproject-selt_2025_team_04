@@ -35,14 +35,14 @@
     <ul>
       <% @recipients.each do|recipient| %>
         <h4> <%=recipient.name %> </h4>
-          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(recipient_id: recipient.id,back: event_path(@event)) %>
+          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(event: @event.id,recipient_id: recipient.id,back: event_path(@event))%>
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
           |
           <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id) %>
         <% if recipient.gifts.any? %>
           <ul>
-            <% recipient.gifts.each do |gift| %>
+            <% recipient.gifts.where(event_id: @event.id).each do |gift| %>
               <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
             <% end %>
           </ul>
@@ -55,15 +55,22 @@
     <p>No recipients for this event</p>
   <% end %>
   <p>
+    <%= form_tag event_add_recipient_path(@event.id), method: :patch do %>
+      <%= label :recipient_id, "Add recipients" %>
+      <%= select_tag :recipient_id, options_from_collection_for_select(@unadded_recipients, :id, :name), required: true, prompt: "Select a recipient"%>
+      <%= submit_tag 'Add' %>
+    <% end %>
+  </p>
+  <p>
     <%= link_to "create a recipient", new_recipient_path(back: event_path(@event), event:@event.id) %>
   </p>
 </section>
 
 <h2>People in this event:</h2>
 <ul id="details">
-  <% for u in @event.users %>
-      <li><%= u.email %></li>
-  <% end %>
+  <% @event.users.each { |u| %>
+    <li><%=  u.email  %></li>
+  <%  } %>
 </ul>
 
 <section>
@@ -72,7 +79,7 @@
 
 <%= form_tag event_invite_path(@event.id), method: :patch do %>
   <%= label :invite_id, "Invite friends" %>
-  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.where.not(id:@users), :id, :email) %>
+  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.where.not(id:@users), :id, :email), required: true, prompt: "Select a friend" %>
 
   <%= submit_tag 'Invite' %>
 
