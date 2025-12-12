@@ -78,11 +78,6 @@
 
 <% end %>
 
-<%= form_with(model: @event, method: :patch,) do |f| %>
-  <%= f.label :reminders_enabled, "Enable Reminders" %>
-  <%= f.check_box :reminders_enabled %>
-  <%= f.submit "Update" %>
-<% end %>
 <br>
 <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
 <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
