@@ -116,6 +116,7 @@ class EventsController < ApplicationController
     if @other_user != nil
       @event.users << @other_user
       flash[:notice] = "User invited"
+      UserMailer.with(user: @other_user, event: @event).event_add.deliver_now
     end
 
     redirect_to event_path(@event)
