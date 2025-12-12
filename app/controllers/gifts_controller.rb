@@ -13,6 +13,26 @@ class GiftsController < ApplicationController
   def new
     @recipient = params[:recipient_id]
     @new_gift = Gift.new # for use with the form_with helper
+
+    if params[:gift_suggestion_id].present? # so if user comes from suggestions autofills
+      suggestion = GiftSuggestion.find_by(id: params[:gift_suggestion_id])
+
+      if suggestion
+        @new_gift.name              = suggestion.title
+        @new_gift.description       = suggestion.description # need to take out "description:"???
+        @new_gift.price             = suggestion.estimated_price
+        @new_gift.recipient_id      = suggestion.recipient_id
+        @new_gift.event_id          = suggestion.event_id
+        @new_gift.best_vendor_name  = suggestion.best_vendor_name
+        @new_gift.best_vendor_url   = suggestion.best_vendor_url
+        @new_gift.best_vendor_price = suggestion.best_vendor_price
+      end
+
+    else
+      @new_gift.recipient_id ||= params[:recipient_id]
+      @new_gift.event_id ||= params[:event_id]
+
+    end
     @back=params[:back]
     @event = current_user.events.find(params[:event])
     @event_recipients = @event.recipients.all
@@ -38,9 +58,10 @@ class GiftsController < ApplicationController
 
   def update
     @gift = current_user.gifts.find(params[:id])
-    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => nil, :visibility => params[:gift][:visibility]}
+    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility]}
     @back=params[:back]
-    if @gift.update(@save_params)
+
+    if @gift.update(save_params.merge(user_id: current_user.id))
       flash[:notice] = "Gift updated."
       redirect_to @back
     else
@@ -59,6 +80,7 @@ class GiftsController < ApplicationController
 
   private
   def save_params
-    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id, :back)
+    params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id,
+                                 :visibility, :best_vendor_name, :best_vendor_url, :best_vendor_price, :back) #For optimal pricing prob will need status too
   end
 end

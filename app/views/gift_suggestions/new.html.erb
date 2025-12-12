@@ -1,0 +1,21 @@
+<h1>Generate Gift Ideas</h1>
+<h1>Create a new gift suggestion</h1>
+
+
+<%= form_with model: @gift_suggestion, url: gift_suggestions_path do |form| %>
+  <div>
+    <%= form.label :title, "Gift Idea:" %>
+    <%= form.text_field :title, id: "gift_suggestion_title" %>
+  </div>
+
+  <div>
+    <%= form.label :description, "Description" %>
+    <%= form.text_field :description, id: "gift_suggestion_description" %>
+  </div>
+
+  <div>
+    <%= form.submit "Save gift suggestion" %>
+  </div>
+<% end %>
+
+
