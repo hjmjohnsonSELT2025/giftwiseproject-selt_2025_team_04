@@ -39,6 +39,9 @@
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
           |
+        <%= link_to "generate ideas for #{recipient.name}",
+                    event_gift_suggestions_path(@event, recipient_id: recipient.id) %>
+
           <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id) %>
         <% if recipient.gifts.any? %>
           <ul>

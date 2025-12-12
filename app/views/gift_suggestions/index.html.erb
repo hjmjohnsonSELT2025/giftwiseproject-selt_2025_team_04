@@ -5,30 +5,20 @@
 </p>
 <hr>
 
-<h3>Generate Ideas</h3>
+<h3>Generate Ideas for <%= @recipient&.name%> </h3>
 
-<%= form_with url: event_gift_suggestions_path(@event), method: :post, local: true do |f| %>
-  <div>
-    <label for="recipient_id">Recipient</label><br>
-    <%= select_tag :recipient_id,
-                   options_from_collection_for_select(
-                     current_user.recipients,
-                     :id,
-                     :name,
-                     @recipient&.id
-                   ), include_blank: true %>
-  </div>
+<%= form_with url: event_gift_suggestions_path(@event, recipient_id: @recipient&.id),
+              method: :post do |f| %>
+
+  <%= hidden_field_tag :recipient_id, @recipient.id if @recipient %>
 
   <div>
-    <label for="count">Number of suggestions</label><br>
-    <%= number_field_tag :count, params[:count] || 1, min: 1, max: 5 %>
+    <%= f.label :count, "How many suggestions?" %>
+    <%= f.number_field :count, value: 1, min: 1, max: 5 %>
   </div>
 
-  <div style="margin-top: 8px;">
-    <%= f.submit "Generate New Suggestions" %>
-  </div>
+  <%= f.submit "Generate New Suggestions" %>
 <% end %>
-
 <hr>
 
 <h2>Ideas</h2>
@@ -50,11 +40,6 @@
                       recipient_id: s.recipient_id,
                       event_id: s.event_id) %>
 
-        <%= link_to "Delete Idea",
-                    new_gift_path(
-                      gift_suggestion_id: s.id,
-                      recipient_id: s.recipient_id,
-                      event_id: s.event_id) %>
       <p>
 
     </div>
