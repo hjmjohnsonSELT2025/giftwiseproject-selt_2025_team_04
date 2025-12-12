@@ -5,15 +5,17 @@
 
 <h2>Upcoming Event</h2>
 <% if @next_event %>
-  <p><strong><%=@next_event.title %></strong></p>
-  <p>Date: <%= @next_event.date %></p>
-  <% unless @next_event.location.empty? %>
-    <p>Location: <%= @next_event.location %></p>
-  <% end %>
-  <% unless @next_event.theme.empty? %>
-    <p>Theme: <%=@next_event.theme %></p>
-  <% end %>
-  <%= link_to "View Upcoming event", event_path(@next_event) %>
+  <div class="container">
+    <p><strong><%=@next_event.title %></strong></p>
+    <p>Date: <%= @next_event.date %></p>
+    <% unless @next_event.location.empty? %>
+      <p>Location: <%= @next_event.location %></p>
+    <% end %>
+    <% unless @next_event.theme.empty? %>
+      <p>Theme: <%=@next_event.theme %></p>
+    <% end %>
+    <%= link_to "View Upcoming event", event_path(@next_event) %>
+  </div>
 <% else %>
   <p>No upcoming events</p>
 <% end %>

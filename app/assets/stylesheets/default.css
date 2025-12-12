@@ -1,63 +1,72 @@
 html, body {
-  margin: 0;
-  padding: 10px;
-  background: White;
-  color: DarkSlateGrey;
-  font-family: Tahoma, Verdana, sans-serif;
-  font-size: 10pt;
+    margin: 0;
+    padding: 10px;
+    background: var(--light);
+    color: var(--dark);
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 10pt;
 }
+
 div#main {
-  margin: 0;
-  padding: 0 20px 20px;
+    margin: 0;
+    padding: 0 20px 20px;
 }
+
 a {
-  background: transparent;
-  color: maroon;
-  text-decoration: underline;
-  font-weight: bold;
+    background: transparent;
+    color: var(--c4); /* slate green */
+    text-decoration: underline;
+    font-weight: bold;
 }
+
 h1 {
-  color: maroon;
-  font-size: 150%;
-  font-style: italic;
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid DarkSlateGrey;
+    color: var(--c4);
+    font-size: 150%;
+    font-style: italic;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid var(--dark);
 }
+
 h1.title {
-  margin: 0 0 1em;
-  padding: 10px;
-  background-color: orange;
-  color: white;
-  border-bottom: 4px solid gold;
-  font-size: 2em;
-  font-style: normal;
+    margin: 0 0 1em;
+    padding: 10px;
+    background-color: var(--c1);
+    color: white;
+    border-bottom: 4px solid var(--c2);
+    font-size: 2em;
+    font-style: normal;
 }
+
 table {
-  margin: 10px;
-  border-collapse: collapse;
-  width: 100%;
-  border-bottom: 2px solid black;
+    margin: 10px;
+    border-collapse: collapse;
+    width: 100%;
+    border-bottom: 2px solid var(--dark);
 }
+
 table th {
-  border: 2px solid white;
-  font-weight: bold;
-  background-color: wheat;
+    border: 2px solid white;
+    background-color: var(--c3);
+    color: var(--dark);
 }
+
 table th, table td {
-  padding: 4px;
-  text-align: left;
+    padding: 4px;
+    text-align: left;
 }
+
 #notice #warning {
-  background: rosybrown;
-  margin: 1em 0;
-  padding: 4px;
+    background: var(--c5);
+    margin: 1em 0;
+    padding: 4px;
 }
+
 form label {
-  display: block;
-  line-height: 25px;
-  font-weight: bold;
-  color: maroon;
+    display: block;
+    line-height: 25px;
+    font-weight: bold;
+    color: var(--c4);
 }
 
 form textarea {

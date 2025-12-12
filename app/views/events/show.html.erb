@@ -32,15 +32,16 @@
 <section>
   <h2>Recipients</h2>
   <% if @recipients.any? %>
-    <ul>
-      <% @recipients.each do|recipient| %>
+    <% @recipients.each do|recipient| %>
+      <div class="container">
         <h4> <%=recipient.name %> </h4>
           <%= link_to "add a new gift for #{recipient.name}",new_gift_path(event: @event.id,recipient_id: recipient.id,back: event_path(@event))%>
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
           |
-          <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id) %>
+          <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id), form: { style: "display:inline" } %>
         <% if recipient.gifts.any? %>
+          <h4>Gifts</h4>
           <ul>
             <% recipient.gifts.where(event_id: @event.id).each do |gift| %>
               <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
@@ -49,8 +50,8 @@
         <%else %>
           <p><em>no gifts yet</em></p>
         <% end %>
-      <% end %>
-    </ul>
+      </div>
+    <% end %>
   <% else %>
     <p>No recipients for this event</p>
   <% end %>

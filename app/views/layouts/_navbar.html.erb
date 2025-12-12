@@ -1,0 +1,11 @@
+<% if current_user %>
+  <nav class="navbar">
+    <%= link_to "Home", root_path %>
+    <%= link_to "Events", events_path %>
+    <%= link_to "Recipients", recipients_path %>
+    <%= link_to "Gifts", gifts_path %>
+    <%= link_to "Friends", friends_path %>
+    <%= link_to "Profile", user_path %>
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete, id: "sign_out" %>
+  </nav>
+<% end %>
