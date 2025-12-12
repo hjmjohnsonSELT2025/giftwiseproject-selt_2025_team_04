@@ -13,7 +13,7 @@
   </div>
   <div>
     <%= form.label :recipient_id, "Select recipient" %>
-    <%= form.select :recipient_id, options_from_collection_for_select(current_user.recipients, :id, :name, @recipient) %> <!-- replace with recipient ID -->
+    <%= form.select :recipient_id, options_from_collection_for_select(@event_recipients, :id, :name, @recipient) %> <!-- replace with recipient ID -->
   </div>
   <div>
     <%= form.label :price %>
@@ -23,7 +23,7 @@
     <%= form.label :visibility, "Who can see this gift?" %>
     <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
   </div>
-  <%= form.hidden_field :event_id,  value: nil %> <!-- replace with event ID -->
+  <%= form.hidden_field :event_id,  value: @event.id %> <!-- replace with event ID -->
   <%= form.submit "Create" %>
 <% end %>
 
