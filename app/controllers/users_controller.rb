@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-  after_create :send_welcome_email
 
-  def send_welcome_email
-    @user = current_user
-    UserMailer.with(user: @user).welcome.deliver_now
-  end
+
 
   def edit
     @user = current_user
