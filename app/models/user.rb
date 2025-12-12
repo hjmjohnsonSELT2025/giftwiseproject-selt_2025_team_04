@@ -20,7 +20,7 @@ class User < ApplicationRecord
   after_create :send_welcome_email
 
   def send_welcome_email
-    UserMailer.with(self).welcome.deliver_now
+    UserMailer.with(user:self).welcome.deliver_now
   end
 
   def self.from_omniauth(auth)
