@@ -97,7 +97,7 @@ Rails.application.configure do
 
   credentials = Rails.application.credentials.production || {}
   config.action_mailer.default_url_options = {
-    host: crendentials[:domain_name] || 'localhost:3000',
+    host: credentials[:domain_name] || 'localhost:3000',
     protocol: 'http'
   }
   config.action_mailer.delivery_method = :smtp
