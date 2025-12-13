@@ -2,7 +2,16 @@ require "rails_helper"
 
 RSpec.describe GiftSuggestionsController, type: :controller do
   let(:user) { User.create!(email: "a@a.com", password:"aaaaaa")}
-  let(:event) { Event.create!(user: user, title: "Party", theme: "NBA Night")}
+  let(:event) do
+    e = Event.create!(
+      owner_id: user.id,
+      title: "Party",
+      theme: "NBA Night",
+      date: Date.today)
+    e.users << user if e.respond_to?(:users)
+    e
+  end
+
   let(:recipient) do
     Recipient.create!(
       user: user,
@@ -59,9 +68,7 @@ RSpec.describe GiftSuggestionsController, type: :controller do
         expect(suggestion.estimated_price).to eq 90.0
         expect(suggestion.source).to eq          "OpenAI"
 
-        expect(response).to redirect_to(
-                              event_gift_suggestions_path(event, recipient_id: recipient.id)
-                            )
+        expect(response).to redirect_to(event_gift_suggestions_path(event, recipient_id: recipient.id))
       end
     end
 

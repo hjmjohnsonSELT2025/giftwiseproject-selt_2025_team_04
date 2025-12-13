@@ -2,7 +2,15 @@ require "rails_helper"
 
 RSpec.describe GiftSuggestionAi do
   let(:user) { User.create!(email: "a@a.a", password: "aaaaaaa")}
-  let(:event) { Event.create!(user: user, title: "NBA Night")}
+  let(:event) do
+    e = Event.create!(
+      owner_id: user.id,
+      title: "Party",
+      theme: "NBA Night",
+      date: Date.today)
+    e.users << user if e.respond_to?(:users)
+    e
+  end
   let(:recipient) do
     Recipient.create!(
       user: user,
