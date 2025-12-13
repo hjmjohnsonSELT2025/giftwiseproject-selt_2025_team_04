@@ -20,12 +20,14 @@ Rails.application.routes.draw do
   end
 
   resources :recipients do
+  resources :events do
     resources :gift_suggestions, only: [:index, :create]
   end
 
   resources :gift_suggestions, only: [:index, :create]
 
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
+  patch 'events/:id/add_recipient', to: 'events#add_recipient', as: 'event_add_recipient'
 
   resources :recipients
   post 'recipients/remove_from_event', to: 'recipients#remove_from_event', as: 'remove_from_event'
