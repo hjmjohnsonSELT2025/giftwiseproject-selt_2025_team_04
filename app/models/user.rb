@@ -17,6 +17,11 @@ class User < ApplicationRecord
   VALID_PRONOUNS = %w[He/Him She/Her They/Them Other]
   validates :pronouns, inclusion: {in: VALID_PRONOUNS}, allow_nil: true
   validates :age, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 180}, allow_nil: true
+  after_create :send_welcome_email
+
+  def send_welcome_email
+    UserMailer.with(user:self).welcome.deliver_now
+  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
