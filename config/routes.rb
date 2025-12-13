@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   # post "/gifts" => "gifts#create", as: :create_gift
   resources :gifts
   resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
-  resources :gift_suggestions, only: [:index, :new, :create]
 
   resources :events do
     resources :gift_suggestions, only: [:index, :create]
@@ -23,11 +22,9 @@ Rails.application.routes.draw do
     resources :gift_suggestions, only: [:index, :create]
   end
 
-  resources :gift_suggestions, only: [:index, :create]
-
   patch 'events/:id/invite', to: 'events#invite', as: 'event_invite'
+  patch 'events/:id/add_recipient', to: 'events#add_recipient', as: 'event_add_recipient'
 
-  resources :recipients
   post 'recipients/remove_from_event', to: 'recipients#remove_from_event', as: 'remove_from_event'
   resource :user, only: [:show, :edit, :update]
   get 'friends/search', to: 'friends#search', as: :friends_search
