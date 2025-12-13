@@ -10,10 +10,10 @@ class EventsController < ApplicationController
     @event = current_user.events.find(params[:id])
     @users = @event.users
     @user = current_user
-    @user_recipients = current_user.recipients
     @recipients = @event.recipients.where(
       'assigned_user_id IS NULL OR assigned_user_id != ?', @user.id
     )
+    @unadded_recipients = current_user.recipients.where.not(id:@recipients)
     if @event == nil
       flash[:notice] = "Event not found"
       redirect_to home_index_path
@@ -49,8 +49,6 @@ class EventsController < ApplicationController
 
   def edit
     @event = current_user.events.find(params[:id])
-    @added_recipients = @event.recipients
-    @unadded_recipients = current_user.recipients.where.not(id:@added_recipients)
     @back=params[:back]
     if @event == nil
       flash[:notice] = "Event not found"
@@ -75,14 +73,6 @@ class EventsController < ApplicationController
     end
 
     @event.update(event_params)
-
-    if params[:recipient_id] != nil
-      params[:recipient_id].each do |recipient_id|
-        @event.recipients << current_user.recipients.find(recipient_id)
-      end
-    else
-      @event.recipients.clear
-    end
 
     flash[:notice] = "#{@event.title} was successfully updated."
     redirect_to event_path(@event)
@@ -118,6 +108,24 @@ class EventsController < ApplicationController
       flash[:notice] = "User invited"
       UserMailer.with(user: @other_user, event: @event).event_add.deliver_now
     end
+
+    redirect_to event_path(@event)
+  end
+
+  def add_recipient
+    @event = current_user.events.find(params[:id])
+    if @event == nil
+      flash[:notice] = "Event not found"
+      redirect_to home_index_path; return
+    end
+
+    unless @event.recipients.find_by(id: params[:recipient_id]).nil?
+      flash[:notice] = "Already invited."
+      redirect_to event_path(@event)
+      return
+    end
+
+    @event.recipients << current_user.recipients.find(params[:recipient_id])
 
     redirect_to event_path(@event)
   end
