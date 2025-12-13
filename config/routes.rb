@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :recipients do
+  resources :events do
     resources :gift_suggestions, only: [:index, :create]
   end
 
