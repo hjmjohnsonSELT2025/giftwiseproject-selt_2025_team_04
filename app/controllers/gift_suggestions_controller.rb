@@ -8,6 +8,7 @@ class GiftSuggestionsController < ApplicationController
     scope = scope.where(recipient_id: @recipient.id) if @recipient
     scope = scope.where(event_id: @event.id)         if @event
     @suggestions = scope
+    @back = params[:back]
   end
   def new
     @gift_suggestion = GiftSuggestion.new
@@ -16,6 +17,7 @@ class GiftSuggestionsController < ApplicationController
   def create
     count = params[:count].to_i
     count = 1 if count <= 0
+    @back = params[:back]
 
     service = GiftSuggestionAi.new(
       user: current_user,
@@ -51,7 +53,7 @@ class GiftSuggestionsController < ApplicationController
         end
       end
 
-    redirect_to event_gift_suggestions_path(@event, recipient_id: @recipient.id),
+    redirect_to event_gift_suggestions_path(@event, recipient_id: @recipient.id, back:@back),
                 notice: "#{count} gift suggestions generated."
   end
 
