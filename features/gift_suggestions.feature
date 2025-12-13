@@ -2,7 +2,7 @@ Feature: I can generate AI gift suggestions
 
   Background: I am logged in with a recipient and event
     Given the test user logs in
-    And the test recipient exists
+    And a recipient exists
     And the AI test event exists
 
   Scenario: Generate AI suggestions for a recipient

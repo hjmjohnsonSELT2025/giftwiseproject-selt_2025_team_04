@@ -1,6 +1,6 @@
 <h1><%= "Details about #{@gift.name}" %></h1>
 <!--<p><%#= "Recipient: #{@gift.recipient}" %></p>-->
-<p><%= "Details: #{@gift.description}" %></p>
+<p><%= "#{@gift.description}" %></p>
 <p><%= "Recipient: #{@gift.recipient.name}" %></p>
 <%= hidden_field_tag :back, @back %>
 <!--only show edit and delete buttons if the owner is signed in-->
