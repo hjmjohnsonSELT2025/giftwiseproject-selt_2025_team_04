@@ -34,7 +34,7 @@ class GiftsController < ApplicationController
 
     end
     @back=params[:back]
-    @event = current_user.events.find(params[:event])
+    @event = current_user.events.find(params[:event_id])
     @event_recipients = @event.recipients.all
   end
 
