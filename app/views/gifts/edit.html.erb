@@ -4,18 +4,16 @@
   <%= form_for @gift do |form| %>
     <%= form.hidden_field :user_id, value: current_user.id %>
     <%= hidden_field_tag :back, @back %>
-    <%= form.hidden_field :event_id, value: nil %>
+    <%= form.hidden_field :event_id, value: @gift.event_id %>
 
     <div class="form-group">
       <%= form.label :name %>
       <%= form.text_field :name, required: true %>
     </div>
-
     <div class="form-group">
       <%= form.label :description %>
       <%= form.text_area :description, rows: 3 %>
     </div>
-
     <div class="form-group">
       <%= form.label :recipient_id, "Recipient" %>
       <%= form.select :recipient_id,
@@ -27,20 +25,23 @@
                       ),
                       { prompt: "Select recipient" } %>
     </div>
-
     <div class="form-group">
       <%= form.label :price %>
       <%= form.number_field :price, step: 0.01 %>
     </div>
-
     <div class="form-group">
       <%= form.label :visibility, "Who can see this gift?" %>
-      <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
+      <%= form.select :visibility, Gift::VISIBILITY_LIST %>
     </div>
-
+    <div class="form-group">
+      <%= form.label :status, "What's the status of this gift?" %>
+      <%= form.select :status, Gift::STATUS_LIST %>
+    </div>
     <div class="form-actions">
       <%= form.submit "Update Gift", class: "btn btn-teal" %>
       <%= link_to "Cancel", @back, class: "btn btn-dark" %>
     </div>
   <% end %>
 </div>
+
+<%= link_to "Back", @back %>

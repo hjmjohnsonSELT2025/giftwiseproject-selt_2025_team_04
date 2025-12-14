@@ -18,14 +18,6 @@ class GiftCommentsController < ApplicationController
     end
   end
 
-  def edit
-
-  end
-
-  def update
-
-  end
-
   def destroy
     @gift_comment = current_user.gift_comments.find(params[:id])
     @gift_id = @gift_comment.gift.id
