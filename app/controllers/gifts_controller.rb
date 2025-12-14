@@ -23,9 +23,7 @@ class GiftsController < ApplicationController
         @new_gift.price             = suggestion.estimated_price
         @new_gift.recipient_id      = suggestion.recipient_id
         @new_gift.event_id          = suggestion.event_id
-        @new_gift.best_vendor_name  = suggestion.best_vendor_name
-        @new_gift.best_vendor_url   = suggestion.best_vendor_url
-        @new_gift.best_vendor_price = suggestion.best_vendor_price
+        @new_gift.gift_suggestion_id = suggestion.id
       end
 
     else
@@ -39,7 +37,10 @@ class GiftsController < ApplicationController
   end
 
   def create
-    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility]}
+    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description],
+                    :price => params[:gift][:price].to_f, :user_id => current_user.id,
+                    :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id],
+                    :visibility => params[:gift][:visibility], :gift_suggestion_id => params[:gift][:gift_suggestion_id]}
     @new_gift = Gift.new(@save_params)
     @back=params[:back]
     if @new_gift.save
@@ -81,6 +82,6 @@ class GiftsController < ApplicationController
   private
   def save_params
     params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id,
-                                 :visibility, :best_vendor_name, :best_vendor_url, :best_vendor_price, :back) #For optimal pricing prob will need status too
+                                 :visibility, :gift_suggestion_id, :back) #For optimal pricing prob will need status too
   end
 end
