@@ -1,43 +1,60 @@
-<h1>New Recipient</h1>
-<%= form_with(model: @recipient) do |recipient| %>
-  <%= hidden_field_tag :back, @back %>
-  <% unless @event.nil? %>
-    <%= hidden_field_tag :event, @event.id %>
+<h1 class="page-title">New Recipient</h1>
+
+<div class="form-card">
+  <%= form_with(model: @recipient, local: true) do |recipient| %>
+    <%= hidden_field_tag :back, @back %>
+
+    <% unless @event.nil? %>
+      <%= hidden_field_tag :event, @event.id %>
+    <% end %>
+
+    <div class="form-group">
+      <%= recipient.label :assigned_user_id, "Assign to Friend" %>
+      <%= recipient.collection_select :assigned_user_id,
+                                      @friends,
+                                      :id,
+                                      :email,
+                                      { prompt: "Select a friend" } %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :name %>
+      <%= recipient.text_field :name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :age %>
+      <%= recipient.number_field :age, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :budget %>
+      <%= recipient.number_field :budget %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :occupation %>
+      <%= recipient.text_field :occupation %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :hobbies %>
+      <%= recipient.text_area :hobbies, rows: 3 %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :likes %>
+      <%= recipient.text_area :likes, rows: 3 %>
+    </div>
+
+    <div class="form-group">
+      <%= recipient.label :dislikes %>
+      <%= recipient.text_area :dislikes, rows: 3 %>
+    </div>
+
+    <div class="form-actions">
+      <%= recipient.submit "Create Recipient", class: "btn btn-teal" %>
+      <%= link_to "Cancel", @back, class: "btn btn-dark" %>
+    </div>
   <% end %>
-  <p>
-  <%= recipient.label :assigned_user_id %>
-  <%= recipient.collection_select :assigned_user_id, @friends, :id, :email, prompt: "Select a friend to assign" %>
-  </p>
-  <p>
-    <%= recipient.label :name %><br>
-    <%= recipient.text_field :name, required: true%>
-  </p>
-  <p>
-    <%= recipient.label :age%><br>
-    <%=recipient.number_field :age, required: true %>
-  </p>
-  <p>
-    <%= recipient.label :occupation%><br>
-    <%=recipient.text_field :occupation %>
-  </p>
-  <p>
-    <%= recipient.label :hobbies%><br>
-    <%=recipient.text_area :hobbies %>
-  </p>
-  <p>
-    <%= recipient.label :likes%><br>
-    <%=recipient.text_area :likes %>
-  </p>
-  <p>
-    <%= recipient.label :dislikes%><br>
-    <%=recipient.text_area :dislikes %>
-  </p>
-  <p>
-    <%= recipient.label :budget%><br>
-    <%=recipient.number_field :budget %>
-  </p>
-
-  <p><%= recipient.submit "Create" %></p>
-<% end %>
-
-<p><%= link_to "Back", @back %></p>
+</div>

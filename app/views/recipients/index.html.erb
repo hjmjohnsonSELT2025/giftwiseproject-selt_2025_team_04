@@ -1,27 +1,55 @@
-<h1>Recipients</h1>
-<%=form_with url: recipients_path, method: :get, local: true do |search| %>
-  <%=search.label :query, "Search recipients" %>
-  <%=search.text_field :query, value: params[:query] %>
-  <%=search.submit "Search" %>
+<h1 class="page-title">Recipients</h1>
 
-  <% if params[:query].present? %>
-    <%= link_to "Clear", recipients_path %>
+<div class="search-card">
+  <%= form_with url: recipients_path, method: :get, local: true do |search| %>
+    <div class="search-row">
+      <%= search.label :query, "Search recipients" %>
+      <%= search.text_field :query, value: params[:query], placeholder: "Enter name..." %>
+      <%= search.submit "Search", class: "btn btn-teal" %>
+
+      <% if params[:query].present? %>
+        <%= link_to "Clear", recipients_path, class: "btn btn-dark" %>
+      <% end %>
+    </div>
   <% end %>
+</div>
+
+<div class="page-actions">
+  <%= link_to "Add New Recipient", new_recipient_path, class: "btn btn-aqua" %>
+</div><br>
+
+<% if @recipients.any? %>
+  <div class="recipients-grid">
+    <% @recipients.each do |recipient| %>
+      <div class="recipient-card">
+        <div class="recipient-info">
+          <h3><%= recipient.name %></h3>
+          <p><%= recipient.age %> years old</p>
+        </div>
+
+        <div class="recipient-actions">
+          <%= link_to "View",
+                      recipient_path(recipient),
+                      class: "btn btn-teal" %>
+
+          <%= link_to "Edit",
+                      edit_recipient_path(recipient),
+                      class: "btn btn-dark" %>
+
+          <%= button_to "Delete",
+                        recipient_path(recipient),
+                        method: :delete,
+                        form: { style: "display:inline" },
+                        class: "btn btn-danger",
+                        confirm: "Are you sure you want to delete #{recipient.name} from your list?" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state">You do not have any recipients yet.</p>
 <% end %>
-<p>
-  <%= link_to "Add new Recipient",new_recipient_path %>
-</p>
-<ul>
-  <% @recipients.each do |recipient| %>
-    <li>
-      <strong> <%=recipient.name %></strong>
-      (<%=recipient.age %> years old)
-      <%= link_to "Edit",edit_recipient_path(recipient) %>
-      <%= button_to "Delete #{recipient.name}", recipient_path(recipient), method: :delete,confirm: "Are you sure you want to delete #{recipient.name} from your list" %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "back", home_index_path %>
-<% if @recipients.empty? %>
-  <p>You do not have any recipients.</p>
-<% end %>
+
+<div class="page-actions">
+  <%= link_to "← Back", home_index_path, class: "btn btn-dark" %>
+</div>

@@ -1,41 +1,35 @@
-<h1>view recipient</h1>
-  <p>
-    <% if @recipient.assigned_user_id && @friends.present? %>
-      <% assigned=@friends.find {|friend| friend.id==@recipient.assigned_user_id} %>
-      <%= assigned.email || "No friend assigned" %>
-    <%else %>
-      No friends
-    <% end %>
-  </p>
-  <p>
-    <strong>Name:</strong>
-    <%=@recipient.name%>
-  </p>
-  <p>
-    <strong>age:</strong>
-    <%=@recipient.age%>
-  </p>
-  <p>
-    <strong>occupation:</strong>
-    <%=@recipient.occupation%>
-  </p>
-  <p>
-    <strong>hobbies:</strong>
-    <%=@recipient.hobbies%>
-  </p>
-  <p>
-    <strong>likes:</strong>
-    <%=@recipient.likes%>
-  </p>
-  <p>
-    <strong>dislikes:</strong>
-    <%=@recipient.dislikes%>
-  </p>
-  <p>
-    <strong>budget:</strong>
-    <%=@recipient.budget%>
-  </p>
+<h1 class="page-title">View Recipient</h1>
 
-<%= link_to "Edit",edit_recipient_path(@recipient.id, back:@back) %>
-<%= link_to "Back",@back %>
-<%= button_to "Delete", recipient_path(@recipient, back:@back), method: :delete, confirm: "Are you sure?" %>
+<div class="details-card">
+  <div class="details-header">
+    <h2><%= @recipient.name %></h2>
+    <p class="muted">
+      <% if @recipient.assigned_user_id && @friends.present? %>
+        <% assigned = @friends.find { |friend| friend.id == @recipient.assigned_user_id } %>
+        Assigned to: <%= assigned&.email || "No friend assigned" %>
+      <% else %>
+        No friends assigned
+      <% end %>
+    </p>
+  </div>
+
+  <div class="details-grid">
+    <p><strong>Age:</strong> <%= @recipient.age %></p>
+    <p><strong>Occupation:</strong> <%= @recipient.occupation %></p>
+    <p><strong>Hobbies:</strong> <%= @recipient.hobbies %></p>
+    <p><strong>Likes:</strong> <%= @recipient.likes %></p>
+    <p><strong>Dislikes:</strong> <%= @recipient.dislikes %></p>
+    <p><strong>Budget:</strong> <%= number_to_currency(@recipient.budget) rescue @recipient.budget %></p>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Edit", edit_recipient_path(@recipient, back: @back), class: "btn btn-teal" %>
+    <%= link_to "Back", @back, class: "btn btn-dark" %>
+    <%= button_to "Delete",
+                  recipient_path(@recipient, back: @back),
+                  method: :delete,
+                  form: { style: "display:inline" },
+                  class: "btn btn-danger",
+                  confirm: "Are you sure?" %>
+  </div>
+</div>
