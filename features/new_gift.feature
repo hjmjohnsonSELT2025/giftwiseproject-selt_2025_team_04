@@ -12,7 +12,7 @@ Feature: I can add gifts to the database
     Then I should see "test"
     When I click Add Gift
     When I submit my gift info
-    Then I should see the new gift
+    Then I should see the new gift plates
 
   Scenario:
     When I click Events

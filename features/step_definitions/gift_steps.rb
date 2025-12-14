@@ -53,3 +53,7 @@ end
 Then(/I should see the new gift (.*)/) do |name|
   expect(page).to have_content(name)
 end
+
+Then(/I should see the new gift info/) do
+  expect(page).to have_content("plates")
+end
