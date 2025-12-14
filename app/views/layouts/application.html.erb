@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Giftwise</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <title>GiftWise</title>
 
-    <%= stylesheet_link_tag "application" %>
-  </head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <body>
-    <%= render "layouts/navbar" %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+</head>
+
+<body>
+<%= render "layouts/navbar" %>
+
+<main class="app-main">
+  <% if notice.present? %>
+    <div class="flash notice"><%= notice %></div>
+  <% end %>
+
+  <% if alert.present? %>
+    <div class="flash alert"><%= alert %></div>
+  <% end %>
+
+  <%= yield %>
+</main>
+</body>
 </html>
