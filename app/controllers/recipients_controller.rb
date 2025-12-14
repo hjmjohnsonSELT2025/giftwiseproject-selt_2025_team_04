@@ -73,7 +73,7 @@ class RecipientsController < ApplicationController
     @back = params[:back]
     flash[:notice]="#{@recipient.name} was removed."
     unless @back.nil?
-      redirect_to back
+      redirect_to @back
       return
     end
     redirect_to recipient_path
