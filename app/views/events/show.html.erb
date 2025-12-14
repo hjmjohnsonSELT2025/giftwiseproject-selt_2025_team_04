@@ -57,6 +57,12 @@
                       recipient_path(recipient, back: event_path(@event)),
                       class: "btn btn-teal" %>
 
+          <%= link_to "generate ideas for #{recipient.name}",
+                      event_gift_suggestions_path(@event,
+                                                  recipient_id: recipient.id,
+                                                  back: event_path(@event)),
+                                                  class: "btn btn-aqua"%>
+
           <%= button_to "Remove",
                         remove_from_event_path(
                           recipient: recipient.id,
@@ -131,21 +137,6 @@
                    prompt: "Select a friend" %>
 
     <%= submit_tag "Invite", class: "btn btn-aqua" %>
-  <% end %>
-</section>
-
-<section class="container">
-  <h3>Event Settings</h3>
-
-  <%= form_with model: @event, method: :patch do |f| %>
-    <div class="checkbox-group">
-      <%= f.label :reminders_enabled do %>
-        <%= f.check_box :reminders_enabled %>
-        Enable Reminders
-      <% end %>
-    </div>
-
-    <%= f.submit "Update Settings", class: "btn btn-teal" %>
   <% end %>
 </section>
 

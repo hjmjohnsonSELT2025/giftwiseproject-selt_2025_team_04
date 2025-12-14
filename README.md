@@ -1,7 +1,11 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/dOTUOfXR)
 # SELT Project 2025
 
+
 ## To run the rails app locally
+**Pull the credentials.yml.enc file from main and replace the contents of your config/master.key with `d301b5e867fdf1aa91fc3e68452703e4`**  
+  
+<del>
 In order to use the OAuth github support you must create your own github OAuth key.
 
 1. Go to github, settings -> developer settings
@@ -19,6 +23,7 @@ github:
   client_secret: <secret>
 ```
 7. save and close. Then the app should continue working.
+</del>
 
 ## To seed the test database
 Rails is in the development environment by default. If you want to add seed values to the test database for your rspec tests, run `RAILS_ENV=test rails db:seed`.

@@ -38,20 +38,32 @@ class GiftSuggestionAi
     parts << "Each idea should have a short name, a short description, and an estimate of price in USD."
     parts << "Return them as a numbered list."
 
-    #trying best to format correctly for readability, I'm going to miss spots but that is life
-    # mostly want to do it in spotslike this where it helps make sure everything there
     if @recipient
-      parts << "Recipient name: #{@recipient.name}."  if @recipient.name.present?
-      parts << "Age: #{@recipient.age}."              if @recipient.age.present?
-      parts << "Hobbies: #{@recipient.hobbies}."      if @recipient.hobbies.present?
-      parts << "Likes: #{@recipient.likes}."          if @recipient.likes.present?
-      parts << "Dislikes: #{@recipient.dislikes}."    if @recipient.dislikes.present?
-      parts << "Budget: about $#{@recipient.budget}." if @recipient.budget.present?
+      parts << "Recipient name: #{@recipient.name}."            if @recipient.name.present?
+      parts << "Age: #{@recipient.age}."                        if @recipient.age.present?
+      parts << "Hobbies: #{@recipient.hobbies}."                if @recipient.hobbies.present?
+      parts << "Likes: #{@recipient.likes}."                    if @recipient.likes.present?
+      parts << "Dislikes: #{@recipient.dislikes}."              if @recipient.dislikes.present?
+      parts << "Budget: around or under $#{@recipient.budget}." if @recipient.budget.present?
+      if @recipient.budget < 2
+        parts << "Homemade or handmade gifts."
+      end
     end
 
     if @event
       parts << "Event: #{@event.title}." if @event.title.present?
       parts << "Theme: #{@event.theme}." if @event.theme.present?
+    end
+
+    existing = GiftSuggestion.where(user_id: @user.id)
+    existing = existing.where(recipient_id: @recipient) if @recipient
+    existing = existing.where(event_id: @event.id)      if @event
+
+    used_titles = existing.order(created_at: :asc).limit(15).pluck(:title).compact.uniq
+
+    if used_titles.any?
+      parts << "You have ALREADY suggested the following ideas for this recipient. Do NOT repeat these or close variations of them:"
+      parts << used_titles.join(" ; ")
     end
 
     parts.join(" ")
@@ -74,7 +86,6 @@ class GiftSuggestionAi
     end
     chunks << current_chunk if current_chunk
 
-
     Rails.logger.info "Ai chunks: #{chunks.inspect}"
 
     #cleaned = line.sub(/^\s*\d+\s*[\).\:\-]\s*/, "")
@@ -84,9 +95,11 @@ class GiftSuggestionAi
       first_line = chunk.first.to_s
       cleaned_title = first_line.sub(/^\d+\s*[\).\:\-]\s*/, "")
       cleaned_title = cleaned_title.gsub("**", "").strip
+
       body_lines = chunk[1..] || []
       body_text = body_lines.join(" ").strip
       full_body = body_text.dup
+
       price = nil
       if full_body =~ /\$([\d\.,]+)/
         price = $1.tr(",", "").to_f
@@ -99,8 +112,6 @@ class GiftSuggestionAi
       end
 
       clean_body = clean_sentences.join(" ").strip
-
-
 
       {
         title: cleaned_title.presence || "Gift idea",

@@ -2,6 +2,8 @@ class Gift < ApplicationRecord
   belongs_to :user # aka the buyer
   belongs_to :recipient
   belongs_to :event, optional: true
+  belongs_to :gift_suggestion, optional: true
+
   has_many :gift_comments
 
   validates :user, presence: true
