@@ -81,9 +81,7 @@
 
 <h2>People in this event:</h2>
 <ul id="details">
-  <% @event.users.each { |u| %>
-    <li><%=  u.email  %></li>
-  <%  } %>
+  <% @event.users.each { |u| %> <li><%=  "#{u.email} #{'(Owner)' if u==@event.owner}"  %></li> <%  } %>
 </ul>
 
 <section>
@@ -98,15 +96,15 @@
 
 <% end %>
 
-<%= form_with(model: @event, method: :patch,) do |f| %>
-  <%= f.label :reminders_enabled, "Enable Reminders" %>
-  <%= f.check_box :reminders_enabled %>
-  <%= f.submit "Update" %>
-<% end %>
 <br>
-<%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
-<%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
-<%= link_to 'Home', home_index_path %>
+<% if @user == @event.owner %>
+  <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
+  <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
+<% else %>
+  <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?' %>
+<% end %>
+
+  <%= link_to 'Home', home_index_path %>
 <%= link_to "All Events", events_path %>
 
 
