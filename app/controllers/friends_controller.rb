@@ -25,6 +25,7 @@ class FriendsController < ApplicationController
     @friend_request = FriendRequest.create(requester: @user, requestee: @requestee)
     if @friend_request.save
       flash[:notice] = "Friend request sent."
+      UserMailer.with(user: @requestee, requestee: @user).friend_request.deliver_now
     else
       flash[:notice] = "Friend request failed."
     end

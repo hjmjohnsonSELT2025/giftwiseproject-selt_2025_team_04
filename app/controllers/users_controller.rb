@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+
+
   def edit
     @user = current_user
     @likes = @user.likes.map { |like| like.item}.join(", ")
