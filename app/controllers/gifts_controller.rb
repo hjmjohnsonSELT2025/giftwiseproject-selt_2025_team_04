@@ -39,6 +39,8 @@ class GiftsController < ApplicationController
     @back=params[:back]
     @event = current_user.events.find(params[:event_id])
     @event_recipients = @event.recipients.all
+
+    @backlog = current_user.gifts.where(recipient_id: @recipient, status: 0)
   end
 
   def create
@@ -60,6 +62,9 @@ class GiftsController < ApplicationController
 
   def edit
     @gift = current_user.gifts.find(params[:id])
+    if not params[:event_id].nil?
+      @gift.event_id = params[:event_id]
+    end
     @back=params[:back] || gifts_path
   end
 

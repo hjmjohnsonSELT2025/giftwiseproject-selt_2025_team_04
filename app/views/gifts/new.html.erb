@@ -38,3 +38,21 @@
     </div>
   <% end %>
 </div>
+
+<% if @backlog.any? %>
+  <p><%= "Backlogged ideas for #{current_user.recipients.find(@recipient).name}" %></p>
+<% end %>
+<div class="gifts-grid">
+  <% @backlog.each do |gift| %>
+    <div class="gift-card">
+      <div class="gift-info">
+        <h3><%= gift.name %></h3>
+      </div>
+
+      <div class="gift-actions">
+        <%= link_to "Use this gift", edit_gift_path(gift, event_id: @event.id), class: "btn btn-teal" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
