@@ -13,6 +13,7 @@ Feature: I can add gifts to the database
     When I click Add Gift
     When I submit my gift info
     Then I should see the new gift plates
+    Then I should see "Idea"
 
   Scenario:
     When I click Events

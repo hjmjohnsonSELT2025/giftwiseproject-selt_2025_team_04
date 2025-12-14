@@ -20,6 +20,7 @@ When(/I submit my gift info/) do
   fill_in "Description", with: "for eating"
   fill_in "Price", with: 20
   select "Everyone", :from => :gift_visibility
+  select "Idea", :from => :gift_status
   click_button "Create"
 end
 
@@ -31,6 +32,7 @@ When(/I submit bad gift info/) do
   fill_in "Name", with: "forks"
   fill_in "Description", with: "for throwing"
   fill_in "Price", with: -15
+
   click_button "Create"
 end
 
