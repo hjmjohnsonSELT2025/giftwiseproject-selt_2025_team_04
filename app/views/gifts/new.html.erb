@@ -1,32 +1,42 @@
-<h1>Create a new gift</h1>
+<h1 class="page-title">Create New Gift</h1>
 
-<%= form_for @new_gift do |form| %>
-  <%= form.hidden_field :user_id,  value: current_user.id %>
-  <%= form.hidden_field :gift_suggestion_id%>
-      <%= hidden_field_tag :back, @back %>
-  <%= hidden_field_tag :event, @event.id %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-  <div>
-    <%= form.label :recipient_id, "Select recipient" %>
-    <%= form.select :recipient_id, options_from_collection_for_select(@event_recipients, :id, :name, @recipient) %> <!-- replace with recipient ID -->
-  </div>
-  <div>
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01 %>
-  </div>
-  <div>
-    <%= form.label :visibility, "Who can see this gift?" %>
-    <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
-  </div>
-  <%= form.hidden_field :event_id,  value: @event.id %> <!-- replace with event ID -->
-  <%= form.submit "Create" %>
-<% end %>
+<div class="form-card">
+  <%= form_for @new_gift do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :back, value: @back %>
+    <%= form.hidden_field :event_id, value: @event.id %>
+    <%= form.hidden_field :gift_suggestion_id%>
 
-<%= link_to "Back", @back %>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, rows: 3 %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :recipient_id, "Recipient" %>
+      <%= form.select :recipient_id,
+                      options_from_collection_for_select(@event_recipients, :id, :name, @recipient),
+                      { prompt: "Select recipient" } %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :price %>
+      <%= form.number_field :price, step: 0.01 %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :visibility, "Who can see this gift?" %>
+      <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Create Gift", class: "btn btn-teal" %>
+      <%= link_to "Cancel", @back, class: "btn btn-dark" %>
+    </div>
+  <% end %>
+</div>

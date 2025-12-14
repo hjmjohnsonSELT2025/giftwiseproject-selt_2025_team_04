@@ -1,26 +1,76 @@
-<h1><%= "Details about #{@gift.name}" %></h1>
-<!--<p><%#= "Recipient: #{@gift.recipient}" %></p>-->
-<p><%= "#{@gift.description}" %></p>
-<p><%= "Recipient: #{@gift.recipient.name}" %></p>
-<%= hidden_field_tag :back, @back %>
-<!--only show edit and delete buttons if the owner is signed in-->
-<% if @gift.user.id == current_user.id %>
-  <%= link_to "Edit gift", edit_gift_path(@gift,back: @back) %>
-  <%= button_to 'Delete', gift_path(@gift, back:@back), method: :delete %>
-<% end %>
+<h1 class="page-title"><%= @gift.name %></h1>
 
-<%= link_to "Back", @back %>
+<div class="details-card">
+  <div class="details-grid">
+    <p>
+      <strong>Description:</strong><br>
+      <%= @gift.description.presence || "No description provided." %>
+    </p>
 
-<h2>Comments</h2>
-<% @gift.gift_comments.each do |comment| %>
-  <%= "User: #{comment.user.email}" %><br>
-  <%= comment.content %><br>
-  <% if comment.user_id == current_user.id %>
-    <%= button_to "Delete comment", gift_comment_path(comment, back:@back), method: :delete %>
+    <!--<p><%#= "Recipient: #{@gift.recipient}" %></p>-->
+    <p>
+      <strong>Recipient:</strong><br>
+      <%= @gift.recipient&.name || "Unassigned" %>
+    </p>
+  </div>
+
+  <% if @gift.user.id == current_user.id %>
+    <div class="form-actions">
+      <%= link_to "Edit Gift",
+                  edit_gift_path(@gift, back: @back),
+                  class: "btn btn-teal" %>
+
+      <%= button_to "Delete Gift",
+                    gift_path(@gift, back: @back),
+                    method: :delete,
+                    form: { style: "display:inline" },
+                    class: "btn btn-danger",
+                    confirm: "Are you sure you want to delete this gift?" %>
+    </div>
   <% end %>
+</div>
+
+<div class="page-actions">
+  <%= link_to "Back", @back, class: "btn btn-dark" %>
+</div>
+
+<h2 class="section-title">Comments</h2>
+
+<% if @gift.gift_comments.any? %>
+  <div class="comments-list">
+    <% @gift.gift_comments.each do |comment| %>
+      <div class="comment-card">
+        <p class="comment-meta">
+          <strong><%= comment.user.email %></strong>
+        </p>
+        <p><%= comment.content %></p>
+
+        <% if comment.user_id == current_user.id %>
+          <div class="comment-actions">
+            <%= button_to "Delete",
+                          gift_comment_path(comment, back: @back),
+                          method: :delete,
+                          class: "btn btn-danger" %>
+            <%= link_to "Edit",
+                        edit_gift_comment_path(comment, back: @back),
+                        class: "btn btn-aqua"%>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state">No comments yet.</p>
 <% end %>
 
-<!--include the gift id in the parameters so the user can return here-->
-<!--and also so we can link the comment to the gift-->
-<%= link_to "Leave a new comment", new_gift_comment_path(return_id: @gift.id, back: @back) %>
-<p>For a monthly subscription of only $7.99 you can edit your comments too!</p>
+<div class="page-actions">
+  <!--include the gift id in the parameters so the user can return here-->
+  <!--and also so we can link the comment to the gift-->
+  <%= link_to "Add Comment",
+              new_gift_comment_path(return_id: @gift.id, back: @back),
+              class: "btn btn-aqua" %>
+</div>
+
+<p class="muted-note">
+  For a monthly subscription of only $7.99 you can edit your comments too!
+</p>

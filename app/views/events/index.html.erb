@@ -1,30 +1,30 @@
-<h1>All events</h1>
-<table id="events">
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Location</th>
-    <th>Theme</th>
-    <th>Date</th>
-    <th>More info</th>
-  </tr>
-  </thead>
-  <tbody>
-  <%@events.each do |event| %>
-    <tr>
-      <td><%= event.title %></td>
-      <td><%= event.location %></td>
-      <td><%= event.theme %></td>
-      <td><%= event.date %></td>
-      <td><%= link_to "More about #{event.title}", event_path(event) %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-<p>
-  <%= link_to "Add new event", new_event_path(back: events_path) %>
-</p>
+<h1 class="page-title">All Events</h1>
 
-<p>
-  <%= link_to "Back", home_index_path %>
-</p>
+
+<div class="page-actions">
+  <%= link_to "Add New Event", new_event_path(back: events_path), class: "btn btn-aqua" %>
+</div><br>
+
+<div class="events-grid">
+  <% @events.each do |event| %>
+    <div class="event-card">
+      <div class="event-header">
+        <h2><%= event.title %></h2>
+        <span class="event-date"><%= event.date.strftime("%B %d, %Y") rescue event.date %></span>
+      </div>
+
+      <div class="event-details">
+        <p><strong>Location:</strong> <%= event.location %></p>
+        <p><strong>Theme:</strong> <%= event.theme %></p>
+      </div>
+
+      <div class="event-actions">
+        <%= link_to "View Event", event_path(event), class: "btn btn-teal" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="page-actions">
+  <%= link_to "Back", home_index_path, class: "btn btn-dark" %>
+</div>

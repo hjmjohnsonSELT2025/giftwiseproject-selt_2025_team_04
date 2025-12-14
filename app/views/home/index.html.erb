@@ -1,24 +1,45 @@
-<h1>Welcome, <%=@username %>.</h1>
-<%= button_to "Sign Out", destroy_user_session_path, method: :delete, id: "sign_out" %>
-<%= link_to "Profile", user_path %>
-<%= link_to "Friends (#{@friends.length})", friends_path %>
+<header class="dashboard-header">
+  <h1>Welcome, <%= @username %>.</h1>
+</header>
 
-<h2>Upcoming Event</h2>
-<% if @next_event %>
-  <p><strong><%=@next_event.title %></strong></p>
-  <p>Date: <%= @next_event.date %></p>
-  <% unless @next_event.location.empty? %>
-    <p>Location: <%= @next_event.location %></p>
+<section class="dashboard-section">
+  <h2>Upcoming Event</h2>
+
+  <% if @next_event %>
+    <div class="container event-card">
+      <p class="event-title">
+        <strong><%= @next_event.title %></strong>
+      </p>
+
+      <p>Date: <%= @next_event.date %></p>
+
+      <% if @next_event.location.present? %>
+        <p>Location: <%= @next_event.location %></p>
+      <% end %>
+
+      <% if @next_event.theme.present? %>
+        <p>Theme: <%= @next_event.theme %></p>
+      <% end %>
+
+      <%= link_to "View Upcoming Event",
+                  event_path(@next_event),
+                  class: "btn btn-teal" %>
+    </div>
+  <% else %>
+    <p class="empty-state">No upcoming events</p>
   <% end %>
-  <% unless @next_event.theme.empty? %>
-    <p>Theme: <%=@next_event.theme %></p>
-  <% end %>
-  <%= link_to "View Upcoming event", event_path(@next_event) %>
-<% else %>
-  <p>No upcoming events</p>
-<% end %>
-<h2>Events</h2>
-<p>
-  <%= link_to "Add new event", new_event_path(back: home_index_path) %>
-  <%= link_to "View all events", events_path %>
-</p>
+</section>
+
+<section class="dashboard-section">
+  <h2>Events</h2>
+
+  <div class="dashboard-actions">
+    <%= link_to "Add New Event",
+                new_event_path(back: home_index_path),
+                class: "btn btn-aqua" %>
+
+    <%= link_to "View All Events",
+                events_path,
+                class: "btn btn-dark" %>
+  </div>
+</section>

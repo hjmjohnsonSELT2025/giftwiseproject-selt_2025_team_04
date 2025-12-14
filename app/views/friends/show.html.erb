@@ -1,21 +1,40 @@
-<h1><%= @username %></h1>
-<%= link_to "Back", friends_path %>
+<h1 class="page-title"><%= @username %></h1>
 
-<p>Preferred name:<%= @friend.preferred_name %></p>
-<p>Pronouns: <%= @friend.pronouns %></p>
-<p>Age: <%= @friend.age %></p>
-<p>Job: <%= @friend.job %></p>
+<div class="details-card">
+  <div class="details-grid">
+    <p><strong>Preferred name:</strong> <%= @friend.preferred_name.presence || "—" %></p>
+    <p><strong>Pronouns:</strong> <%= @friend.pronouns.presence || "—" %></p>
+    <p><strong>Age:</strong> <%= @friend.age.presence || "—" %></p>
+    <p><strong>Job:</strong> <%= @friend.job.presence || "—" %></p>
+  </div>
+</div>
 
-<h3>Likes</h3>
-<ul>
-  <% @friend.likes.each do |like| %>
-    <li> <%= like.item %></li>
-  <% end %>
-</ul>
+<h2 class="section-title">Likes</h2>
+<% if @friend.likes.any? %>
+  <div class="list-card">
+    <ul class="clean-list">
+      <% @friend.likes.each do |like| %>
+        <li><%= like.item %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p class="empty-state">No likes listed.</p>
+<% end %>
 
-<h3>Dislikes</h3>
-<ul>
-  <% @friend.dislikes.each do |like| %>
-    <li> <%= like.item %></li>
-  <% end %>
-</ul>
+<h2 class="section-title">Dislikes</h2>
+<% if @friend.dislikes.any? %>
+  <div class="list-card">
+    <ul class="clean-list">
+      <% @friend.dislikes.each do |like| %>
+        <li><%= like.item %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p class="empty-state">No dislikes listed.</p>
+<% end %>
+
+<div class="page-actions">
+  <%= link_to "Back", friends_path, class: "btn btn-dark" %>
+</div>

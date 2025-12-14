@@ -1,23 +1,44 @@
-<h1>Profile</h1>
-<%= link_to "Home", root_path %>
+<h1 class="page-title">Profile</h1>
 
-<p>Preferred name:<%= @user.preferred_name %></p>
-<p>Pronouns: <%= @user.pronouns %></p>
-<p>Age: <%= @user.age %></p>
-<p>Job: <%= @user.job %></p>
+<div class="details-card">
+  <div class="details-grid">
+    <p><strong>Preferred name:</strong> <%= @user.preferred_name.presence || "—" %></p>
+    <p><strong>Pronouns:</strong> <%= @user.pronouns.presence || "—" %></p>
+    <p><strong>Age:</strong> <%= @user.age.presence || "—" %></p>
+    <p><strong>Job:</strong> <%= @user.job.presence || "—" %></p>
+  </div>
 
-<h3>Likes</h3>
-  <ul>
-    <% @user.likes.each do |like| %>
-      <li> <%= like.item %></li>
-    <% end %>
-  </ul>
+  <div class="form-actions">
+    <%= link_to "Edit Profile", edit_user_path, class: "btn btn-teal" %>
+  </div>
+</div>
 
-<h3>Dislikes</h3>
-<ul>
-  <% @user.dislikes.each do |like| %>
-    <li> <%= like.item %></li>
-  <% end %>
-</ul>
+<h2 class="section-title">Likes</h2>
+<% if @user.likes.any? %>
+  <div class="list-card">
+    <ul class="clean-list">
+      <% @user.likes.each do |like| %>
+        <li><%= like.item %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p class="empty-state">No likes listed.</p>
+<% end %>
 
-<%= link_to "Edit", edit_user_path %>
+<h2 class="section-title">Dislikes</h2>
+<% if @user.dislikes.any? %>
+  <div class="list-card">
+    <ul class="clean-list">
+      <% @user.dislikes.each do |like| %>
+        <li><%= like.item %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p class="empty-state">No dislikes listed.</p>
+<% end %>
+
+<div class="page-actions">
+  <%= link_to "Home", root_path, class: "btn btn-dark" %>
+</div>
