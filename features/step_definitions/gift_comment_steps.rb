@@ -1,6 +1,6 @@
 When(/I submit my comment info/) do
-  fill_in "Content", with: "test content for cucumber"
-  click_button "Create"
+  fill_in "gift_comment_content", with: "test content for cucumber"
+  click_button "Post Comment"
 end
 
 Then(/I should see the new comment on the gift details page/) do

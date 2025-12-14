@@ -13,7 +13,6 @@ end
 
 When(/I click (.*)/) do |link|
   click_link(link)
-  #puts page.body
 end
 
 When(/I submit my gift info/) do

@@ -11,7 +11,6 @@ Feature: I can leave comments on gifts
     When I click Gifts
     When I click View
     Then I should see "test"
-    When I click View
     When I click Add Comment
     When I submit my comment info
     Then I should see the new comment on the gift details page
