@@ -37,6 +37,8 @@
     color: white;
     border-bottom: 3px solid var(--c1);
     box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
 }
 
 .nav-center {
