@@ -87,7 +87,7 @@
 }
 
 .container:hover {
-    transform: translateY(-2px);
+    box-shadow: 2px 6px 6px 2px var(--c2);
 }
 
 .btn {
