@@ -1,6 +1,6 @@
 Given(/I have pending friend requests/) do
   visit new_user_registration_path
-  click_button "sign_out"
+  click_button "Sign Out"
   click_link("Sign up")
   fill_in "user_email", with: "friend@test.test"
   fill_in "user_password", with: "123456"
@@ -11,7 +11,7 @@ Given(/I have pending friend requests/) do
   click_button "Search"
   click_button "Add"
   click_link "Back"
-  click_button "sign_out"
+  click_button "Sign Out"
 
   visit "/users/sign_in"
   fill_in "Email", with: "capybara@test.test"
@@ -39,5 +39,5 @@ Then(/I should see the friend/) do
 end
 
 Given(/I have no friends/) do
-  expect(page).to have_content("You have no friends :(")
+  expect(page).to have_content("You have no friends.")
 end
