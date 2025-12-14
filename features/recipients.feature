@@ -23,15 +23,12 @@ Feature: View, Create, Edit Recipients
        And I press "submit"
        Then I should see "bob was successfully updated."
 
-    Scenario:
-      Given a recipient named "bob"
-      When I visit the recipients page
-      And I press "Delete bob"
-      Then I should see "bob was removed"
+    Scenario: Delete a recipient
+      Given the test recipient exists
+      When I click View all events
+      When I click More about test event
+      When I click view recipient
+      Then I should see "view recipient"
+      When I press "Delete"
+      Then I should see "test was removed"
 
-    Scenario: Search for recipient by name
-      Given a recipient named "bob"
-      When I visit the recipients page
-      And I fill in "query" with "bob"
-      And I press "Search"
-      Then I should see "bob"

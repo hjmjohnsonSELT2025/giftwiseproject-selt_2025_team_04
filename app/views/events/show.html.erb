@@ -35,7 +35,7 @@
     <ul>
       <% @recipients.each do|recipient| %>
         <h4> <%=recipient.name %> </h4>
-          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(event: @event.id,recipient_id: recipient.id,back: event_path(@event))%>
+          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(event_id: @event.id ,event: @event.id,recipient_id: recipient.id,back: event_path(@event))%>
           |
           <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
           |

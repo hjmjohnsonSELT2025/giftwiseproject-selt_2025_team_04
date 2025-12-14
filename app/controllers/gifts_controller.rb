@@ -13,7 +13,7 @@ class GiftsController < ApplicationController
   def new
     @recipient = params[:recipient_id]
     @new_gift = Gift.new # for use with the form_with helper
-
+    @event=current_user.events.find(params[:event_id])
     if params[:gift_suggestion_id].present? # so if user comes from suggestions autofills
       suggestion = GiftSuggestion.find_by(id: params[:gift_suggestion_id])
 
@@ -37,6 +37,8 @@ class GiftsController < ApplicationController
   end
 
   def create
+    @event=current_user.events.find(params[:event])
+    @event_recipients=@event.recipients
     @save_params = {:name => params[:gift][:name], :description => params[:gift][:description],
                     :price => params[:gift][:price].to_f, :user_id => current_user.id,
                     :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id],

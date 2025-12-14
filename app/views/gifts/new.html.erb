@@ -4,6 +4,7 @@
   <%= form.hidden_field :user_id,  value: current_user.id %>
   <%= form.hidden_field :gift_suggestion_id%>
       <%= hidden_field_tag :back, @back %>
+  <%= hidden_field_tag :event, @event.id %>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>

@@ -29,7 +29,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_13_234401) do
     t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "reminders_enabled", default: true, null: false
     t.index ["owner_id"], name: "index_events_on_owner_id"
   end
 

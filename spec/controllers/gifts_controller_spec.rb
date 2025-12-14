@@ -26,9 +26,11 @@ RSpec.describe GiftsController, type: :controller do
     it "should create new gifts successfully" do
       user = User.create!(email:"user67@bruh.com", password:"password123")
       sign_in user
-      @params = { :gift => {:name => "test gift", :description => "gift for testing", :price => "15.5", :recipient_id => Recipient.find_by(:name => "test recipient").id, :visibility => 0} }
+      event=Event.create!(title: "test event",owner: user)
+      user.events<<event unless user.events.exists?(event.id)
+      @params = { event: event.id,:gift => {:name => "test gift", :description => "gift for testing", :price => "15.5", :recipient_id => Recipient.find_by(:name => "test recipient").id, :visibility => 0} }
       # allow(Gift).to receive(:new).and_return(Gift.new(@params))
-      allow(controller).to receive(:current_user).and_return(User.find_by(:email => "a@b.c"))
+      allow(controller).to receive(:current_user).and_return(user)
       post :create, params: @params
       expect(response).to redirect_to("/gifts/2")
     end
