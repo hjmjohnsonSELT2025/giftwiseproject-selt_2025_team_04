@@ -150,10 +150,13 @@
 
 <footer class="page-actions">
   <% if @user == @event.owner %>
-    <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
-    <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
+    <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)),
+                                                class: "btn btn-dark"%>
+    <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?',
+                                                class: "btn btn-dark"%>
   <% else %>
-    <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?' %>
+    <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?',
+                                                          class: "btn btn-dark"%>
   <% end %>
 
   <%= link_to "Home", home_index_path, class: "btn btn-dark" %>
