@@ -60,11 +60,14 @@ class RecipientsController < ApplicationController
     @back = params[:back]
     if @recipient.update(recipient_params)
       flash[:notice]="#{@recipient.name} was successfully updated."
-      redirect_to recipients_path
     else
       flash[:warning]="enter valid characteristics"#temporary for first sprint
-      redirect_to recipients_path
     end
+    unless @back.nil?
+      redirect_to @back
+      return
+    end
+    redirect_to recipients_path
   end
 
   def destroy
