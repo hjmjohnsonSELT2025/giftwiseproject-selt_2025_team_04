@@ -1,15 +1,5 @@
 <header class="dashboard-header">
   <h1>Welcome, <%= @username %>.</h1>
-
-  <nav class="dashboard-nav">
-    <%= link_to "Profile", user_path %>
-    <%= link_to "Friends (#{@friends.length})", friends_path %>
-    <%= button_to "Sign Out",
-                  destroy_user_session_path,
-                  method: :delete,
-                  id: "sign_out",
-                  form: { style: "display:inline" } %>
-  </nav>
 </header>
 
 <section class="dashboard-section">

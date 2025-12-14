@@ -337,3 +337,97 @@ button.btn {
     gap: 12px 24px;
     margin-bottom: 24px;
 }
+.gifts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.gift-card {
+    background: white;
+    padding: 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--c2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gift-info h3 {
+    margin: 0;
+    color: var(--c4);
+}
+
+.gift-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.section-title {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--dark);
+}
+
+.comments-list {
+    display: grid;
+    gap: 16px;
+}
+
+.comment-card {
+    background: white;
+    padding: 16px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--c2);
+}
+
+.comment-meta {
+    margin: 0 0 6px;
+    opacity: 0.8;
+}
+
+.comment-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.muted-note {
+    margin-top: 20px;
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.friend-card {
+    background: white;
+    padding: 16px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--c1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.friend-name {
+    font-weight: 600;
+    color: var(--c4);
+    margin: 0;
+}
+
+.friend-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}

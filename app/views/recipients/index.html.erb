@@ -35,13 +35,6 @@
           <%= link_to "Edit",
                       edit_recipient_path(recipient),
                       class: "btn btn-dark" %>
-
-          <%= button_to "Delete",
-                        recipient_path(recipient),
-                        method: :delete,
-                        form: { style: "display:inline" },
-                        class: "btn btn-danger",
-                        confirm: "Are you sure you want to delete #{recipient.name} from your list?" %>
         </div>
       </div>
     <% end %>
@@ -51,5 +44,5 @@
 <% end %>
 
 <div class="page-actions">
-  <%= link_to "← Back", home_index_path, class: "btn btn-dark" %>
+  <%= link_to "Back", home_index_path, class: "btn btn-dark" %>
 </div>

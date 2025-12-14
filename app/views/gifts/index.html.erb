@@ -1,16 +1,28 @@
-<h1>Gifts</h1>
-<p>
-  <%= link_to "Add new gift", new_gift_path %>
-</p>
-<ul>
-  <% @gifts.each do |gift| %>
-    <li>
-      <strong> <%= gift.name %></strong>
-      <%= link_to "Edit", edit_gift_path(gift) %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "Back", home_index_path %>
-<% if @gifts.empty? %>
-  <p>You do not have any recipients.</p>
+<h1 class="page-title">Gifts</h1>
+
+<div class="page-actions">
+  <%= link_to "Add New Gift", new_gift_path, class: "btn btn-aqua" %>
+</div><br>
+
+<% if @gifts.any? %>
+  <div class="gifts-grid">
+    <% @gifts.each do |gift| %>
+      <div class="gift-card">
+        <div class="gift-info">
+          <h3><%= gift.name %></h3>
+        </div>
+
+        <div class="gift-actions">
+          <%= link_to "View", gift_path(gift), class: "btn btn-teal" %>
+          <%= link_to "Edit", edit_gift_path(gift), class: "btn btn-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state">You do not have any gifts yet.</p>
 <% end %>
+
+<div class="page-actions">
+  <%= link_to "Back", home_index_path, class: "btn btn-dark" %>
+</div>
