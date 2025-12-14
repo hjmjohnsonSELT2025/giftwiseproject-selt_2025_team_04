@@ -86,7 +86,7 @@
           <ul class="gift-list">
             <% recipient.gifts.where(event_id: @event.id).where.not(user_id: current_user.id).each do |gift| %>
               <% if gift.visibility !=2  %>
-                <li><%= "#{gift.user.email} is buying " %> <%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
+                <li><div><%= "#{gift.user.email} is buying" %> <%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></div></li>
               <% end %>
             <% end %>
           </ul>
