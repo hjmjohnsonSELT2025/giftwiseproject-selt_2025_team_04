@@ -7,9 +7,6 @@ Given(/the test user logs in/) do
 end
 
 Given(/the test recipient exists/) do
-  click_link("View all events")
-  click_link("More about test event")
-  click_link("create a recipient")
   fill_in :recipient_name, with: "test"
   fill_in :recipient_age, with: 50
   fill_in :recipient_occupation, with: "tester"
@@ -25,7 +22,7 @@ end
 
 When(/I click (.*)/) do |link|
   click_link(link)
-  puts page.body
+  #puts page.body
 end
 
 When(/I submit my gift info/) do

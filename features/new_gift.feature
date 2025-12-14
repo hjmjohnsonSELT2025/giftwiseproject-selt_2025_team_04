@@ -7,7 +7,6 @@ Feature: I can add gifts to the database
     Then I should see Welcome, capybara
 
   Scenario:
-    When I click View all events
     When I click More about test event
     Then I should see "test"
     When I click add a new gift for test

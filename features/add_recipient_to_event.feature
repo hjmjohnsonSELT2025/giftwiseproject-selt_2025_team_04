@@ -2,14 +2,13 @@ Feature: I can add a recipient to an event
 
   Background:
     Given the test user logs in
+    Given I click Events
     Given the test event exists
-    Given the test recipient exists
     Then I should see Welcome, capybara
     
   Scenario:
-    When I click View all events
-    When I click More about test event
-    When I click Edit
-    When I select test from recipient_id
-    When I press "Update Event"
+    When I click Events
+    When I click View Event
+    When I click Create New Recipient
+    And I fill out info
     Then I should see the recipient
