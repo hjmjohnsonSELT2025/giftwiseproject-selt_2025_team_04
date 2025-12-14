@@ -48,7 +48,7 @@ class GiftsController < ApplicationController
                     :visibility => params[:gift][:visibility], :gift_suggestion_id => params[:gift][:gift_suggestion_id],
                     :status => params[:gift][:status]}
     @new_gift = Gift.new(@save_params)
-    @back=params[:back]
+    @back=params[:gift][:back]
     if @new_gift.save
       flash[:notice] = "New gift created!"
       redirect_to gift_path(@new_gift.id, back: @back)
