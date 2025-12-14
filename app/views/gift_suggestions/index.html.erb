@@ -27,26 +27,27 @@
 <h2>Ideas</h2>
 
 <% if @suggestions.present? %>
-  <% @suggestions.each do |s| %>
-    <div style="margin-bottom: 12px;">
-      <h3><%= s.title %></h3>
-      <p><%= s.description %></p>
-      <% if s.estimated_price.present? %>
-        <p>Estimated price: $<%= s.estimated_price %></p>
+  <% @suggestions.each do |suggestion| %>
+    </li>
+      <h3><%= suggestion.title %></h3>
+      <p><%= suggestion.description %></p>
+      <% if suggestion.estimated_price.present? %>
+        <p>Estimated price: $<%= suggestion.estimated_price %></p>
       <% end %>
-      <p><small>Source: <%= s.source %></small></p>
+      <p><small>Source: <%= suggestion.source %></small></p>
 
-      <p>
-        <%= link_to "Save as Gift",
-                    new_gift_path(
-                      gift_suggestion_id: s.id,
-                      recipient_id: s.recipient_id,
-                      event_id: s.event_id,
-                      back: @back) %>
+      <% existing_gift = current_user.gifts.find_by(gift_suggestion_id: suggestion.id) %>
 
-      <p>
-
-    </div>
+      <% if existing_gift %>
+        <span>Saved as gift</span>
+        <%= link_to "View gift", gift_path(existing_gift, back: request.fullpath) %>
+      <% else %>
+        <%= link_to "Save as a gift",
+                    new_gift_path(gift_suggestion_id: suggestion.id,
+                                  recipient_id: suggestion.recipient_id,
+                                  event_id: suggestion.event_id, back: request.fullpath) %>
+      <% end %>
+    </li>
 
   <% end %>
 <% else %>
