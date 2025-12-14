@@ -52,10 +52,6 @@
                         back: event_path(@event)
                       ),
                       class: "btn btn-aqua" %>
-            |
-        <%= link_to "Generate Ideas for #{recipient.name}",
-                    event_gift_suggestions_path(@event, recipient_id: recipient.id, back: event_path(@event)) %>
-
 
           <%= link_to "Generate Ideas",
                       event_gift_suggestions_path(@event,
