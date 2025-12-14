@@ -1,6 +1,5 @@
 html, body {
     margin: 0;
-    padding: 10px;
     background: var(--light);
     color: var(--dark);
     font-family: Tahoma, Verdana, sans-serif;

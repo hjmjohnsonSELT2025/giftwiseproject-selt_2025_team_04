@@ -6,18 +6,6 @@ Given(/the test user logs in/) do
   click_button "Sign up"
 end
 
-Given(/the test recipient exists/) do
-  click_link("View all events")
-  click_link("More about test event")
-  click_link("create a recipient")
-  fill_in :recipient_name, with: "test"
-  fill_in :recipient_age, with: 50
-  fill_in :recipient_occupation, with: "tester"
-  fill_in :recipient_budget, with: 300
-  click_button "Create"
-  #puts page.body
-  visit root_path
-end
 
 Then(/I should see Welcome, (.*)/) do |name|
   expect(page).to have_content("Welcome, #{name}")
@@ -25,7 +13,6 @@ end
 
 When(/I click (.*)/) do |link|
   click_link(link)
-  puts page.body
 end
 
 When(/I submit my gift info/) do
@@ -49,4 +36,24 @@ end
 
 Then(/I should see an error message/) do
   expect(page).to have_content("Could not save gift")
+end
+
+Given(/the test recipient exists/) do
+  click_link("Events")
+  click_link("View Event")
+  click_link("Create New Recipient")
+  fill_in :recipient_name, with: "test"
+  fill_in :recipient_age, with: 50
+  fill_in :recipient_occupation, with: "tester"
+  fill_in :recipient_budget, with: 300
+  click_button "Create"
+  visit root_path
+end
+
+Then(/I should see the new gift (.*)/) do |name|
+  expect(page).to have_content(name)
+end
+
+Then(/I should see the new gift info/) do
+  expect(page).to have_content("plates")
 end

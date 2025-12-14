@@ -23,10 +23,6 @@ When("I fill in {string} with {string}") do |attribute,value|
   fill_in attribute, with: value
 end
 
-When("I press {string}") do |button|
-  click_button button
-end
-
 Given("a recipient named {string}") do |name|
   @recipient=Recipient.create(name: name,age:21, occupation: "developer", budget:0,user:@user)
 end

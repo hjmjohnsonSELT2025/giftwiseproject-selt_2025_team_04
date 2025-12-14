@@ -76,7 +76,7 @@ class RecipientsController < ApplicationController
       redirect_to @back
       return
     end
-    redirect_to recipient_path
+    redirect_to recipients_path
   end
 
   def remove_from_event
