@@ -71,9 +71,7 @@
 
 <h2>People in this event:</h2>
 <ul id="details">
-  <% @event.users.each { |u| %>
-    <li><%=  u.email  %></li>
-  <%  } %>
+  <% @event.users.each { |u| %> <li><%=  "#{u.email} #{'(Owner)' if u==@event.owner}"  %></li> <%  } %>
 </ul>
 
 <section>
