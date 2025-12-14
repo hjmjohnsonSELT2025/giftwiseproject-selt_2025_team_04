@@ -13,7 +13,7 @@
       <img src="./assets/0.13.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-12-13T21:06:03-06:00">2025-12-13T21:06:03-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-12-13T21:25:31-06:00">2025-12-13T21:25:31-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,7 +22,7 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  81.46%
+  81.5%
 </span>
 
      </span>
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>836</b> relevant lines,
-    <span class="green"><b>681</b> lines covered</span> and
+    <b>838</b> relevant lines,
+    <span class="green"><b>683</b> lines covered</span> and
     <span class="red"><b>155</b> lines missed. </span>
     (<span class="yellow">
-  81.46%
+  81.5%
 </span>
 )
   </div>
@@ -237,9 +237,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#fcb380c2d02bcbe52e1257c3503503abbfa56082" class="src_link" title="app/models/event.rb">app/models/event.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">9</td>
-            <td class="cell--number">6</td>
-            <td class="cell--number">6</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">7</td>
+            <td class="cell--number">7</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -457,9 +457,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#44ff48146651b4e69e782e6705f2385f6b8bd356" class="src_link" title="config/routes.rb">config/routes.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">36</td>
-            <td class="cell--number">20</td>
-            <td class="cell--number">20</td>
+            <td class="cell--number">37</td>
+            <td class="cell--number">21</td>
+            <td class="cell--number">21</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -6594,8 +6594,8 @@
     
 
     <div class="t-line-summary">
-      <b>6</b> relevant lines.
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>7</b> relevant lines.
+      <span class="green"><b>7</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -6648,7 +6648,7 @@
 
             
 
-            <code class="ruby">  has_many :gifts</code>
+            <code class="ruby">  has_many :gifts, dependent: :nullify</code>
           </li>
         </div>
       
@@ -6660,7 +6660,7 @@
 
             
 
-            <code class="ruby">  has_and_belongs_to_many :recipients</code>
+            <code class="ruby">  has_many :gift_suggestions, dependent: :destroy</code>
           </li>
         </div>
       
@@ -6672,12 +6672,24 @@
 
             
 
-            <code class="ruby">  has_and_belongs_to_many :users</code>
+            <code class="ruby">  has_and_belongs_to_many :recipients, dependent: :destroy</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="7">
+          <li class="covered" data-hits="1" data-linenumber="7">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  has_and_belongs_to_many :users, dependent: :destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="8">
             
 
             
@@ -6687,7 +6699,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
+          <li class="covered" data-hits="1" data-linenumber="9">
             
               <span class="hits">1</span>
             
@@ -6699,7 +6711,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="9">
+          <li class="never" data-hits="" data-linenumber="10">
             
 
             
@@ -7157,7 +7169,7 @@
 
             
 
-            <code class="ruby">  has_many :gift_comments</code>
+            <code class="ruby">  has_many :gift_comments, dependent: :destroy</code>
           </li>
         </div>
       
@@ -7587,7 +7599,7 @@
 
             
 
-            <code class="ruby">  has_many :gifts, dependent: :destroy</code>
+            <code class="ruby">  has_many :gifts, dependent: :nullify #want user to be able to see purchased gifts</code>
           </li>
         </div>
       
@@ -7599,7 +7611,7 @@
 
             
 
-            <code class="ruby">  has_and_belongs_to_many :events</code>
+            <code class="ruby">  has_and_belongs_to_many :events, dependent: :destroy</code>
           </li>
         </div>
       
@@ -14906,8 +14918,8 @@
     
 
     <div class="t-line-summary">
-      <b>20</b> relevant lines.
-      <span class="green"><b>20</b> lines covered</span> and
+      <b>21</b> relevant lines.
+      <span class="green"><b>21</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -15203,24 +15215,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="27">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="28">
+          <li class="covered" data-hits="1" data-linenumber="27">
             
               <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  post &#39;recipients/remove_from_event&#39;, to: &#39;recipients#remove_from_event&#39;, as: &#39;remove_from_event&#39;</code>
+            <code class="ruby">  post &#39;events/leave_event&#39;, to: &#39;events#leave&#39;, as: &#39;event_leave&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="28">
+            
+
+            
+
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -15232,7 +15244,7 @@
 
             
 
-            <code class="ruby">  resource :user, only: [:show, :edit, :update]</code>
+            <code class="ruby">  post &#39;recipients/remove_from_event&#39;, to: &#39;recipients#remove_from_event&#39;, as: &#39;remove_from_event&#39;</code>
           </li>
         </div>
       
@@ -15244,7 +15256,7 @@
 
             
 
-            <code class="ruby">  get &#39;friends/search&#39;, to: &#39;friends#search&#39;, as: :friends_search</code>
+            <code class="ruby">  resource :user, only: [:show, :edit, :update]</code>
           </li>
         </div>
       
@@ -15256,7 +15268,7 @@
 
             
 
-            <code class="ruby">  resources :friends, only: [:new, :index, :show]</code>
+            <code class="ruby">  get &#39;friends/search&#39;, to: &#39;friends#search&#39;, as: :friends_search</code>
           </li>
         </div>
       
@@ -15268,7 +15280,7 @@
 
             
 
-            <code class="ruby">  post &#39;friends/create_request&#39;, to: &#39;friends#create_request&#39;, as: :create_friend_request</code>
+            <code class="ruby">  resources :friends, only: [:new, :index, :show]</code>
           </li>
         </div>
       
@@ -15280,7 +15292,7 @@
 
             
 
-            <code class="ruby">  post &#39;friends/accept_request&#39;, to: &#39;friends#accept_request&#39;, as: :accept_friend_request</code>
+            <code class="ruby">  post &#39;friends/create_request&#39;, to: &#39;friends#create_request&#39;, as: :create_friend_request</code>
           </li>
         </div>
       
@@ -15292,7 +15304,7 @@
 
             
 
-            <code class="ruby">  post &#39;friends/decline_request&#39;, to: &#39;friends#decline_request&#39;, as: :decline_friend_request</code>
+            <code class="ruby">  post &#39;friends/accept_request&#39;, to: &#39;friends#accept_request&#39;, as: :accept_friend_request</code>
           </li>
         </div>
       
@@ -15304,12 +15316,24 @@
 
             
 
+            <code class="ruby">  post &#39;friends/decline_request&#39;, to: &#39;friends#decline_request&#39;, as: :decline_friend_request</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="36">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">  post &#39;friends/remove&#39;, to: &#39;friends#remove&#39;, as: :remove_friend</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="36">
+          <li class="never" data-hits="" data-linenumber="37">
             
 
             
