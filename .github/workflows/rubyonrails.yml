@@ -59,4 +59,4 @@ jobs:
           RAILS_ENV=test bin/rails db:seed || echo "Seed 2"
           
           bin/rails spec
-          bin/cucumber
+          bin/bundle exec cucumber
