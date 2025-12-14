@@ -7,11 +7,14 @@ Given(/the test user logs in/) do
 end
 
 Given(/the test recipient exists/) do
+  click_link("View All Events")
+  click_link("View Event")
+  click_link("Create New Recipient")
   fill_in :recipient_name, with: "test"
   fill_in :recipient_age, with: 50
   fill_in :recipient_occupation, with: "tester"
   fill_in :recipient_budget, with: 300
-  click_button "Create"
+  click_button "Create Recipient"
   #puts page.body
   visit root_path
 end
@@ -22,7 +25,6 @@ end
 
 When(/I click (.*)/) do |link|
   click_link(link)
-  #puts page.body
 end
 
 When(/I submit my gift info/) do

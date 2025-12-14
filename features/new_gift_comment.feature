@@ -7,7 +7,7 @@ Feature: I can leave comments on gifts
     Then I should see Welcome, capybara
 
   Scenario: I can leave comments on a gift
-    When I click View all events
+    When I click View All Events
     When I click More about test event
     Then I should see test
     When I click Add a new gift
