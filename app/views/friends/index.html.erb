@@ -1,9 +1,5 @@
 <h1 class="page-title">Friends</h1>
 
-<div class="page-actions">
-  <%= link_to "Back", root_path, class: "btn btn-dark" %>
-</div>
-
 <% if @requests.any? %>
   <h2 class="section-title">Friend Requests</h2>
 
@@ -91,3 +87,7 @@
 <% else %>
   <p class="empty-state">You have no friends.</p>
 <% end %>
+
+<div class="page-actions">
+  <%= link_to "Back", root_path, class: "btn btn-dark" %>
+</div>

@@ -431,3 +431,9 @@ button.btn {
     gap: 10px;
     justify-content: flex-end;
 }
+
+.form-hint {
+    margin-top: 4px;
+    font-size: 0.85em;
+    opacity: 0.6;
+}

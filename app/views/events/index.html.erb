@@ -1,5 +1,10 @@
 <h1 class="page-title">All Events</h1>
 
+
+<div class="page-actions">
+  <%= link_to "Add New Event", new_event_path(back: events_path), class: "btn btn-aqua" %>
+</div><br>
+
 <div class="events-grid">
   <% @events.each do |event| %>
     <div class="event-card">
@@ -21,6 +26,5 @@
 </div>
 
 <div class="page-actions">
-  <%= link_to "Add New Event", new_event_path(back: events_path), class: "btn btn-aqua" %>
   <%= link_to "Back", home_index_path, class: "btn btn-dark" %>
 </div>
