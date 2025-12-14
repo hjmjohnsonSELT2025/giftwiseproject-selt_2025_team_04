@@ -117,7 +117,7 @@
 
   <ul class="event-users-list">
     <% @event.users.each do |user| %>
-      <li><%= user.email %></li>
+      <li style="display:flex; justify-content: space-between"><div><%= user.email %></div> <div><%= @event.owner == user ? "(Owner)":"(Member)" %></div></li>
     <% end %>
   </ul>
 </section>
