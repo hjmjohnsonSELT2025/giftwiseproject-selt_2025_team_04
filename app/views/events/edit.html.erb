@@ -1,28 +1,44 @@
-<h1>Edit Event</h1>
+<h1 class="page-title">Edit Event</h1>
 
-<%= form_tag event_path(@event.id), method: :patch do %>
-  <%= hidden_field_tag :back, @back %>
-  <%= label :event, :title, 'Title' %>
-  <%= text_field :event, 'title', :required => true%>
+<div class="form-card">
+  <%= form_tag event_path(@event.id), method: :patch do %>
+    <%= hidden_field_tag :back, @back %>
 
-  <%= label :event, :location, 'Location' %>
-  <%= text_field :event, 'location' %>
+    <div class="form-group">
+      <%= label :event, :title, "Title" %>
+      <%= text_field :event, :title, value: @event.title, required: true %>
+    </div>
 
-  <%= label :event, :theme, 'Theme' %>
-  <%= text_field :event, 'theme' %>
+    <div class="form-group">
+      <%= label :event, :location, "Location" %>
+      <%= text_field :event, :location, value: @event.location %>
+    </div>
 
-  <%= label :event, :description, 'Description' %>
-  <%= text_field :event, 'description' %>
+    <div class="form-group">
+      <%= label :event, :theme, "Theme" %>
+      <%= text_field :event, :theme, value: @event.theme %>
+    </div>
 
-  <%= label :event, :date, 'Event Date' %>
-  <%= date_select :event, :date, :required => true%>
+    <div class="form-group">
+      <%= label :event, :description, "Description" %>
+      <%= text_area :event, :description, rows: 4, value: @event.description %>
+    </div>
 
-  <%= label :event, :start_time, 'Start Time' %>
-  <%= time_field :event, :start_time %>
-  <br>
-  <%= submit_tag 'Update Event' %>
+    <div class="form-row">
+      <div class="form-group">
+        <%= label :event, :date, "Event Date" %>
+        <%= date_select :event, :date, required: true %>
+      </div>
 
-<% end %>
+      <div class="form-group">
+        <%= label :event, :start_time, "Start Time" %>
+        <%= time_field :event, :start_time, value: @event.start_time %>
+      </div>
+    </div>
 
-
-<%= link_to "Back", @back %>
+    <div class="form-actions">
+      <%= submit_tag "Update Event", class: "btn btn-teal" %>
+      <%= link_to "Cancel", @back, class: "btn btn-dark" %>
+    </div>
+  <% end %>
+</div>

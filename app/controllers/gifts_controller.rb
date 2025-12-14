@@ -1,11 +1,12 @@
 class GiftsController < ApplicationController
   def index
     @gifts = current_user.gifts.order(created_at: :desc)
+    @back = params[:back] || gifts_path
   end
 
   def show
     @gift = Gift.find(params[:id])
-    @back=params[:back]
+    @back=params[:back] || gifts_path
     # add code here to redirect a user if they're the recipient
   end
 
@@ -54,7 +55,7 @@ class GiftsController < ApplicationController
 
   def edit
     @gift = current_user.gifts.find(params[:id])
-    @back=params[:back]
+    @back=params[:back] || gifts_path
   end
 
   def update

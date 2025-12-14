@@ -13,3 +13,140 @@
  *= require_tree .
  *= require_self
  */
+
+/* COLOR VARIABLES */
+:root {
+    --c1: #3EC9BC;   /* teal */
+    --c2: #4CA198;   /* muted teal */
+    --c3: #22F5E0;   /* aqua */
+    --c4: #4B7571;   /* slate green */
+    --c5: #3CAA49;   /* green */
+    --dark: #2A3332; /* dark grey */
+    --light: #E6E6E6; /* light grey */
+
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    background: var(--dark);
+    color: white;
+    border-bottom: 3px solid var(--c1);
+    box-shadow: var(--shadow);
+}
+
+.nav-center {
+    display: flex;
+    gap: 18px;
+}
+
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.navbar a {
+    color: white;
+    margin-left: 20px;
+    font-weight: 600;
+    position: relative;
+}
+
+.navbar a::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--c3);
+    transition: width .25s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 24px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--c2);
+    transition: transform .2s ease;
+}
+
+.container:hover {
+    transform: translateY(-2px);
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease;
+    color: white;
+}
+
+.btn-teal { background: var(--c1); }
+.btn-teal:hover { background: var(--c2); }
+
+.btn-aqua { background: var(--c3); color: var(--dark);}
+.btn-aqua:hover { background: var(--c2); color: white;}
+
+.btn-dark { background: var(--dark); }
+.btn-dark:hover { background: #1a1f1f; }
+
+.btn-danger { background: #e66; }
+.btn-danger:hover { background: #c44; }
+
+input, textarea, select {
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 2px solid var(--c2);
+    width: 100%;
+    margin-bottom: 12px;
+    transition: all .2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--c3);
+    outline: none;
+    box-shadow: 0 0 4px var(--c3);
+}
+
+/* Main content wrapper */
+.app-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+}
+
+/* Flash messages */
+.flash {
+    margin: 12px auto 24px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+}
+
+.flash.notice {
+    background: var(--c5);
+    color: white;
+}
+
+.flash.alert {
+    background: #e66;
+    color: white;
+}
