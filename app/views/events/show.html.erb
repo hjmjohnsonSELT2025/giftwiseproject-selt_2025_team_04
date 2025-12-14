@@ -72,13 +72,26 @@
                         form: { style: "display:inline" } %>
         </div>
 
+        <% if recipient.budget.present? and recipient.gifts.where(event_id:@event.id).present? %>
+          <h4> Budget </h4>
+          <div style="display:flex; gap:10px;">
+          <progress max=<%=recipient.budget %>
+                      value= <%= recipient.gifts.where("event_id = ? AND status > 1", @event.id).sum(:price) %>
+                      id="budget-bar"
+                      ></progress>
+          <p id=budget-label></p>
+          </div>
+        <% end %>
         <% if recipient.gifts.where(event_id: @event.id).any? %>
           <h4><%= "Gifts you're buying #{recipient.name}" %></h4>
           <ul class="gift-list">
             <% recipient.gifts.where(event_id: @event.id, user_id: current_user.id).each do |gift| %>
-              <li>
-                <%= link_to gift.name,
+              <li style="display:flex; justify-content: space-between">
+                <div><%= link_to gift.name,
                             gift_path(gift, back: event_path(@event)) %>
+                <% unless gift.status.nil? %></div>
+                  <div> <%= " (#{Gift::STATUS_LIST[gift.status][0]}) " %> </div>
+                <% end %>
               </li>
             <% end %>
           </ul>
@@ -162,3 +175,14 @@
   <%= link_to "Home", home_index_path, class: "btn btn-dark" %>
   <%= link_to "All Events", events_path, class: "btn btn-dark" %>
 </footer>
+
+<script>
+    $(document).ready(function() {
+        const bar = $("#budget-bar");
+        const label = $("#budget-label");
+
+        const current = bar.attr('value');
+        const max = bar.attr('max');
+        label.text(`$${current}/$${max}`);
+    });
+</script>
