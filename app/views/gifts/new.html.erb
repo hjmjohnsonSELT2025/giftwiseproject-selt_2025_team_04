@@ -28,7 +28,10 @@
       <%= form.label :visibility, "Who can see this gift?" %>
       <%= form.select :visibility, Gift::VISIBILITY_LIST %>
     </div>
-    <%= form.hidden_field :event_id,  value: @event.id %> <!-- replace with event ID -->
+    <div class="form-group">
+      <%= form.label :status, "What's the status of this gift?" %>
+      <%= form.select :status, Gift::STATUS_LIST %>
+    </div>
     <div class="form-actions">
       <%= form.submit "Create Gift", class: "btn btn-teal" %>
       <%= link_to "Cancel", @back, class: "btn btn-dark" %>

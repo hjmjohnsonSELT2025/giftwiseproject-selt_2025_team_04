@@ -12,6 +12,11 @@
       <strong>Recipient:</strong><br>
       <%= @gift.recipient&.name || "Unassigned" %>
     </p>
+
+    <p>
+      <strong>Status</strong><br>
+      <%= Gift::STATUS_LIST[@gift.status][0] || "No status" %>
+    </p>
   </div>
 
   <% if @gift.user.id == current_user.id %>

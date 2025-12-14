@@ -6,6 +6,11 @@ class GiftsController < ApplicationController
 
   def show
     @gift = Gift.find(params[:id])
+    if @gift.recipient.assigned_user_id?
+      if @gift.recipient.assigned_user_id == current_user.id and @gift.visibility != 0
+        redirect_to home_index_path
+      end
+    end
     @back=params[:back] || gifts_path
     # add code here to redirect a user if they're the recipient
   end
