@@ -6,6 +6,21 @@ class EventsController < ApplicationController
     params.require(:event).permit(:title, :location, :description, :date, :start_time, :theme, :reminders_enabled, :back)
   end
 
+  def leave
+    @user = current_user
+    @event = current_user.events.find(params[:event])
+    if @event.owner == @user
+      flash[:notice] = "Owner cannot leave."
+      redirect_to event_path(@event)
+      return
+    end
+
+    if @event.users.delete(@user)
+      flash[:notice] = "You have left #{@event.title}"
+    end
+    redirect_to root_path
+
+  end
   def show
     @event = current_user.events.find(params[:id])
     @users = @event.users
