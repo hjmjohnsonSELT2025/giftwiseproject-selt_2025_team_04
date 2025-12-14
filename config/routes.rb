@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # get "/gifts" => "gifts#new", as: :new_gift
   # post "/gifts" => "gifts#create", as: :create_gift
   resources :gifts
-  resources :gift_comments, only: [:new, :create, :edit, :update, :destroy]
+  resources :gift_comments, only: [:new, :create, :update, :destroy]
 
   resources :events do
     resources :gift_suggestions, only: [:index, :create]
