@@ -50,8 +50,10 @@
             <%= button_to "Delete",
                           gift_comment_path(comment, back: @back),
                           method: :delete,
-                          form: { style: "display:inline" },
                           class: "btn btn-danger" %>
+            <%= link_to "Edit",
+                        edit_gift_comment_path(comment, back: @back),
+                        class: "btn btn-aqua"%>
           </div>
         <% end %>
       </div>

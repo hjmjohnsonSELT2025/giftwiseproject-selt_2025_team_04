@@ -47,21 +47,22 @@
         <div class="recipient-actions">
           <%= link_to "Add Gift",
                       new_gift_path(
-                        event: @event.id,
+                        event_id: @event.id,
                         recipient_id: recipient.id,
                         back: event_path(@event)
                       ),
                       class: "btn btn-aqua" %>
 
-          <%= link_to "View Recipient",
-                      recipient_path(recipient, back: event_path(@event)),
-                      class: "btn btn-teal" %>
 
-          <%= link_to "generate ideas for #{recipient.name}",
+          <%= link_to "Generate Ideas",
                       event_gift_suggestions_path(@event,
                                                   recipient_id: recipient.id,
                                                   back: event_path(@event)),
-                                                  class: "btn btn-aqua"%>
+                      class: "btn btn-aqua"%>
+
+          <%= link_to "View Recipient",
+                      recipient_path(recipient, back: event_path(@event)),
+                      class: "btn btn-teal" %>
 
           <%= button_to "Remove",
                         remove_from_event_path(

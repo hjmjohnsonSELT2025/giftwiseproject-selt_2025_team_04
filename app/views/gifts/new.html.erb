@@ -3,7 +3,7 @@
 <div class="form-card">
   <%= form_for @new_gift do |form| %>
     <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :back, @back %>
+    <%= form.hidden_field :back, value: @back %>
     <%= form.hidden_field :event_id, value: @event.id %>
     <%= form.hidden_field :gift_suggestion_id%>
 
