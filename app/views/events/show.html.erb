@@ -73,13 +73,21 @@
         </div>
 
         <% if recipient.gifts.where(event_id: @event.id).any? %>
-          <h4>Gifts</h4>
+          <h4><%= "Gifts you're buying #{recipient.name}" %></h4>
           <ul class="gift-list">
-            <% recipient.gifts.where(event_id: @event.id).each do |gift| %>
+            <% recipient.gifts.where(event_id: @event.id, user_id: current_user.id).each do |gift| %>
               <li>
                 <%= link_to gift.name,
                             gift_path(gift, back: event_path(@event)) %>
               </li>
+            <% end %>
+          </ul>
+          <h4><%= "Gifts others are buying #{recipient.name}" %></h4>
+          <ul class="gift-list">
+            <% recipient.gifts.where(event_id: @event.id).where.not(user_id: current_user.id).each do |gift| %>
+              <% if gift.visibility !=2  %>
+                <li><div><%= "#{gift.user.email} is buying" %> <%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></div></li>
+              <% end %>
             <% end %>
           </ul>
         <% else %>
@@ -142,10 +150,13 @@
 
 <footer class="page-actions">
   <% if @user == @event.owner %>
-    <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
-    <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
+    <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)),
+                                                class: "btn btn-dark"%>
+    <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?',
+                                                class: "btn btn-dark"%>
   <% else %>
-    <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?' %>
+    <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?',
+                                                          class: "btn btn-dark"%>
   <% end %>
 
   <%= link_to "Home", home_index_path, class: "btn btn-dark" %>

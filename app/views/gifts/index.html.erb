@@ -1,9 +1,5 @@
 <h1 class="page-title">Gifts</h1>
 
-<div class="page-actions">
-  <%= link_to "Add New Gift", new_gift_path, class: "btn btn-aqua" %>
-</div><br>
-
 <% if @gifts.any? %>
   <div class="gifts-grid">
     <% @gifts.each do |gift| %>
