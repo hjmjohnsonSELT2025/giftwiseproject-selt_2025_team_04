@@ -87,6 +87,7 @@ form textarea {
 /* Groups */
 .form-group {
     margin-bottom: 16px;
+    margin-right: 10px;
 }
 
 /* Side-by-side row */
