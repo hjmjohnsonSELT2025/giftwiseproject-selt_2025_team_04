@@ -1,6 +1,8 @@
 Feature: View, Create, Edit Recipients
   Background:
     Given I am logged in
+    Given the test event exists
+    Given the test recipient exists
 
     Scenario:  View all my recipients
       When I visit the recipients page
@@ -23,10 +25,10 @@ Feature: View, Create, Edit Recipients
        Then I should see "bob was successfully updated."
 
     Scenario: Remove a recipient
-      Given a recipient named "bob"
       When I visit the recipients page
-      And I press Remove
-      Then I should see "bob was removed"
+      When I click View
+      And I press Delete
+      Then I should see "test was removed"
 
     Scenario: Search for recipient by name
       Given a recipient named "bob"
