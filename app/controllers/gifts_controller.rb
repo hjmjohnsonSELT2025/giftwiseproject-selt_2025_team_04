@@ -1,5 +1,4 @@
 class GiftsController < ApplicationController
-  VISIBILITY_LIST = [["Everyone", 0], ["Everyone but recipient", 1], ["No one", 2]].freeze
   def index
     @gifts = current_user.gifts.order(created_at: :desc)
   end
@@ -39,7 +38,7 @@ class GiftsController < ApplicationController
   end
 
   def create
-    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility]}
+    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility], :status => params[:gift][:status]}
     @new_gift = Gift.new(@save_params)
     @back=params[:back]
     if @new_gift.save
@@ -58,7 +57,7 @@ class GiftsController < ApplicationController
 
   def update
     @gift = current_user.gifts.find(params[:id])
-    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility]}
+    @save_params = {:name => params[:gift][:name], :description => params[:gift][:description], :price => params[:gift][:price].to_f, :user_id => current_user.id, :recipient_id => params[:gift][:recipient_id], :event_id => params[:gift][:event_id], :visibility => params[:gift][:visibility], :status => params[:gift][:status]}
     @back=params[:back]
 
     if @gift.update(save_params.merge(user_id: current_user.id))
@@ -81,6 +80,6 @@ class GiftsController < ApplicationController
   private
   def save_params
     params.require(:gift).permit(:name, :description, :user_id, :recipient_id, :price, :event_id,
-                                 :visibility, :best_vendor_name, :best_vendor_url, :best_vendor_price, :back) #For optimal pricing prob will need status too
+                                 :visibility, :status, :best_vendor_name, :best_vendor_url, :best_vendor_price, :back) #For optimal pricing prob will need status too
   end
 end

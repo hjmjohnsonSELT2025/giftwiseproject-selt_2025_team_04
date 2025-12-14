@@ -2,6 +2,7 @@
 <!--<p><%#= "Recipient: #{@gift.recipient}" %></p>-->
 <p><%= "#{@gift.description}" %></p>
 <p><%= "Recipient: #{@gift.recipient.name}" %></p>
+<p><%= "Status: #{Gift::STATUS_LIST[@gift.status][0]}" %></p>
 <%= hidden_field_tag :back, @back %>
 <!--only show edit and delete buttons if the owner is signed in-->
 <% if @gift.user.id == current_user.id %>

@@ -21,7 +21,11 @@
   </div>
   <div>
     <%= form.label :visibility, "Who can see this gift?" %>
-    <%= form.select :visibility, GiftsController::VISIBILITY_LIST %>
+    <%= form.select :visibility, Gift::VISIBILITY_LIST %>
+  </div>
+  <div>
+    <%= form.label :status, "What's the status of this gift?" %>
+    <%= form.select :status, Gift::STATUS_LIST %>
   </div>
   <%= form.hidden_field :event_id,  value: @event.id %> <!-- replace with event ID -->
   <%= form.submit "Create" %>
