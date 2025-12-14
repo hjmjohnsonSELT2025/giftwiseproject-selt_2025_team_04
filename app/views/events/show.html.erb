@@ -1,100 +1,153 @@
-<h1><%= @event.title %></h1>
+<header class="event-header">
+  <h1><%= @event.title %></h1>
+</header>
 
-<h2>Details about <%= @event.title %></h2>
+<section class="event-details container">
+  <h2>Event Details</h2>
 
-<ul id="details">
-  <li>
-    <% if @event.date %>
-      Date:
-      <%= @event.date.strftime("%B %d, %Y") %>
-    <%end %>
-  </li>
-  <% unless @event.location.empty? %>
-    <li>
-      Location:
-      <%= @event.location %>
-    </li>
+  <ul class="event-meta">
+    <% if @event.date.present? %>
+      <li>
+        <strong>Date:</strong>
+        <%= @event.date.strftime("%B %d, %Y") %>
+      </li>
+    <% end %>
+
+    <% if @event.location.present? %>
+      <li>
+        <strong>Location:</strong>
+        <%= @event.location %>
+      </li>
+    <% end %>
+
+    <% if @event.theme.present? %>
+      <li>
+        <strong>Theme:</strong>
+        <%= @event.theme %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% if @event.description.present? %>
+    <div class="event-description">
+      <h3>Description</h3>
+      <p><%= @event.description %></p>
+    </div>
   <% end %>
-  <% unless @event.theme.empty? %>
-    <li>
-      Theme:
-      <%= @event.theme %>
-    </li>
-  <% end %>
+</section>
 
-</ul>
-
-<% unless @event.description.empty? %>
-  <h3>Description:</h3>
-  <p id="description"><%= @event.description %></p>
-<% end %>
-
-<section>
+<section class="event-recipients">
   <h2>Recipients</h2>
-  <% if @recipients.any? %>
-    <ul>
-      <% @recipients.each do|recipient| %>
-        <h4> <%=recipient.name %> </h4>
-          <%= link_to "add a new gift for #{recipient.name}",new_gift_path(event: @event.id,recipient_id: recipient.id,back: event_path(@event))%>
-          |
-          <%= link_to "view recipient", recipient_path(recipient,back: event_path(@event)) %>
-          |
-        <%= link_to "generate ideas for #{recipient.name}",
-                    event_gift_suggestions_path(@event, recipient_id: recipient.id, back: event_path(@event)) %>
 
-          <%= button_to "remove from event", remove_from_event_path(recipient: recipient.id, event: @event.id) %>
-        <% if recipient.gifts.any? %>
-          <ul>
+  <% if @recipients.any? %>
+    <% @recipients.each do |recipient| %>
+      <div class="container recipient-card">
+        <h3><%= recipient.name %></h3>
+
+        <div class="recipient-actions">
+          <%= link_to "Add Gift",
+                      new_gift_path(
+                        event_id: @event.id,
+                        recipient_id: recipient.id,
+                        back: event_path(@event)
+                      ),
+                      class: "btn btn-aqua" %>
+
+          <%= link_to "Generate Ideas",
+                      event_gift_suggestions_path(@event,
+                                                  recipient_id: recipient.id,
+                                                  back: event_path(@event)),
+                      class: "btn btn-aqua"%>
+
+          <%= link_to "View Recipient",
+                      recipient_path(recipient, back: event_path(@event)),
+                      class: "btn btn-teal" %>
+
+          <%= button_to "Remove",
+                        remove_from_event_path(
+                          recipient: recipient.id,
+                          event: @event.id
+                        ),
+                        class: "btn btn-danger",
+                        form: { style: "display:inline" } %>
+        </div>
+
+        <% if recipient.gifts.where(event_id: @event.id).any? %>
+          <h4>Gifts</h4>
+          <ul class="gift-list">
             <% recipient.gifts.where(event_id: @event.id).each do |gift| %>
-              <li><%= link_to gift.name, gift_path(gift, back: event_path(@event)) %></li>
+              <li>
+                <%= link_to gift.name,
+                            gift_path(gift, back: event_path(@event)) %>
+              </li>
             <% end %>
           </ul>
-        <%else %>
-          <p><em>no gifts yet</em></p>
+        <% else %>
+          <p class="empty-state"><em>No gifts yet</em></p>
         <% end %>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No recipients for this event</p>
-  <% end %>
-  <p>
-    <%= form_tag event_add_recipient_path(@event.id), method: :patch do %>
-      <%= label :recipient_id, "Add recipients" %>
-      <%= select_tag :recipient_id, options_from_collection_for_select(@unadded_recipients, :id, :name), required: true, prompt: "Select a recipient"%>
-      <%= submit_tag 'Add' %>
+      </div>
     <% end %>
-  </p>
-  <p>
-    <%= link_to "create a recipient", new_recipient_path(back: event_path(@event), event:@event.id) %>
-  </p>
+  <% else %>
+    <p class="empty-state">No recipients for this event</p>
+  <% end %>
+
+  <div class="container add-recipient">
+    <%= form_tag event_add_recipient_path(@event.id), method: :patch do %>
+      <%= label :recipient_id, "Add Recipient" %>
+      <%= select_tag :recipient_id,
+                     options_from_collection_for_select(
+                       @unadded_recipients,
+                       :id,
+                       :name
+                     ),
+                     required: true,
+                     prompt: "Select a recipient" %>
+
+      <%= submit_tag "Add", class: "btn btn-teal" %>
+    <% end %>
+
+    <%= link_to "Create New Recipient",
+                new_recipient_path(back: event_path(@event), event: @event.id),
+                class: "btn btn-dark" %>
+  </div>
 </section>
 
-<h2>People in this event:</h2>
-<ul id="details">
-  <% @event.users.each { |u| %> <li><%=  "#{u.email} #{'(Owner)' if u==@event.owner}"  %></li> <%  } %>
-</ul>
+<section class="event-users container">
+  <h2>People in This Event</h2>
 
-<section>
-  <h3>Add friend to event</h3>
+  <ul class="event-users-list">
+    <% @event.users.each do |user| %>
+      <li style="display:flex; justify-content: space-between"><div><%= user.email %></div> <div><%= @event.owner == user ? "(Owner)":"(Member)" %></div></li>
+    <% end %>
+  </ul>
 </section>
 
-<%= form_tag event_invite_path(@event.id), method: :patch do %>
-  <%= label :invite_id, "Invite friends" %>
-  <%= select_tag :invite_id, options_from_collection_for_select(current_user.friends.where.not(id:@users), :id, :email), required: true, prompt: "Select a friend" %>
+<section class="event-invite container">
+  <h3>Invite a Friend</h3>
 
-  <%= submit_tag 'Invite' %>
+  <%= form_tag event_invite_path(@event.id), method: :patch do %>
+    <%= label :invite_id, "Invite Friend" %>
+    <%= select_tag :invite_id,
+                   options_from_collection_for_select(
+                     current_user.friends.where.not(id: @users),
+                     :id,
+                     :email
+                   ),
+                   required: true,
+                   prompt: "Select a friend" %>
 
-<% end %>
+    <%= submit_tag "Invite", class: "btn btn-aqua" %>
+  <% end %>
+</section>
 
-<br>
-<% if @user == @event.owner %>
-  <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
-  <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
-<% else %>
-  <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?' %>
-<% end %>
+<footer class="page-actions">
+  <% if @user == @event.owner %>
+    <%= link_to 'Edit', edit_event_path(@event, back: event_path(@event)) %>
+    <%= button_to 'Delete', event_path(@event), method: :delete, confirm: 'Are you sure?' %>
+  <% else %>
+    <%= button_to 'Leave', event_leave_path(event:@event), method: :post, confirm: 'Are you sure?' %>
+  <% end %>
 
-  <%= link_to 'Home', home_index_path %>
-<%= link_to "All Events", events_path %>
-
-
+  <%= link_to "Home", home_index_path, class: "btn btn-dark" %>
+  <%= link_to "All Events", events_path, class: "btn btn-dark" %>
+</footer>

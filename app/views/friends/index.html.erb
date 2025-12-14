@@ -1,50 +1,93 @@
-<h1> Friends </h1>
+<h1 class="page-title">Friends</h1>
 
-<%= link_to "Back", root_path %>
+<% if @requests.any? %>
+  <h2 class="section-title">Friend Requests</h2>
 
-<% unless @requests.empty? %>
-<h2> Requests </h2>
-<ul>
-  <%  @requests.each do |friend|  %>
-  <li> <%=  friend.requester.email[0,friend.requester.email.index('@')] %>
-    <%=  button_to "Accept", accept_friend_request_path(id: friend.id), method: :post  %>
-    <%= button_to "Decline", decline_friend_request_path(id: @user.id), method: :post %>
-  </li>
-  <%  end  %>
-</ul>
-<%  end %>
+  <div class="friends-grid">
+    <% @requests.each do |friend| %>
+      <div class="friend-card">
+        <p class="friend-name">
+          <%= friend.requester.email.split("@").first %>
+        </p>
 
-<%= form_for :search, url: friends_search_path, method: :get do |form| %>
-  <%= form.label :search_term, "Search User By Email" %>
-  <%= form.text_field :search_term %>
-  <%= form.submit "Search" %>
+        <div class="friend-actions">
+          <%= button_to "Accept",
+                        accept_friend_request_path(id: friend.id),
+                        method: :post,
+                        class: "btn btn-teal" %>
+
+          <%= button_to "Decline",
+                        decline_friend_request_path(id: friend.id),
+                        method: :post,
+                        class: "btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
+
+<h2 class="section-title">Find Friends</h2>
+
+<div class="search-card">
+  <%= form_for :search, url: friends_search_path, method: :get do |form| %>
+    <div class="search-row">
+      <%= form.label :search_term, "Search user by email" %>
+      <%= form.text_field :search_term, placeholder: "email@example.com" %>
+      <%= form.submit "Search", class: "btn btn-teal" %>
+    </div>
+  <% end %>
+</div>
 
 <% if @results %>
-  <ul>
+  <div class="friends-grid">
     <% @results.each do |user| %>
-      <li>
-        <%= user.email[0,user.email.index('@')] %>
-        <% if FriendRequest.exists?(requester: @user, requestee: user) %>
-          Request Sent
-        <% else %>
-          <%= button_to "Add", create_friend_request_path(id: user.id), method: :post %>
-        <% end %>
-      </li>
+      <div class="friend-card">
+        <p class="friend-name">
+          <%= user.email.split("@").first %>
+        </p>
+
+        <div class="friend-actions">
+          <% if FriendRequest.exists?(requester: @user, requestee: user) %>
+            <span class="muted">Request Sent</span>
+          <% else %>
+            <%= button_to "Add",
+                          create_friend_request_path(id: user.id),
+                          method: :post,
+                          class: "btn btn-aqua" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% end %>
 
-<h2> Friend List</h2>
-<% if @friends.empty? %>
-  <p>You have no friends :(</p>
+<h2 class="section-title">Friend List</h2>
+
+<% if @friends.any? %>
+  <div class="friends-grid">
+    <% @friends.each do |friend| %>
+      <div class="friend-card">
+        <p class="friend-name">
+          <%= friend.email.split("@").first %>
+        </p>
+
+        <div class="friend-actions">
+          <%= link_to "View",
+                      friend_path(id: friend.id),
+                      class: "btn btn-dark" %>
+
+          <%= button_to "Remove",
+                        remove_friend_path(id: friend.id),
+                        method: :post,
+                        class: "btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state">You have no friends.</p>
 <% end %>
 
-<ul>
-  <% @friends.each do |friend| %>
-    <li>
-      <%= link_to friend.email[0,friend.email.index('@')], friend_path(id: friend.id) %>
-      <%= button_to "Remove", remove_friend_path(id: friend.id), method: :post %>
-    </li>
-  <% end %>
-</ul>
+<div class="page-actions">
+  <%= link_to "Back", root_path, class: "btn btn-dark" %>
+</div>
