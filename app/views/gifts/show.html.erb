@@ -15,7 +15,11 @@
 
     <p>
       <strong>Status</strong><br>
-      <%= Gift::STATUS_LIST[@gift.status][0] || "No status" %>
+      <% if not @gift.status.nil? %>
+        <%= Gift::STATUS_LIST[@gift.status][0] %>
+      <% else %>
+        <%= "No status" %>
+      <% end %>
     </p>
   </div>
 
